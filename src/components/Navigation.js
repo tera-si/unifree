@@ -10,6 +10,10 @@ const Navigation = () => {
       <Navbar.Brand style={{ marginLeft: 15}}>uniFree</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
+      {!auth
+        ? null
+        : <p>Logged in</p>
+      }
       </Navbar.Collapse>
     </Navbar>
   )
