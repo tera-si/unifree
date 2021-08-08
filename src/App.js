@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
+import { Switch, Route } from "react-router-dom"
 import LoginRegister from "./components/LoginRegister"
 import Navigation from "./components/Navigation"
 
@@ -9,10 +10,16 @@ const App = () => {
   return (
     <div className="container">
       <Navigation />
-      {!auth
-        ? <LoginRegister />
-        : <p>Welcome</p>
-      }
+
+      <Switch>
+        <Route path="/">
+          {!auth
+            ? <LoginRegister />
+            : <p>Welcome</p>
+          }
+        </Route>
+      </Switch>
+
     </div>
   )
 }
