@@ -1,0 +1,12 @@
+.navLinkBox {
+    margin-left: 15px
+}
+
+.navLinkText {
+    color: #ededede5;
+    text-decoration: none;
+}
+
+.navLinkText:hover {
+    color: #ffffff;
+}

@@ -1,13 +1,11 @@
 import React from "react"
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { Navbar, Nav } from "react-bootstrap"
+import "../styles/Navigation.css"
 
 const Navigation = () => {
   const auth = useSelector(state => state.auth)
-
-  const navLinkStyle = {
-    marginLeft: 15
-  }
 
   return (
     <Navbar collapseOnSelect bg="primary" variant="dark" expand="lg">
@@ -15,11 +13,11 @@ const Navigation = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link as="span" style={navLinkStyle}>
-            Home
+          <Nav.Link as="span" className="navLinkBox">
+            <Link to="/" className="navLinkText">Home</Link>
           </Nav.Link>
-          <Nav.Link as="span" style={navLinkStyle}>
-            About
+          <Nav.Link as="span" className="navLinkBox">
+            <Link to="/about" className="navLinkText">About</Link>
           </Nav.Link>
         </Nav>
         {!auth

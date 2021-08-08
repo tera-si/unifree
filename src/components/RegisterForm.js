@@ -1,6 +1,7 @@
 import React, { createRef } from "react"
 import { Form, Button } from "react-bootstrap"
 import LabelledInputRow from "./LabelledInputRow"
+import "../styles/LoginRegister.css"
 
 const RegisterForm = () => {
   const username = createRef()
@@ -44,7 +45,7 @@ const RegisterForm = () => {
         type="password"
         ref={confirmPassword}
       />
-      <Button type="submit" style={{ float: "right", marginTop: 10 }}>
+      <Button type="submit" className="submitButton">
         Register
       </Button>
     </Form>
