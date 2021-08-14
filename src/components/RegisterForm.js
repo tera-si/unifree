@@ -39,12 +39,12 @@ const RegisterForm = () => {
     const confirmPasswordTrim = confirmPassword.current.value.trim()
 
     if (hasEmptyField()) {
-      dispatch(actionSetErrorNotice("Error: please fill in the registration form", 5))
+      dispatch(actionSetErrorNotice("Error: please fill in the registration form", 10))
       return
     }
 
     if (passwordTrim !== confirmPasswordTrim) {
-      dispatch(actionSetErrorNotice("Error: password and confirm password does not match", 5))
+      dispatch(actionSetErrorNotice("Error: password and confirm password does not match", 10))
       return
     }
 
@@ -60,7 +60,7 @@ const RegisterForm = () => {
       dispatch(actionSetSuccessNotice(`New user "${response.username}" successfully registered`, 5))
     }
     catch (e) {
-      dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`, 5))
+      dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`, 10))
     }
 
     setLoading(false)
@@ -90,7 +90,6 @@ const RegisterForm = () => {
             <Spinner
               as="span"
               animation="border"
-              size="sm"
               role="status"
               aria-hidden="true"
             />
