@@ -1,6 +1,7 @@
 import React, { createRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { Form, Button, Spinner } from "react-bootstrap"
+import RegisterRequirement from "./RegisterRequirement"
 import LabelledInputRow from "./LabelledInputRow"
 import userService from "../services/userService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
@@ -66,38 +67,41 @@ const RegisterForm = () => {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <LabelledInputRow
-        label="Username"
-        type="text"
-        ref={username}
-      />
-      <LabelledInputRow
-        label="Password"
-        type="password"
-        ref={password}
-      />
-      <LabelledInputRow
-        label="Confirm password"
-        type="password"
-        ref={confirmPassword}
-      />
-      {loading
-        ? <Button disabled className="submitButton">
-          <Spinner
-            as="span"
-            animation="border"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
-          <span className="hidden">Loading...</span>
-        </Button>
-        : <Button type="submit" className="submitButton">
-          Register
-        </Button>
-      }
-    </Form>
+    <>
+      <RegisterRequirement />
+      <Form onSubmit={handleSubmit}>
+        <LabelledInputRow
+          label="Username"
+          type="text"
+          ref={username}
+        />
+        <LabelledInputRow
+          label="Password"
+          type="password"
+          ref={password}
+        />
+        <LabelledInputRow
+          label="Confirm password"
+          type="password"
+          ref={confirmPassword}
+        />
+        {loading
+          ? <Button disabled className="submitButton">
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            <span className="hidden">Loading...</span>
+          </Button>
+          : <Button type="submit" className="submitButton">
+            Register
+          </Button>
+        }
+      </Form>
+    </>
   )
 }
 
