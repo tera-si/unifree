@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom"
 import About from "./components/About"
 import LoginRegister from "./components/LoginRegister"
 import Navigation from "./components/Navigation"
+import Notification from "./components/Notification"
 
 const App = () => {
   const auth = useSelector(state => state.auth)
@@ -11,6 +12,7 @@ const App = () => {
   return (
     <div className="container">
       <Navigation />
+      <Notification />
 
       <Switch>
         <Route path="/about">
