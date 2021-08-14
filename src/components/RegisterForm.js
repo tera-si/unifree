@@ -39,12 +39,12 @@ const RegisterForm = () => {
     const confirmPasswordTrim = confirmPassword.current.value.trim()
 
     if (hasEmptyField()) {
-      dispatch(actionSetErrorNotice("Error: Please fill in the registration form", 5))
+      dispatch(actionSetErrorNotice("Error: please fill in the registration form", 5))
       return
     }
 
     if (passwordTrim !== confirmPasswordTrim) {
-      dispatch(actionSetErrorNotice("Error: Password and confirm password does not match", 5))
+      dispatch(actionSetErrorNotice("Error: password and confirm password does not match", 5))
       return
     }
 
