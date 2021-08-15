@@ -15,6 +15,8 @@ const RegisterForm = () => {
   const password = createRef()
   const confirmPassword = createRef()
 
+  const disableInput = loading ? true : false
+
   const clearAllInputs = () => {
     username.current.value = ""
     password.current.value = ""
@@ -73,16 +75,19 @@ const RegisterForm = () => {
         <LabelledInputRow
           label="Username"
           type="text"
+          disabled={disableInput}
           ref={username}
         />
         <LabelledInputRow
           label="Password"
           type="password"
+          disabled={disableInput}
           ref={password}
         />
         <LabelledInputRow
           label="Confirm password"
           type="password"
+          disabled={disableInput}
           ref={confirmPassword}
         />
         {loading

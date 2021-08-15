@@ -14,6 +14,8 @@ const LoginForm = () => {
   const username = createRef()
   const password = createRef()
 
+  const disableInput = loading ? true : false
+
   const clearAllInputs = () => {
     username.current.value = ""
     password.current.value = ""
@@ -70,11 +72,13 @@ const LoginForm = () => {
       <LabelledInputRow
         label="Username"
         type="text"
+        disabled={disableInput}
         ref={username}
       />
       <LabelledInputRow
         label="Password"
         type="password"
+        disabled={disableInput}
         ref={password}
       />
       {loading

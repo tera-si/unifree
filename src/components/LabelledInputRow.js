@@ -6,7 +6,7 @@ const LabelledInputRow = forwardRef((props, ref) => {
     <Form.Group as={Row}>
       <Form.Label column sm="3">{props.label}</Form.Label>
         <Col sm="9">
-          <Form.Control type={props.type} placeholder={props.placeholder} ref={ref} />
+          <Form.Control type={props.type} placeholder={props.placeholder} disabled={props.disabled} ref={ref} />
         </Col>
     </Form.Group>
   )
