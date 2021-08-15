@@ -16,10 +16,10 @@ const RegisterRequirement = () => {
               Username must be at least 8 characters long
             </ListGroup.Item>
             <ListGroup.Item action>
-              Password must be at least 8 characters long
+              Password is case sensitive
             </ListGroup.Item>
             <ListGroup.Item action>
-              Password is case sensitive
+              Password must be at least 8 characters long
             </ListGroup.Item>
             <ListGroup.Item action>
               Password must not be the same as username
