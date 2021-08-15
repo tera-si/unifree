@@ -10,10 +10,16 @@ const RegisterRequirement = () => {
         <Accordion.Body>
           <ListGroup variant="flush" className="listBase">
             <ListGroup.Item action>
+              Username is case sensitive
+            </ListGroup.Item>
+            <ListGroup.Item action>
               Username must be at least 8 characters long
             </ListGroup.Item>
             <ListGroup.Item action>
               Password must be at least 8 characters long
+            </ListGroup.Item>
+            <ListGroup.Item action>
+              Password is case sensitive
             </ListGroup.Item>
             <ListGroup.Item action>
               Password must not be the same as username

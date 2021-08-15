@@ -34,17 +34,17 @@ const RegisterForm = () => {
       return
     }
 
+    if (hasEmptyField()) {
+      dispatch(actionSetErrorNotice("Error: please fill in the registration form", 8))
+      return
+    }
+
     const usernameTrim = username.current.value.trim()
     const passwordTrim = password.current.value.trim()
     const confirmPasswordTrim = confirmPassword.current.value.trim()
 
-    if (hasEmptyField()) {
-      dispatch(actionSetErrorNotice("Error: please fill in the registration form", 10))
-      return
-    }
-
     if (passwordTrim !== confirmPasswordTrim) {
-      dispatch(actionSetErrorNotice("Error: password and confirm password does not match", 10))
+      dispatch(actionSetErrorNotice("Error: password and confirm password does not match", 8))
       return
     }
 
@@ -60,7 +60,7 @@ const RegisterForm = () => {
       dispatch(actionSetSuccessNotice(`New user "${response.username}" successfully registered`, 5))
     }
     catch (e) {
-      dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`, 10))
+      dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`, 8))
     }
 
     setLoading(false)
