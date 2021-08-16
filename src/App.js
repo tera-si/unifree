@@ -1,13 +1,24 @@
-import React from "react"
-import { useSelector } from "react-redux"
+import React, { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { Switch, Route, Redirect } from "react-router-dom"
 import About from "./components/About"
 import LoginRegister from "./components/LoginRegister"
 import Navigation from "./components/Navigation"
 import Notification from "./components/Notification"
+import { actionSetAuth } from "./reducers/authReducer"
 
 const App = () => {
   const auth = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const currentUser = window.localStorage.getItem("unifree-current-user")
+    if (currentUser) {
+      const newAuth = JSON.parse(currentUser)
+      // Set token to other services
+      dispatch(actionSetAuth(newAuth))
+    }
+  })
 
   return (
     <div className="container">
