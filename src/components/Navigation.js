@@ -19,10 +19,24 @@ const Navigation = () => {
           <Nav.Link as="span" className="navLinkBox">
             <Link to="/about" className="navLinkText">About</Link>
           </Nav.Link>
+        {!auth
+          ? null
+          : <>
+            <Nav.Link as="span" className="navLinkBox">
+              <Link to="/post_item" className="navLinkText">Post Item</Link>
+            </Nav.Link>
+          </>
+        }
         </Nav>
         {!auth
           ? null
-          : <p>Logged in</p>
+          : <>
+            <Nav>
+              <Nav.Link as="span" className="navLinkBoxProfile">
+                <Link to="/my_profile" className="navLinkText">My Profile</Link>
+              </Nav.Link>
+            </Nav>
+          </>
         }
       </Navbar.Collapse>
     </Navbar>

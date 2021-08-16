@@ -2,6 +2,11 @@
     margin-left: 15px
 }
 
+.navLinkBoxProfile {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
 .navLinkText {
     color: #ededede5;
     text-decoration: none;
