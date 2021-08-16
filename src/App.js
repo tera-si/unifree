@@ -12,7 +12,6 @@ const App = () => {
   return (
     <div className="container">
       <Navigation />
-      <Notification />
 
       <Switch>
         <Route path="/about">
@@ -22,7 +21,12 @@ const App = () => {
         <Route path="/">
           {!auth
             ? <LoginRegister />
-            : <p>Welcome</p>
+            : <>
+              {/* The notification here is probably temporary, and might be
+              incorporated into the main page */}
+              <Notification />
+              <p>Welcome</p>
+            </>
           }
         </Route>
       </Switch>

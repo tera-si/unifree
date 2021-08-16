@@ -5,6 +5,7 @@ import LabelledInputRow from "./LabelledInputRow"
 import loginService from "../services/loginService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
 import { actionSetAuth } from "../reducers/authReducer"
+import Notification from "./Notification"
 import "../styles/LoginRegister.css"
 
 const LoginForm = () => {
@@ -69,6 +70,7 @@ const LoginForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Notification />
       <LabelledInputRow
         label="Username"
         type="text"

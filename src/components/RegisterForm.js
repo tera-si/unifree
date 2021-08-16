@@ -5,6 +5,7 @@ import RegisterRequirement from "./RegisterRequirement"
 import LabelledInputRow from "./LabelledInputRow"
 import userService from "../services/userService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
+import Notification from "./Notification"
 import "../styles/LoginRegister.css"
 
 const RegisterForm = () => {
@@ -71,6 +72,7 @@ const RegisterForm = () => {
   return (
     <>
       <RegisterRequirement />
+      <Notification />
       <Form onSubmit={handleSubmit}>
         <LabelledInputRow
           label="Username"
