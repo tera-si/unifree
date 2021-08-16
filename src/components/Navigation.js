@@ -1,11 +1,19 @@
 import React from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { Navbar, Nav } from "react-bootstrap"
+import { Navbar, Nav, Button } from "react-bootstrap"
+import { actionClearAuth } from "../reducers/authReducer"
 import "../styles/Navigation.css"
 
 const Navigation = () => {
   const auth = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    window.localStorage.removeItem("unifree-current-user")
+    // remove token from other services
+    dispatch(actionClearAuth())
+  }
 
   return (
     <Navbar collapseOnSelect bg="primary" variant="dark" expand="lg">
@@ -32,9 +40,18 @@ const Navigation = () => {
           ? null
           : <>
             <Nav>
-              <Nav.Link as="span" className="navLinkBoxProfile">
+              <Nav.Link as="span" className="navLinkBox">
                 <Link to="/my_profile" className="navLinkText">My Profile</Link>
               </Nav.Link>
+              <Button
+                type="null"
+                variant="light"
+                className="navLinkBox-logout"
+                size="sm"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
             </Nav>
           </>
         }

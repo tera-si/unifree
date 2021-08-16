@@ -2,16 +2,29 @@
     margin-left: 15px
 }
 
-.navLinkBoxProfile {
+.navLinkBox-logout {
     margin-left: 15px;
     margin-right: 15px;
+    width: min-content;
+}
+
+.navLinkBox-logout:hover {
+    background-color: #f7f7f7e8;
+}
+
+.navLinkBox-logout:focus {
+    background-color: #f7f7f7e8;
 }
 
 .navLinkText {
-    color: #ededede5;
+    color: #f7f7f7e8;
     text-decoration: none;
 }
 
 .navLinkText:hover {
+    color: #ffffff;
+}
+
+.navLinkText:focus {
     color: #ffffff;
 }
