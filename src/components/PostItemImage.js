@@ -3,9 +3,10 @@ import { Button, Carousel, Form, Row, Col } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 
 const PostItemImage = () => {
-  // Two options:
+  // three options:
   // 1. change this state to a redux store to use across components
   // 2. put all of this inside PostItem.js and handle all states there
+  // 3. Lift the state up
   const [uploadedFiles, setUploadedFiles] = useState([])
   const uploadField = createRef()
 
