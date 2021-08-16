@@ -5,6 +5,7 @@ import About from "./components/About"
 import LoginRegister from "./components/LoginRegister"
 import Navigation from "./components/Navigation"
 import Notification from "./components/Notification"
+import PostItem from "./components/PostItem"
 import { actionSetAuth } from "./reducers/authReducer"
 
 const App = () => {
@@ -18,7 +19,7 @@ const App = () => {
       // Set token to other services
       dispatch(actionSetAuth(newAuth))
     }
-  })
+  }, [dispatch])
 
   return (
     <div className="container">
@@ -40,7 +41,7 @@ const App = () => {
           {!auth
             ? <Redirect to="/login" />
             : <>
-              <p>Post Item</p>
+              <PostItem />
             </>
           }
         </Route>
