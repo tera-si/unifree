@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Card, CardGroup } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import PostItemImage from "./PostItemImage"
+import PostItemInfo from "./PostItemInfo"
 
 const PostItem = () => {
   const [uploadedImages, setUploadedImages] = useState([])
@@ -14,6 +15,7 @@ const PostItem = () => {
           uploadedImages={uploadedImages}
           setUploadedImages={setUploadedImages}
         />
+        <PostItemInfo />
       </CardGroup>
     </CardWrapper>
   )
