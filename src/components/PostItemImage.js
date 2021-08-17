@@ -7,7 +7,9 @@ const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
 
   const handleUploadImage = (event) => {
     event.preventDefault()
-    setUploadedImages(uploadedImages.concat(Array.from(uploadField.current.files)))
+    const currentFiles = uploadField.current.files
+    setUploadedImages(uploadedImages.concat(Array.from(currentFiles)))
+    uploadField.current.value = null
     // TODO: upload to server
   }
 
