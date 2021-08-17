@@ -1,8 +1,9 @@
 import React, { useState, createRef } from "react"
-import { Button, Card, CardGroup, Form } from "react-bootstrap"
+import { Button, Card, Col, CardGroup, Form, Row } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import PostItemImage from "./PostItemImage"
 import PostItemInfo from "./PostItemInfo"
+import "../styles/PostItem.css"
 
 const PostItem = () => {
   const [uploadedImages, setUploadedImages] = useState([])
@@ -51,10 +52,20 @@ const PostItem = () => {
         <PostItemInfo ref={refs} />
       </CardGroup>
       <CardWrapper cardHeader="Item description">
-        <Form.Control as="textarea" ref={refs.description} />
+        <Form.Control as="textarea" ref={refs.description} className="descriptionArea" />
       </CardWrapper>
-      <Button type="null" onClick={handlePost}>Upload and post</Button>
-      <Button type="null" variant="danger" onClick={handleReset}>Reset</Button>
+      <Row className="inputRow">
+        <Col>
+        <Button type="null" onClick={handlePost} className="postButton">
+          Upload and post item
+        </Button>
+        </Col>
+        <Col>
+        <Button type="null" variant="danger" onClick={handleReset} className="resetButton">
+          Reset all
+        </Button>
+       </Col>
+      </Row>
     </CardWrapper>
   )
 }

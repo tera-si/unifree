@@ -2,6 +2,7 @@ import React, { forwardRef } from "react"
 import { Row, Col, Form } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import LabelledInputRow from "./LabelledInputRow"
+import "../styles/PostItem.css"
 
 const PostItemInfo = forwardRef((props, ref) => {
   const conditions = [
@@ -53,25 +54,27 @@ const PostItemInfo = forwardRef((props, ref) => {
         type="text"
         ref={ref.name}
       />
-      <Form.Group as={Row}>
+      <Form.Group as={Row} className="inputRow">
           <Col sm="3">
             <Form.Label>Category</Form.Label>
           </Col>
           <Col sm="9">
-            <Form.Select ref={ref.category}>
-              <option hidden value={-1} key="blankChoice">Item category</option>
+            <Form.Select ref={ref.category} className="selectField">
+              <option hidden value={-1} key="blankChoice">
+                Item category
+              </option>
               {categories.map(category =>
                 <option key={category} value={category}>{category}</option>
               )}
             </Form.Select>
           </Col>
       </Form.Group>
-      <Form.Group as={Row}>
+      <Form.Group as={Row} className="inputRow">
           <Col sm="3">
             <Form.Label>Condition</Form.Label>
           </Col>
           <Col sm="9">
-            <Form.Select ref={ref.condition}>
+            <Form.Select ref={ref.condition} className="selectField">
               <option hidden value={-1} key="blankChoice">Item condition</option>
               {conditions.map(condition =>
                 <option key={condition} value={condition}>{condition}</option>
@@ -79,16 +82,17 @@ const PostItemInfo = forwardRef((props, ref) => {
             </Form.Select>
           </Col>
       </Form.Group>
-      <Form.Group as={Row}>
-        <Col sm="3">
+      <Form.Group as={Row} className="inputRow">
+        <Col sm="6">
           <Form.Label>Exchange method</Form.Label>
         </Col>
-        <Col sm="9">
+        <Col sm="6">
           <Form.Check
             inline
             name="exchange_method"
             type="checkbox"
             label="mail/ship"
+            className="checkBoxOption"
             ref={ref.shipping}
           />
           <Form.Check
@@ -96,6 +100,7 @@ const PostItemInfo = forwardRef((props, ref) => {
             name="exchange_method"
             type="checkbox"
             label="meet"
+            className="checkBoxOption"
             ref={ref.meet}
           />
         </Col>

@@ -1,6 +1,7 @@
 import React, { createRef } from "react"
 import { Button, Carousel, Form, Image, Row, Col } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
+import "../styles/PostItem.css"
 
 const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
   const uploadField = createRef()
@@ -29,12 +30,14 @@ const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
         }
       <Form>
         <Form.Group>
-          <Row>
-            <Col>
-              <Form.Control type="file" ref={uploadField} multiple />
+          <Row className="inputRow">
+            <Col sm="8">
+              <Form.Control type="file" ref={uploadField} multiple className="fileUploadField" />
             </Col>
-            <Col>
-              <Button type="null" onClick={handleUploadImage}>Add image(s)</Button>
+            <Col sm="4">
+              <Button type="null" onClick={handleUploadImage}>
+                Add image(s)
+              </Button>
             </Col>
           </Row>
         </Form.Group>
