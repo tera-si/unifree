@@ -32,13 +32,15 @@ const PostItem = () => {
   const handleReset = (event) => {
     event.preventDefault()
 
-    refs.name.current.value = ""
-    refs.category.current.value = -1
-    refs.condition.current.value = -1
-    refs.shipping.current.checked = false
-    refs.meet.current.checked = false
-    refs.description.current.value = ""
-    setUploadedImages([])
+    if (window.confirm("Reset all info and images?")) {
+      refs.name.current.value = ""
+      refs.category.current.value = -1
+      refs.condition.current.value = -1
+      refs.shipping.current.checked = false
+      refs.meet.current.checked = false
+      refs.description.current.value = ""
+      setUploadedImages([])
+    }
   }
 
   return (
