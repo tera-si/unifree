@@ -5,6 +5,9 @@ import PostItemImage from "./PostItemImage"
 import PostItemInfo from "./PostItemInfo"
 import "../styles/PostItem.css"
 
+//! temporary, for testing only
+import axios from "axios"
+
 const PostItem = () => {
   const [uploadedImages, setUploadedImages] = useState([])
   const refs = {
@@ -16,17 +19,30 @@ const PostItem = () => {
     description: createRef()
   }
 
+  // TODO: separate axios service into separate file, and use async await
   const handlePost = (event) => {
     event.preventDefault()
-    // TODO: upload pics and data to server
 
-    console.log("TODO")
-    console.log(refs.name.current.value)
-    console.log(refs.category.current.value)
-    console.log(refs.condition.current.value)
-    console.log(refs.shipping.current.checked)
-    console.log(refs.meet.current.checked)
-    console.log(refs.description.current.value)
+    const formData = new FormData()
+
+    for (let i = 0; i < uploadedImages.length; i++) {
+      formData.append("item-images", uploadedImages[i])
+    }
+
+    formData.append("item-name", refs.name.current.value)
+    formData.append("item-category", refs.category.current.value)
+    formData.append("item-condition", refs.condition.current.value)
+    formData.append("item-shipping", refs.shipping.current.checked)
+    formData.append("item-meet", refs.meet.current.checked)
+    formData.append("item-description", refs.description.current.value)
+
+    axios.post("http://localhost:5000/api/items", formData)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(e => {
+        console.error(e.message)
+      })
   }
 
   const handleReset = (event) => {
@@ -45,29 +61,31 @@ const PostItem = () => {
 
   return (
     <CardWrapper>
-      <Card.Title>Post Item</Card.Title>
-      <CardGroup>
-        <PostItemImage
-          uploadedImages={uploadedImages}
-          setUploadedImages={setUploadedImages}
-        />
-        <PostItemInfo ref={refs} />
-      </CardGroup>
-      <CardWrapper cardHeader="Item description">
-        <Form.Control as="textarea" ref={refs.description} className="descriptionArea" />
-      </CardWrapper>
-      <Row className="inputRow">
-        <Col>
-        <Button type="null" onClick={handlePost} className="postButton">
-          Upload and post item
-        </Button>
+      <Form onSubmit={handlePost}>
+        <Card.Title>Post Item</Card.Title>
+        <CardGroup>
+          <PostItemImage
+            uploadedImages={uploadedImages}
+            setUploadedImages={setUploadedImages}
+          />
+          <PostItemInfo ref={refs} />
+        </CardGroup>
+        <CardWrapper cardHeader="Item description">
+          <Form.Control as="textarea" ref={refs.description} className="descriptionArea" />
+        </CardWrapper>
+        <Row className="inputRow">
+          <Col>
+          <Button type="submit" className="postButton">
+            Upload and post item
+          </Button>
+          </Col>
+          <Col>
+          <Button type="null" variant="danger" onClick={handleReset} className="resetButton">
+            Reset all
+          </Button>
         </Col>
-        <Col>
-        <Button type="null" variant="danger" onClick={handleReset} className="resetButton">
-          Reset all
-        </Button>
-       </Col>
-      </Row>
+        </Row>
+      </Form>
     </CardWrapper>
   )
 }

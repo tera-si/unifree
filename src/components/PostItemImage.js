@@ -28,20 +28,18 @@ const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
           </Carousel>
           : null
         }
-      <Form>
-        <Form.Group>
-          <Row className="inputRow">
-            <Col sm="8">
-              <Form.Control type="file" ref={uploadField} multiple className="fileUploadField" />
-            </Col>
-            <Col sm="4">
-              <Button type="null" onClick={handleUploadImage}>
-                Add image(s)
-              </Button>
-            </Col>
-          </Row>
-        </Form.Group>
-      </Form>
+      <Form.Group>
+        <Row className="inputRow">
+          <Col sm="8">
+            <Form.Control type="file" ref={uploadField} multiple className="fileUploadField" />
+          </Col>
+          <Col sm="4">
+            <Button type="null" onClick={handleUploadImage}>
+              Add image(s)
+            </Button>
+          </Col>
+        </Row>
+      </Form.Group>
     </CardWrapper>
   )
 }
