@@ -1,26 +1,21 @@
-import React, { useState, createRef } from "react"
+import React, { createRef } from "react"
 import { Button, Carousel, Form, Row, Col } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 
-const PostItemImage = () => {
-  // three options:
-  // 1. change this state to a redux store to use across components
-  // 2. put all of this inside PostItem.js and handle all states there
-  // 3. Lift the state up
-  const [uploadedFiles, setUploadedFiles] = useState([])
+const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
   const uploadField = createRef()
 
   const handleUploadImage = (event) => {
     event.preventDefault()
-    setUploadedFiles(uploadedFiles.concat(Array.from(uploadField.current.files)))
+    setUploadedImages(uploadedImages.concat(Array.from(uploadField.current.files)))
     // TODO: upload to server
   }
 
   return (
     <CardWrapper cardHeader="Upload Images of Item">
-        {uploadedFiles.length >= 1
+        {uploadedImages.length >= 1
           ? <Carousel variant="dark">
-            {uploadedFiles.map(file => {
+            {uploadedImages.map(file => {
               const tempURL = URL.createObjectURL(file)
               return (
                 <Carousel.Item key={tempURL}>
