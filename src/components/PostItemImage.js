@@ -1,5 +1,5 @@
 import React, { createRef } from "react"
-import { Button, Carousel, Form, Row, Col } from "react-bootstrap"
+import { Button, Carousel, Form, Image, Row, Col } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 
 const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
@@ -14,14 +14,14 @@ const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
   }
 
   return (
-    <CardWrapper cardHeader="Upload Images of Item">
+    <CardWrapper cardHeader="Uplaod images of item">
         {uploadedImages.length >= 1
           ? <Carousel variant="dark">
             {uploadedImages.map(file => {
               const tempURL = URL.createObjectURL(file)
               return (
                 <Carousel.Item key={tempURL}>
-                  <img src={tempURL} alt="item"/>
+                  <Image fluid src={tempURL} alt="item"/>
                 </Carousel.Item>
               )
             })}
