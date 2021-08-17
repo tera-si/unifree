@@ -10,7 +10,6 @@ const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
     const currentFiles = uploadField.current.files
     setUploadedImages(uploadedImages.concat(Array.from(currentFiles)))
     uploadField.current.value = null
-    // TODO: upload to server
   }
 
   return (
@@ -35,7 +34,7 @@ const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
               <Form.Control type="file" ref={uploadField} multiple />
             </Col>
             <Col>
-              <Button type="null" onClick={handleUploadImage}>Upload</Button>
+              <Button type="null" onClick={handleUploadImage}>Add image(s)</Button>
             </Col>
           </Row>
         </Form.Group>

@@ -51,13 +51,14 @@ const PostItemInfo = forwardRef((props, ref) => {
       <LabelledInputRow
         label="Item name"
         type="text"
+        ref={ref.name}
       />
       <Form.Group as={Row}>
           <Col sm="3">
             <Form.Label>Category</Form.Label>
           </Col>
           <Col sm="9">
-            <Form.Select>
+            <Form.Select ref={ref.category}>
               <option hidden value={-1} key="blankChoice">Item category</option>
               {categories.map(category =>
                 <option key={category} value={category}>{category}</option>
@@ -70,7 +71,7 @@ const PostItemInfo = forwardRef((props, ref) => {
             <Form.Label>Condition</Form.Label>
           </Col>
           <Col sm="9">
-            <Form.Select>
+            <Form.Select ref={ref.condition}>
               <option hidden value={-1} key="blankChoice">Item condition</option>
               {conditions.map(condition =>
                 <option key={condition} value={condition}>{condition}</option>
@@ -83,11 +84,22 @@ const PostItemInfo = forwardRef((props, ref) => {
           <Form.Label>Exchange method</Form.Label>
         </Col>
         <Col sm="9">
-          <Form.Check inline name="exchange_method" type="checkbox" label="mail/ship" />
-          <Form.Check inline name="exchange_method" type="checkbox" label="meet" />
+          <Form.Check
+            inline
+            name="exchange_method"
+            type="checkbox"
+            label="mail/ship"
+            ref={ref.shipping}
+          />
+          <Form.Check
+            inline
+            name="exchange_method"
+            type="checkbox"
+            label="meet"
+            ref={ref.meet}
+          />
         </Col>
       </Form.Group>
-      {/* description (here or in PostItem.js) */}
     </CardWrapper>
   )
 })
