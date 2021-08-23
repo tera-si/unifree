@@ -20,9 +20,17 @@ const PostItem = () => {
     description: createRef()
   }
 
+  const resetAllFields = () => {
+    refs.name.current.value = ""
+    refs.category.current.value = -1
+    refs.condition.current.value = -1
+    refs.shipping.current.checked = false
+    refs.meet.current.checked = false
+    refs.description.current.value = ""
+    setUploadedImages([])
+  }
+
   // TODO: separate axios service into separate file, and use async await
-  // TODO: clear all input fields and uploadedImages after posting item to
-  // server
   // TODO: success notification message after posting item
   // TODO: failure notification message if posting failed
   const handlePost = (event) => {
@@ -47,6 +55,7 @@ const PostItem = () => {
     axios.post("http://localhost:5000/api/items", formData)
       .then(response => {
         console.log(response.data)
+        resetAllFields()
       })
       .catch(e => {
         console.error(e.message)
@@ -57,13 +66,7 @@ const PostItem = () => {
     event.preventDefault()
 
     if (window.confirm("Reset all info and images?")) {
-      refs.name.current.value = ""
-      refs.category.current.value = -1
-      refs.condition.current.value = -1
-      refs.shipping.current.checked = false
-      refs.meet.current.checked = false
-      refs.description.current.value = ""
-      setUploadedImages([])
+      resetAllFields()
     }
   }
 
