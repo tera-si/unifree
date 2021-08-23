@@ -4,10 +4,8 @@ import CardWrapper from "./CardWrapper"
 import PostItemImage from "./PostItemImage"
 import PostItemInfo from "./PostItemInfo"
 import PostItemRequirement from "./PostItemRequirement"
+import itemService from "../services/itemService"
 import "../styles/PostItem.css"
-
-//! temporary, for testing only
-import axios from "axios"
 
 const PostItem = () => {
   const [uploadedImages, setUploadedImages] = useState([])
@@ -30,17 +28,16 @@ const PostItem = () => {
     setUploadedImages([])
   }
 
-  // TODO: separate axios service into separate file, and use async await
   // TODO: success notification message after posting item
   // TODO: failure notification message if posting failed
-  const handlePost = (event) => {
+  const handlePost = async (event) => {
     event.preventDefault()
 
     const formData = new FormData()
 
     // Must iterate over the uploaded list of images
     // Cannot directly use formData.append(uploadedImages) here, cuz that would
-    // result in [object File] instead of the actual files
+    // result in [object File] instead of an array of the actual files
     for (let i = 0; i < uploadedImages.length; i++) {
       formData.append("item-images", uploadedImages[i])
     }
@@ -52,14 +49,14 @@ const PostItem = () => {
     formData.append("item-meet", refs.meet.current.checked)
     formData.append("item-description", refs.description.current.value)
 
-    axios.post("http://localhost:5000/api/items", formData)
-      .then(response => {
-        console.log(response.data)
-        resetAllFields()
-      })
-      .catch(e => {
-        console.error(e.message)
-      })
+    try {
+      await itemService.postNew(formData)
+      console.log("Post new item successful")
+      resetAllFields()
+    }
+    catch (e) {
+      console.error(e.response.data.error)
+    }
   }
 
   const handleReset = (event) => {

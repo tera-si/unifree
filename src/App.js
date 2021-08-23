@@ -6,6 +6,7 @@ import LoginRegister from "./components/LoginRegister"
 import Navigation from "./components/Navigation"
 import Notification from "./components/Notification"
 import PostItem from "./components/PostItem"
+import itemService from "./services/itemService"
 import { actionSetAuth } from "./reducers/authReducer"
 
 const App = () => {
@@ -16,7 +17,7 @@ const App = () => {
     const currentUser = window.localStorage.getItem("unifree-current-user")
     if (currentUser) {
       const newAuth = JSON.parse(currentUser)
-      // Set token to other services
+      itemService.setToken(newAuth.token)
       dispatch(actionSetAuth(newAuth))
     }
   }, [dispatch])

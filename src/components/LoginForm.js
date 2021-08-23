@@ -6,6 +6,7 @@ import loginService from "../services/loginService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
 import { actionSetAuth } from "../reducers/authReducer"
 import Notification from "./Notification"
+import itemService from "../services/itemService"
 import "../styles/LoginRegister.css"
 
 const LoginForm = () => {
@@ -55,7 +56,7 @@ const LoginForm = () => {
         "unifree-current-user", JSON.stringify(newAuth)
       )
 
-      // Set token to other service
+      itemService.setToken(newAuth.token)
 
       setLoading(false)
 
