@@ -3,6 +3,7 @@ import { Button, Card, Col, CardGroup, Form, Row } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import PostItemImage from "./PostItemImage"
 import PostItemInfo from "./PostItemInfo"
+import PostItemRequirement from "./PostItemRequirement"
 import "../styles/PostItem.css"
 
 //! temporary, for testing only
@@ -20,11 +21,18 @@ const PostItem = () => {
   }
 
   // TODO: separate axios service into separate file, and use async await
+  // TODO: clear all input fields and uploadedImages after posting item to
+  // server
+  // TODO: success notification message after posting item
+  // TODO: failure notification message if posting failed
   const handlePost = (event) => {
     event.preventDefault()
 
     const formData = new FormData()
 
+    // Must iterate over the uploaded list of images
+    // Cannot directly use formData.append(uploadedImages) here, cuz that would
+    // result in [object File] instead of the actual files
     for (let i = 0; i < uploadedImages.length; i++) {
       formData.append("item-images", uploadedImages[i])
     }
@@ -61,8 +69,9 @@ const PostItem = () => {
 
   return (
     <CardWrapper>
+      <Card.Title>Post Item</Card.Title>
+      <PostItemRequirement />
       <Form onSubmit={handlePost}>
-        <Card.Title>Post Item</Card.Title>
         <CardGroup>
           <PostItemImage
             uploadedImages={uploadedImages}
