@@ -14,7 +14,7 @@ const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
   }
 
   return (
-    <CardWrapper cardHeader="Uplaod images of item">
+    <CardWrapper cardHeader="Upload images of item">
         {uploadedImages.length >= 1
           ? <Carousel variant="dark">
             {uploadedImages.map(file => {
