@@ -28,11 +28,26 @@ const PostItem = () => {
     setUploadedImages([])
   }
 
+  const invalidForm = () => {
+    return !uploadedImages || (uploadedImages.length < 1 || uploadedImages.length > 8) ||
+           !refs.name.current.value || refs.name.current.value.trim().length <= 0 ||
+           !refs.category.current.value || refs.category.current.value === -1 ||
+           !refs.condition.current.value || refs.condition.current.value === -1 ||
+           !refs.shipping.current.checked || !refs.meet.current.checked ||
+           (refs.shipping.current.checked === false && refs.meet.current.checked === false) ||
+           !refs.description.current.value || refs.description.current.value.trim().length <= 0
+  }
+
   // TODO: set loading and spinner when uploading and posting item
   // TODO: success notification message after posting item
   // TODO: failure notification message if posting failed
   const handlePost = async (event) => {
     event.preventDefault()
+
+    if (invalidForm()) {
+      console.log("invalid form")
+      return
+    }
 
     const formData = new FormData()
 
@@ -43,12 +58,12 @@ const PostItem = () => {
       formData.append("item-images", uploadedImages[i])
     }
 
-    formData.append("item-name", refs.name.current.value)
+    formData.append("item-name", refs.name.current.value.trim())
     formData.append("item-category", refs.category.current.value)
     formData.append("item-condition", refs.condition.current.value)
     formData.append("item-shipping", refs.shipping.current.checked)
     formData.append("item-meet", refs.meet.current.checked)
-    formData.append("item-description", refs.description.current.value)
+    formData.append("item-description", refs.description.current.value.trim())
 
     try {
       await itemService.postNew(formData)
