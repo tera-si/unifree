@@ -28,6 +28,7 @@ const PostItem = () => {
     setUploadedImages([])
   }
 
+  // TODO: set loading and spinner when uploading and posting item
   // TODO: success notification message after posting item
   // TODO: failure notification message if posting failed
   const handlePost = async (event) => {

@@ -18,6 +18,7 @@ const PostItemInfo = forwardRef((props, ref) => {
 
   const categories = [
     "Art/craft supply",
+    "Bedroom Accessory",
     "Book",
     "Camera",
     "Clothing",
@@ -41,7 +42,7 @@ const PostItemInfo = forwardRef((props, ref) => {
     "Tableware",
     "Toddler/kid supply",
     "Toiletry",
-    "Toy",
+    "Toy/Hobby",
     "Transportation",
     "Video game/console",
     "Other"
