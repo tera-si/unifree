@@ -17,7 +17,7 @@ const PostItemRequirement = () => {
             <ListGroup.Item action>
               Must not exceed 8 images
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item action>
               Images must be in&nbsp;
               <span className="fileExtension">.jpg</span>,&nbsp;
               <span className="fileExtension">.jpeg</span>,&nbsp;
