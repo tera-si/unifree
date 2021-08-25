@@ -9,6 +9,8 @@ import PostItem from "./components/PostItem"
 import itemService from "./services/itemService"
 import { actionSetAuth } from "./reducers/authReducer"
 
+// TODO: chat and chat-notification
+
 const App = () => {
   const auth = useSelector(state => state.auth)
   const dispatch = useDispatch()
