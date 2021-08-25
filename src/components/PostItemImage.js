@@ -8,13 +8,29 @@ const PostItemImage = ({ uploadedImages, setUploadedImages, loading }) => {
 
   const handleUploadImage = (event) => {
     event.preventDefault()
-    const currentFiles = uploadField.current.files
-    setUploadedImages(uploadedImages.concat(Array.from(currentFiles)))
+    const currentFiles = Array.from(uploadField.current.files)
+
+    for (let file of currentFiles) {
+      const isValidImage = file.name.endsWith(".jpg") || file.name.endsWith(".jpeg")
+                           file.name.endsWith(".png") || file.name.endsWith(".gif")
+
+      if (!isValidImage) {
+        // TODO: throw error / notification
+        uploadField.current.value = null
+
+        // temporary
+        console.log("invalid image!")
+
+        return
+      }
+    }
+
+    setUploadedImages(uploadedImages.concat(currentFiles))
     uploadField.current.value = null
   }
 
   return (
-    <CardWrapper cardHeader="Upload images of item">
+    <CardWrapper cardHeader={`Upload images of item: ${uploadedImages.length} / 8`}>
         {uploadedImages.length >= 1
           ? <Carousel variant="dark">
             {uploadedImages.map(file => {
