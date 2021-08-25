@@ -53,6 +53,7 @@ const PostItemInfo = forwardRef((props, ref) => {
       <LabelledInputRow
         label="Item name"
         type="text"
+        disabled={props.loading}
         ref={ref.name}
       />
       <Form.Group as={Row} className="inputRow">
@@ -60,7 +61,7 @@ const PostItemInfo = forwardRef((props, ref) => {
             <Form.Label>Category</Form.Label>
           </Col>
           <Col sm="9">
-            <Form.Select ref={ref.category} className="selectField">
+            <Form.Select ref={ref.category} className="selectField" disabled={props.loading}>
               <option hidden value={-1} key="blankChoice">
                 Item category
               </option>
@@ -75,7 +76,7 @@ const PostItemInfo = forwardRef((props, ref) => {
             <Form.Label>Condition</Form.Label>
           </Col>
           <Col sm="9">
-            <Form.Select ref={ref.condition} className="selectField">
+            <Form.Select ref={ref.condition} className="selectField" disabled={props.loading}>
               <option hidden value={-1} key="blankChoice">Item condition</option>
               {conditions.map(condition =>
                 <option key={condition} value={condition}>{condition}</option>
@@ -94,6 +95,7 @@ const PostItemInfo = forwardRef((props, ref) => {
             type="checkbox"
             label="mail/ship"
             className="checkBoxOption"
+            disabled={props.loading}
             ref={ref.shipping}
           />
           <Form.Check
@@ -102,6 +104,7 @@ const PostItemInfo = forwardRef((props, ref) => {
             type="checkbox"
             label="meet"
             className="checkBoxOption"
+            disabled={props.loading}
             ref={ref.meet}
           />
         </Col>

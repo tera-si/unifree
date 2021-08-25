@@ -34,3 +34,12 @@
 .resetButton {
     float: left;
 }
+
+.hidden {
+    display: none;
+}
+
+.spinnerButton {
+    width: fit-content;
+    float: right;
+}

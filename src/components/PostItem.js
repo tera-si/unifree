@@ -1,5 +1,5 @@
 import React, { useState, createRef } from "react"
-import { Button, Card, Col, CardGroup, Form, Row } from "react-bootstrap"
+import { Button, Card, Col, CardGroup, Form, Row, Spinner } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import PostItemImage from "./PostItemImage"
 import PostItemInfo from "./PostItemInfo"
@@ -9,6 +9,8 @@ import "../styles/PostItem.css"
 
 const PostItem = () => {
   const [uploadedImages, setUploadedImages] = useState([])
+  const [loading, setLoading] = useState(false)
+
   const refs = {
     name: createRef(),
     category: createRef(),
@@ -33,19 +35,21 @@ const PostItem = () => {
            !refs.name.current.value || refs.name.current.value.trim().length <= 0 ||
            !refs.category.current.value || refs.category.current.value === -1 ||
            !refs.condition.current.value || refs.condition.current.value === -1 ||
-           !refs.shipping.current.checked || !refs.meet.current.checked ||
-           (refs.shipping.current.checked === false && refs.meet.current.checked === false) ||
+           !(refs.shipping.current.checked || refs.meet.current.checked) ||
            !refs.description.current.value || refs.description.current.value.trim().length <= 0
   }
 
-  // TODO: set loading and spinner when uploading and posting item
   // TODO: success notification message after posting item
   // TODO: failure notification message if posting failed
+  // TODO: redirect to individual item page after posting
   const handlePost = async (event) => {
     event.preventDefault()
 
+    if (loading) {
+      return
+    }
+
     if (invalidForm()) {
-      console.log("invalid form")
       return
     }
 
@@ -65,14 +69,22 @@ const PostItem = () => {
     formData.append("item-meet", refs.meet.current.checked)
     formData.append("item-description", refs.description.current.value.trim())
 
+    resetAllFields()
+    setLoading(true)
+
     try {
       await itemService.postNew(formData)
-      console.log("Post new item successful")
-      resetAllFields()
     }
     catch (e) {
-      console.error(e.response.data.error)
+      if (!e.response) {
+        console.error(e.message)
+      }
+      else {
+        console.error(e.response.data.error)
+      }
     }
+
+    setLoading(false)
   }
 
   const handleReset = (event) => {
@@ -92,23 +104,37 @@ const PostItem = () => {
           <PostItemImage
             uploadedImages={uploadedImages}
             setUploadedImages={setUploadedImages}
+            loading={loading}
           />
-          <PostItemInfo ref={refs} />
+          <PostItemInfo ref={refs} loading={loading} />
         </CardGroup>
         <CardWrapper cardHeader="Item description">
-          <Form.Control as="textarea" ref={refs.description} className="descriptionArea" />
+          <Form.Control as="textarea" ref={refs.description} className="descriptionArea" disabled={loading} />
         </CardWrapper>
         <Row className="inputRow">
+          {loading
+            ? <Col>
+              <Button disabled className="spinnerButton">
+                <Spinner
+                  as="span"
+                  animation="border"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span className="hidden">Loading...</span>
+              </Button>
+            </Col>
+            : <Col>
+                <Button type="submit" className="postButton">
+                  Upload and post item
+                </Button>
+            </Col>
+          }
           <Col>
-          <Button type="submit" className="postButton">
-            Upload and post item
-          </Button>
+            <Button type="null" variant="danger" onClick={handleReset} disabled={loading} className="resetButton">
+              Reset all
+            </Button>
           </Col>
-          <Col>
-          <Button type="null" variant="danger" onClick={handleReset} className="resetButton">
-            Reset all
-          </Button>
-        </Col>
         </Row>
       </Form>
     </CardWrapper>

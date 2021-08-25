@@ -41,9 +41,7 @@ const App = () => {
         <Route path="/post_item">
           {!auth
             ? <Redirect to="/login" />
-            : <>
-              <PostItem />
-            </>
+            : <PostItem />
           }
         </Route>
 

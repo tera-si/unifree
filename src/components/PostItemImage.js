@@ -3,7 +3,7 @@ import { Button, Carousel, Form, Image, Row, Col } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import "../styles/PostItem.css"
 
-const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
+const PostItemImage = ({ uploadedImages, setUploadedImages, loading }) => {
   const uploadField = createRef()
 
   const handleUploadImage = (event) => {
@@ -31,10 +31,10 @@ const PostItemImage = ({ uploadedImages, setUploadedImages }) => {
       <Form.Group>
         <Row className="inputRow">
           <Col sm="8">
-            <Form.Control type="file" ref={uploadField} multiple className="fileUploadField" />
+            <Form.Control type="file" ref={uploadField} multiple className="fileUploadField" disabled={loading} />
           </Col>
           <Col sm="4">
-            <Button type="null" onClick={handleUploadImage}>
+            <Button type="null" disabled={loading} onClick={handleUploadImage}>
               Add image(s)
             </Button>
           </Col>
