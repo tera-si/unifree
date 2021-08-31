@@ -28,6 +28,9 @@ const PostItemRequirement = () => {
               All basic info must be filled in
             </ListGroup.Item>
             <ListGroup.Item action>
+              At least one exchange method must be checked
+            </ListGroup.Item>
+            <ListGroup.Item action>
               Item description must be filled in
             </ListGroup.Item>
           </ListGroup>

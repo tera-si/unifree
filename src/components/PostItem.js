@@ -1,15 +1,18 @@
 import React, { useState, createRef } from "react"
+import { useDispatch } from "react-redux"
 import { Button, Card, Col, CardGroup, Form, Row, Spinner } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import PostItemImage from "./PostItemImage"
 import PostItemInfo from "./PostItemInfo"
 import PostItemRequirement from "./PostItemRequirement"
 import itemService from "../services/itemService"
+import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
 import "../styles/PostItem.css"
 
 const PostItem = () => {
   const [uploadedImages, setUploadedImages] = useState([])
   const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
 
   const refs = {
     name: createRef(),
@@ -39,8 +42,6 @@ const PostItem = () => {
            !refs.description.current.value || refs.description.current.value.trim().length <= 0
   }
 
-  // TODO: success notification message after posting item
-  // TODO: failure notification message if posting failed
   // TODO: redirect to individual item page after posting
   const handlePost = async (event) => {
     event.preventDefault()
@@ -50,6 +51,7 @@ const PostItem = () => {
     }
 
     if (invalidForm()) {
+      dispatch(actionSetErrorNotice("Error: please fill in all item info"))
       return
     }
 
@@ -69,24 +71,28 @@ const PostItem = () => {
     formData.append("item-meet", refs.meet.current.checked)
     formData.append("item-description", refs.description.current.value.trim())
 
+    const itemName = refs.name.current.value.trim()
+
     resetAllFields()
     setLoading(true)
 
     try {
       await itemService.postNew(formData)
+      dispatch(actionSetSuccessNotice(`New item "${itemName}" successfully posted`))
     }
     catch (e) {
       if (!e.response) {
-        console.error(e.message)
+        dispatch(actionSetErrorNotice(`Error: ${e.message}`))
       }
       else {
-        console.error(e.response.data.error)
+        dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`))
       }
     }
 
     setLoading(false)
   }
 
+  //? Use react-bootstrap modal instead of window.confirm ?//
   const handleReset = (event) => {
     event.preventDefault()
 

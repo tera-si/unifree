@@ -45,6 +45,8 @@ const LoginForm = () => {
     clearAllInputs()
     setLoading(true)
 
+    //? Put setLoading(false) outside of try-catch block ?//
+    //? catch block: switch to if (!e.response) ... else ... ?//
     try {
       const newAuth = await loginService.login({
         username: usernameTrim,

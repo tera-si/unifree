@@ -53,6 +53,7 @@ const RegisterForm = () => {
     clearAllInputs()
     setLoading(true)
 
+    //? catch block: switch to if (!e.response) ... else ... ?//
     try {
       const response = await userService.register({
         username: usernameTrim,
