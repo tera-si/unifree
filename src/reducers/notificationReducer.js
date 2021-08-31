@@ -1,6 +1,6 @@
 let timeoutID = undefined
 
-export const actionSetSuccessNotice = (newNotice, time) => {
+export const actionSetSuccessNotice = (newNotice) => {
   if (timeoutID) {
     clearTimeout(timeoutID)
   }
@@ -11,11 +11,11 @@ export const actionSetSuccessNotice = (newNotice, time) => {
       data: { notice: newNotice }
     })
 
-    timeoutID = setTimeout(() => dispatch(actionClearNotice()), time * 1000)
+    timeoutID = setTimeout(() => dispatch(actionClearNotice()), 5000)
   }
 }
 
-export const actionSetErrorNotice = (newError, time) => {
+export const actionSetErrorNotice = (newError) => {
   if (timeoutID) {
     clearTimeout(timeoutID)
   }
@@ -26,7 +26,7 @@ export const actionSetErrorNotice = (newError, time) => {
       data: { notice: newError }
     })
 
-    timeoutID = setTimeout(() => dispatch(actionClearNotice()), time * 1000)
+    timeoutID = setTimeout(() => dispatch(actionClearNotice()), 5000)
   }
 }
 

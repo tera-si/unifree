@@ -5,7 +5,6 @@ import RegisterRequirement from "./RegisterRequirement"
 import LabelledInputRow from "./LabelledInputRow"
 import userService from "../services/userService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
-import Notification from "./Notification"
 import "../styles/LoginRegister.css"
 
 const RegisterForm = () => {
@@ -38,7 +37,7 @@ const RegisterForm = () => {
     }
 
     if (hasEmptyField()) {
-      dispatch(actionSetErrorNotice("Error: please fill in the registration form", 8))
+      dispatch(actionSetErrorNotice("Error: please fill in the registration form"))
       return
     }
 
@@ -47,7 +46,7 @@ const RegisterForm = () => {
     const confirmPasswordTrim = confirmPassword.current.value.trim()
 
     if (passwordTrim !== confirmPasswordTrim) {
-      dispatch(actionSetErrorNotice("Error: password and confirm password does not match", 8))
+      dispatch(actionSetErrorNotice("Error: password and confirm password does not match"))
       return
     }
 
@@ -60,10 +59,10 @@ const RegisterForm = () => {
         password: passwordTrim
       })
 
-      dispatch(actionSetSuccessNotice(`New user "${response.username}" successfully registered`, 5))
+      dispatch(actionSetSuccessNotice(`New user "${response.username}" successfully registered`))
     }
     catch (e) {
-      dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`, 8))
+      dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`))
     }
 
     setLoading(false)
@@ -72,7 +71,6 @@ const RegisterForm = () => {
   return (
     <>
       <RegisterRequirement />
-      <Notification />
       <Form onSubmit={handleSubmit}>
         <LabelledInputRow
           label="Username"

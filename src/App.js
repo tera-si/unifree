@@ -60,15 +60,13 @@ const App = () => {
           {!auth
             ? <Redirect to="/login" />
             : <>
-              {/* The notification here is probably temporary, and might be
-              incorporated into the main page */}
-              <Notification />
               <p>Welcome</p>
             </>
           }
         </Route>
       </Switch>
 
+      <Notification />
     </div>
   )
 }

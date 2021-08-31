@@ -1,18 +1,28 @@
 import React from "react"
 import { useSelector } from "react-redux"
-import { Alert } from "react-bootstrap"
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 
 const Notification = () => {
   const notification = useSelector(state => state.notification)
 
-  if (!notification || !notification.text) {
-    return null
+  switch (notification.variant) {
+    case "success":
+      toast.success(notification.text)
+      break
+    case "danger":
+      toast.error(notification.text)
+      break
+    default:
+      toast(notification.text)
+      break
   }
 
   return (
-    <Alert variant={notification.variant} className="notificationBar">
-      {notification.text}
-    </Alert>
+    <ToastContainer
+      position="top-right"
+      autoClose={7000}
+    />
   )
 }
 

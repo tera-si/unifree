@@ -5,7 +5,6 @@ import LabelledInputRow from "./LabelledInputRow"
 import loginService from "../services/loginService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
 import { actionSetAuth } from "../reducers/authReducer"
-import Notification from "./Notification"
 import itemService from "../services/itemService"
 import "../styles/LoginRegister.css"
 
@@ -36,7 +35,7 @@ const LoginForm = () => {
     }
 
     if (hasEmptyField()) {
-      dispatch(actionSetErrorNotice("Error: please fill in the login form", 8))
+      dispatch(actionSetErrorNotice("Error: please fill in the login form"))
       return
     }
 
@@ -61,17 +60,16 @@ const LoginForm = () => {
       setLoading(false)
 
       dispatch(actionSetAuth(newAuth))
-      dispatch(actionSetSuccessNotice(`Logged in as "${newAuth.username}"`, 8))
+      dispatch(actionSetSuccessNotice(`Logged in as "${newAuth.username}"`))
     }
     catch (e) {
       setLoading(false)
-      dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`, 8))
+      dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`))
     }
   }
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Notification />
       <LabelledInputRow
         label="Username"
         type="text"
