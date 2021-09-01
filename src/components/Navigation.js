@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { Navbar, Nav, Button } from "react-bootstrap"
 import { actionClearAuth } from "../reducers/authReducer"
+import itemService from "../services/itemService"
 import "../styles/Navigation.css"
 
 const Navigation = () => {
@@ -11,7 +12,7 @@ const Navigation = () => {
 
   const handleLogout = () => {
     window.localStorage.removeItem("unifree-current-user")
-    // remove token from other services
+    itemService.setToken(null)
     dispatch(actionClearAuth())
   }
 
