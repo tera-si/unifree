@@ -2,52 +2,10 @@ import React, { forwardRef } from "react"
 import { Row, Col, Form } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import LabelledInputRow from "./LabelledInputRow"
+import { conditions, categories } from "../static/itemInfo"
 import "../styles/PostItem.css"
 
 const PostItemInfo = forwardRef((props, ref) => {
-  const conditions = [
-    "New",
-    "New, box opened",
-    "New, with defects",
-    "Mostly new, rarely used",
-    "Good",
-    "Visible wear",
-    "Damaged",
-    "For parts"
-  ]
-
-  const categories = [
-    "Art/craft supply",
-    "Bedroom Accessory",
-    "Book",
-    "Camera",
-    "Clothing",
-    "Computer/laptop",
-    "Cosmetic/perfume",
-    "Decorative/trinket",
-    "Fashion accessory",
-    "Furniture",
-    "Gadget/consumer electronics",
-    "Gardening",
-    "Home appliance",
-    "Kitchenware",
-    "Music instrument",
-    "Pet supply",
-    "Phone",
-    "Service",
-    "Shoes",
-    "Sporting",
-    "Stationary",
-    "Tablet",
-    "Tableware",
-    "Toddler/kid supply",
-    "Toiletry",
-    "Toy/Hobby",
-    "Transportation",
-    "Video game/console",
-    "Other"
-  ]
-
   return (
     <CardWrapper cardHeader="Basic info of item">
       <LabelledInputRow
