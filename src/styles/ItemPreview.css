@@ -1,0 +1,29 @@
+.cardBase {
+    width: 18rem;
+    height: 30rem;
+}
+
+.cardImage {
+    width: 286px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.cardImage:hover {
+    cursor: pointer;
+}
+
+.cardTitle {
+    text-decoration: none;
+    color: #0d6efe;
+}
+
+.cardTitle:hover {
+    text-decoration: underline;
+    color: deepskyblue;
+}
+
+.cardText {
+    margin-top: 10px;
+    color: rgb(71, 71, 71);
+}
