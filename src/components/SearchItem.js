@@ -2,6 +2,7 @@ import React, { createRef, useEffect } from "react"
 import { Accordion, Button, Form, Row, Col } from "react-bootstrap"
 import LabelledInputRow from "./LabelledInputRow"
 import { conditions, categories } from "../static/itemInfo"
+import "../styles/SearchItem.css"
 
 const SearchItem = () => {
   const refs = {
@@ -25,16 +26,16 @@ const SearchItem = () => {
         placeholder="Item name"
         ref={refs.name}
       />
-      <Accordion>
+      <Accordion className="accordionBase">
         <Accordion.Item eventKey="0">
           <Accordion.Header>Apply filters</Accordion.Header>
           <Accordion.Body>
-            <Form.Group as={Row}>
+            <Form.Group as={Row} className="inputRow">
               <Col sm="3">
                 <Form.Label>Category</Form.Label>
               </Col>
               <Col sm="9">
-                <Form.Select ref={refs.category}>
+                <Form.Select ref={refs.category} className="selectField">
                   <option hidden value={-1} key="blankChoice">
                     Any
                   </option>
@@ -44,12 +45,12 @@ const SearchItem = () => {
                 </Form.Select>
               </Col>
             </Form.Group>
-            <Form.Group as={Row}>
+            <Form.Group as={Row} className="inputRow">
               <Col sm="3">
                 <Form.Label>Condition</Form.Label>
               </Col>
               <Col sm="9">
-                <Form.Select ref={refs.condition}>
+                <Form.Select ref={refs.condition} className="selectField">
                   <option hidden value={-1} key="blankChoice">Any</option>
                   {conditions.map(condition =>
                     <option key={condition} value={condition}>{condition}</option>
@@ -57,7 +58,7 @@ const SearchItem = () => {
                 </Form.Select>
               </Col>
             </Form.Group>
-            <Form.Group as={Row}>
+            <Form.Group as={Row} className="inputRow">
               <Col sm="9">
                 <Form.Label>Exchange method</Form.Label>
               </Col>
@@ -67,6 +68,7 @@ const SearchItem = () => {
                   name="exchange method"
                   type="checkbox"
                   label="mail/ship"
+                  className="checkBoxOption"
                   ref={refs.shipping}
                 />
                 <Form.Check
@@ -74,6 +76,7 @@ const SearchItem = () => {
                   name="exchange method"
                   type="checkbox"
                   label="meet"
+                  className="checkBoxOption"
                   ref={refs.meet}
                 />
               </Col>
@@ -81,7 +84,7 @@ const SearchItem = () => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-      <Button type="null">Search</Button>
+      <Button type="null" className="searchButton">Search</Button>
     </div>
   )
 }
