@@ -7,8 +7,9 @@ import "../styles/Home.css"
 const Home = () => {
   return (
     <CardWrapper>
-      <SearchItem />
-      <hr />
+      <CardWrapper cardHeader="Search item">
+        <SearchItem />
+      </CardWrapper>
       <CardWrapper>
         <Card.Title>Latest</Card.Title>
       </CardWrapper>

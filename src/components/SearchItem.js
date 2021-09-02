@@ -22,8 +22,7 @@ const SearchItem = () => {
     <div>
       <LabelledInputRow
         type="text"
-        label="Search item"
-        placeholder="Item name"
+        label="Item name"
         ref={refs.name}
       />
       <Accordion className="accordionBase">
