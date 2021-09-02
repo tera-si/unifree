@@ -6,6 +6,7 @@ import LoginRegister from "./components/LoginRegister"
 import Navigation from "./components/Navigation"
 import Notification from "./components/Notification"
 import PostItem from "./components/PostItem"
+import Home from "./components/Home"
 import itemService from "./services/itemService"
 import { actionSetAuth } from "./reducers/authReducer"
 
@@ -59,9 +60,7 @@ const App = () => {
         <Route path="/">
           {!auth
             ? <Redirect to="/login" />
-            : <>
-              <p>Welcome</p>
-            </>
+            : <Home />
           }
         </Route>
       </Switch>
