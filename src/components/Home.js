@@ -2,7 +2,6 @@ import React from "react"
 import { Card } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import SearchItem from "./SearchItem"
-import "../styles/Home.css"
 
 const Home = () => {
   return (
