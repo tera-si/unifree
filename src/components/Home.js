@@ -29,6 +29,7 @@ const Home = () => {
           {items.map(item =>
             <div key={item.id}>
               <ItemPreview
+                id={item.id}
                 firstImage={item.imagePaths[0]}
                 name={item.name}
                 category={item.category}

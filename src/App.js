@@ -57,6 +57,13 @@ const App = () => {
           }
         </Route>
 
+        <Route path="/view_item/:id">
+          {!auth
+            ? <Redirect to="/login" />
+            : <p>View item</p>
+          }
+        </Route>
+
         <Route path="/">
           {!auth
             ? <Redirect to="/login" />
