@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap"
 import "../styles/ItemPreview.css"
 
 const ItemPreview = (
-  { id, firstImage, name, category, condition, datePosted, username }
+  { id, firstImage, name, category, condition, datePosted, username, userID }
 ) => {
   const [redirect, setRedirect] = useState(false)
 
@@ -30,7 +30,9 @@ const ItemPreview = (
         <Card.Subtitle className="cardText">{category}</Card.Subtitle>
         <Card.Text className="cardText">{condition}</Card.Text>
       </Card.Body>
-      <Card.Footer>{username}</Card.Footer>
+      <Card.Footer>
+        <Link to={`/view_profile/${userID}`} className="cardFooter">{username}</Link>
+      </Card.Footer>
     </Card>
   )
 }

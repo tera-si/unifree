@@ -64,6 +64,13 @@ const App = () => {
           }
         </Route>
 
+        <Route path="/view_profile/:id">
+          {!auth
+            ? <Redirect to="/login" />
+            : <p>View profile</p>
+          }
+        </Route>
+
         <Route path="/">
           {!auth
             ? <Redirect to="/login" />

@@ -27,3 +27,13 @@
     margin-top: 10px;
     color: rgb(71, 71, 71);
 }
+
+.cardFooter {
+    color: #0d6efe;
+    text-decoration: none;
+}
+
+.cardFooter:hover {
+    color: deepskyblue;
+    text-decoration: underline;
+}

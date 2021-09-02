@@ -36,6 +36,7 @@ const Home = () => {
                 condition={item.condition}
                 datePosted={item.datePosted}
                 username={item.postedBy.username}
+                userID={item.postedBy.id}
               />
             </div>
           )}
