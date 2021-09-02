@@ -48,15 +48,6 @@ const App = () => {
           }
         </Route>
 
-        <Route path="/my_profile">
-          {!auth
-            ? <Redirect to="/login" />
-            : <>
-              <p>{auth.username}</p>
-            </>
-          }
-        </Route>
-
         <Route path="/view_item/:id">
           {!auth
             ? <Redirect to="/login" />

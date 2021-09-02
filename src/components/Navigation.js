@@ -42,7 +42,7 @@ const Navigation = () => {
           : <>
             <Nav>
               <Nav.Link as="span" className="navLinkBox">
-                <Link to="/my_profile" className="navLinkText">My Profile</Link>
+                <Link to={`/view_profile/${auth.id}`} className="navLinkText">My Profile</Link>
               </Nav.Link>
               <Button
                 type="null"
