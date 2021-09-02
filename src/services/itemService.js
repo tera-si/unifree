@@ -7,6 +7,11 @@ const setToken = (newToken) => {
   token = `bearer ${newToken}`
 }
 
+const getAll = async () => {
+  const response = await axios.get(BASE_URL)
+  return response.data
+}
+
 const postNew = async (newItem) => {
   const config = {
     headers: { Authorization: token }
@@ -18,6 +23,7 @@ const postNew = async (newItem) => {
 
 const itemService = {
   setToken,
+  getAll,
   postNew
 }
 

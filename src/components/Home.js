@@ -1,9 +1,22 @@
-import React from "react"
-import { Card } from "react-bootstrap"
+import React, { useState, useEffect } from "react"
+import { Card, CardGroup } from "react-bootstrap"
+import itemService from "../services/itemService"
 import CardWrapper from "./CardWrapper"
+import ItemPreview from "./ItemPreview"
 import SearchItem from "./SearchItem"
 
 const Home = () => {
+  const [items, setItems] = useState([])
+
+  useEffect(() => {
+    const getAllItems = async () => {
+      const data = await itemService.getAll()
+      setItems(data)
+    }
+
+    getAllItems()
+  }, [])
+
   return (
     <CardWrapper>
       <CardWrapper cardHeader="Search item">
@@ -11,6 +24,20 @@ const Home = () => {
       </CardWrapper>
       <CardWrapper>
         <Card.Title>Latest</Card.Title>
+        <CardGroup>
+          {items.map(item =>
+            <div key={item.id}>
+              <ItemPreview
+                firstImage={item.imagePaths[0]}
+                name={item.name}
+                category={item.category}
+                condition={item.condition}
+                datePosted={item.datePosted}
+                username={item.postedBy.username}
+              />
+            </div>
+          )}
+        </CardGroup>
       </CardWrapper>
     </CardWrapper>
   )
