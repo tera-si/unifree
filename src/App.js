@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation"
 import Notification from "./components/Notification"
 import PostItem from "./components/PostItem"
 import Home from "./components/Home"
+import ViewProfile from "./components/ViewProfile"
 import itemService from "./services/itemService"
 import { actionSetAuth } from "./reducers/authReducer"
 
@@ -58,7 +59,14 @@ const App = () => {
         <Route path="/view_profile/:id">
           {!auth
             ? <Redirect to="/login" />
-            : <p>View profile</p>
+            : <ViewProfile />
+          }
+        </Route>
+
+        <Route path="/change_password">
+          {!auth
+            ? <Redirect to="/login" />
+            : <p>change password</p>
           }
         </Route>
 
