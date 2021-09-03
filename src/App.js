@@ -11,7 +11,7 @@ import ViewProfile from "./components/ViewProfile"
 import itemService from "./services/itemService"
 import { actionSetAuth } from "./reducers/authReducer"
 
-// TODO: chat and chat-notification
+// TODO: chat and chat-notification with socket.io
 
 const App = () => {
   const auth = useSelector(state => state.auth)
