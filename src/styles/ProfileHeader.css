@@ -21,6 +21,12 @@
     color: rgb(255, 255, 255);
 }
 
+.sendMessageButton {
+    margin-top: 3px;
+    margin-right: 10px;
+    float: right;
+}
+
 .profileRow {
     margin-top: 5px;
     margin-bottom: 5px;

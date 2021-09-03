@@ -24,19 +24,24 @@ const ProfileHeader = ({ username, id }) => {
           <Col>
           <Card.Title className="profileTitle">{username}</Card.Title>
           </Col>
+          <Col>
           {sameUser
-            ? <Col>
-              <Button
-                type={null}
-                variant="danger"
-                className="changePasswordButton"
-                onClick={handleChangePasswordButton}
-              >
-                Change password
-              </Button>
-            </Col>
-            : null
+            ? <Button
+              type={null}
+              variant="danger"
+              className="changePasswordButton"
+              onClick={handleChangePasswordButton}
+            >
+              Change password
+            </Button>
+            : <Button
+              type={null}
+              className="sendMessageButton"
+            >
+              Send message
+            </Button>
           }
+          </Col>
         </Row>
       </Card.Body>
     </Card>
