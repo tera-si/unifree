@@ -6,8 +6,14 @@ const register = async (credentials) => {
   return response.data
 }
 
+const getProfile = async (id) => {
+  const response = await axios.get(`${BASE_URI}/${id}`)
+  return response.data
+}
+
 const userService = {
-  register
+  register,
+  getProfile
 }
 
 export default userService
