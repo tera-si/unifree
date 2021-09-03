@@ -6,6 +6,7 @@ import ProfileHeader from "./ProfileHeader"
 import ItemPreview from "./ItemPreview"
 import userService from "../services/userService"
 import { dateSortByLatest } from "../utils/dateSorter"
+import "../styles/ViewProfile.css"
 
 const ViewProfile = () => {
   const { id } = useParams()
@@ -32,7 +33,7 @@ const ViewProfile = () => {
     <CardWrapper>
       <ProfileHeader username={profile.username} id={profile.id} />
       <CardWrapper>
-        <Card.Title>Latest items from {profile.username}</Card.Title>
+        <Card.Title className="itemSectionTitle">Latest items from {profile.username}</Card.Title>
         <CardGroup>
           {itemSorted.map(item =>
             <div key={item.id}>

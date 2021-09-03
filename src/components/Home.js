@@ -5,6 +5,7 @@ import CardWrapper from "./CardWrapper"
 import ItemPreview from "./ItemPreview"
 import SearchItem from "./SearchItem"
 import { dateSortByLatest } from "../utils/dateSorter"
+import "../styles/Home.css"
 
 const Home = () => {
   const [items, setItems] = useState([])
@@ -25,7 +26,7 @@ const Home = () => {
         <SearchItem />
       </CardWrapper>
       <CardWrapper>
-        <Card.Title>Latest</Card.Title>
+        <Card.Title className="itemSectionTitle">Latest</Card.Title>
         <CardGroup>
           {items.map(item =>
             <div key={item.id}>
