@@ -12,6 +12,11 @@ const getAll = async () => {
   return response.data
 }
 
+const getItem = async (id) => {
+  const response = await axios.get(`${BASE_URL}/${id}`)
+  return response.data
+}
+
 const postNew = async (newItem) => {
   const config = {
     headers: { Authorization: token }
@@ -24,6 +29,7 @@ const postNew = async (newItem) => {
 const itemService = {
   setToken,
   getAll,
+  getItem,
   postNew
 }
 

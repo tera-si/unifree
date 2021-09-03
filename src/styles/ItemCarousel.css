@@ -1,0 +1,8 @@
+.itemImage {
+    max-height: 600px;
+    width: auto;
+}
+
+.itemImage:hover {
+    cursor: pointer;
+}

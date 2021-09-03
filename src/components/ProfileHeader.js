@@ -22,7 +22,7 @@ const ProfileHeader = ({ username, id }) => {
       <Card.Body>
         <Row className="profileRow">
           <Col>
-          <Card.Title className="profileTitle">{username}</Card.Title>
+            <Card.Title className="profileTitle">{username}</Card.Title>
           </Col>
           <Col>
           {sameUser
