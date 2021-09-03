@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { Switch, Route, Redirect } from "react-router-dom"
+import { Switch, Route } from "react-router-dom"
 import About from "./components/About"
 import LoginRegister from "./components/LoginRegister"
 import Navigation from "./components/Navigation"
@@ -8,6 +8,7 @@ import Notification from "./components/Notification"
 import PostItem from "./components/PostItem"
 import Home from "./components/Home"
 import ViewProfile from "./components/ViewProfile"
+import ViewItem from "./components/ViewItem"
 import itemService from "./services/itemService"
 import { actionSetAuth } from "./reducers/authReducer"
 
@@ -26,6 +27,16 @@ const App = () => {
     }
   }, [dispatch])
 
+  if (!auth) {
+    return (
+      <div className="container">
+        <Navigation />
+        <LoginRegister />
+        <Notification />
+      </div>
+    )
+  }
+
   return (
     <div className="container">
       <Navigation />
@@ -35,46 +46,24 @@ const App = () => {
           <About />
         </Route>
 
-        <Route path="/login">
-          {!auth
-            ? <LoginRegister />
-            : <Redirect to="/" />
-          }
-        </Route>
-
         <Route path="/post_item">
-          {!auth
-            ? <Redirect to="/login" />
-            : <PostItem />
-          }
+          <PostItem />
         </Route>
 
         <Route path="/view_item/:id">
-          {!auth
-            ? <Redirect to="/login" />
-            : <p>View item</p>
-          }
+          <ViewItem />
         </Route>
 
         <Route path="/view_profile/:id">
-          {!auth
-            ? <Redirect to="/login" />
-            : <ViewProfile />
-          }
+          <ViewProfile />
         </Route>
 
         <Route path="/change_password">
-          {!auth
-            ? <Redirect to="/login" />
-            : <p>change password</p>
-          }
+          <p>change password</p>
         </Route>
 
         <Route path="/">
-          {!auth
-            ? <Redirect to="/login" />
-            : <Home />
-          }
+          <Home />
         </Route>
       </Switch>
 
