@@ -5,6 +5,7 @@ import CardWrapper from "./CardWrapper"
 import ProfileHeader from "./ProfileHeader"
 import ItemPreview from "./ItemPreview"
 import userService from "../services/userService"
+import { dateSortByLatest } from "../utils/dateSorter"
 
 const ViewProfile = () => {
   const { id } = useParams()
@@ -25,7 +26,7 @@ const ViewProfile = () => {
     )
   }
 
-  const itemSorted = profile.items.sort((item1, item2) => -(new Date(item1.datePosted) - new Date(item2.datePosted)))
+  const itemSorted = profile.items.sort(dateSortByLatest)
 
   return (
     <CardWrapper>

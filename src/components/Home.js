@@ -4,6 +4,7 @@ import itemService from "../services/itemService"
 import CardWrapper from "./CardWrapper"
 import ItemPreview from "./ItemPreview"
 import SearchItem from "./SearchItem"
+import { dateSortByLatest } from "../utils/dateSorter"
 
 const Home = () => {
   const [items, setItems] = useState([])
@@ -11,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const getAllItems = async () => {
       const data = await itemService.getAll()
-      data.sort((item1, item2) => -(new Date(item1.datePosted) - new Date(item2.datePosted)))
+      data.sort(dateSortByLatest)
       setItems(data)
     }
 
