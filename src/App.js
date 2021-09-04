@@ -32,7 +32,17 @@ const App = () => {
     return (
       <div className="container">
         <Navigation />
-        <LoginRegister />
+
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+
+          <Route path="/">
+            <LoginRegister />
+          </Route>
+        </Switch>
+
         <Notification />
       </div>
     )
