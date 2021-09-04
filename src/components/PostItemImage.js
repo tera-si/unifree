@@ -20,11 +20,12 @@ const PostItemImage = ({ uploadedImages, setUploadedImages, loading }) => {
     }
 
     for (let file of currentFiles) {
-      const isValidImage = file.name.endsWith(".jpg") || file.name.endsWith(".jpeg")
-                           file.name.endsWith(".png") || file.name.endsWith(".gif")
+      const isValidImage = file.name.toLowerCase().endsWith(".jpg") || file.name.toLowerCase().endsWith(".jpeg") ||
+                           file.name.toLowerCase().endsWith(".png") || file.name.toLowerCase().endsWith(".gif")
 
       if (!isValidImage) {
         uploadField.current.value = null
+        uploadField.current.files = null
         dispatch(actionSetErrorNotice("Error: invalid file types selected"))
         return
       }
@@ -42,7 +43,7 @@ const PostItemImage = ({ uploadedImages, setUploadedImages, loading }) => {
               const tempURL = URL.createObjectURL(file)
               return (
                 <Carousel.Item key={tempURL}>
-                  <Image fluid src={tempURL} alt="item"/>
+                  <Image fluid rounded src={tempURL} alt="item"/>
                 </Carousel.Item>
               )
             })}
