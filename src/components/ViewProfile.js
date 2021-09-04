@@ -5,6 +5,7 @@ import CardWrapper from "./CardWrapper"
 import ProfileHeader from "./ProfileHeader"
 import ItemPreview from "./ItemPreview"
 import userService from "../services/userService"
+import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { dateSortByLatest } from "../utils/dateSorter"
 import "../styles/ViewProfile.css"
 
@@ -23,7 +24,9 @@ const ViewProfile = () => {
 
   if (!profile) {
     return (
-      <CardWrapper></CardWrapper>
+      <CardWrapper>
+        <CenteredSpinnerCol />
+      </CardWrapper>
     )
   }
 

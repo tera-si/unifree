@@ -6,6 +6,7 @@ import CardWrapper from "./CardWrapper"
 import ViewItemHeader from "./ViewItemHeader"
 import ItemCarousel from "./ItemCarousel"
 import ViewItemBasicInfo from "./ViewItemBasicInfo"
+import CenteredSpinnerCol from "./CenteredSpinnerCol"
 
 const ViewItem = () => {
   const [item, setItem] = useState(null)
@@ -22,7 +23,9 @@ const ViewItem = () => {
 
   if (!item) {
     return (
-      <CardWrapper></CardWrapper>
+      <CardWrapper>
+        <CenteredSpinnerCol />
+      </CardWrapper>
     )
   }
 
