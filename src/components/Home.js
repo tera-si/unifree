@@ -4,11 +4,13 @@ import itemService from "../services/itemService"
 import CardWrapper from "./CardWrapper"
 import ItemPreview from "./ItemPreview"
 import SearchItem from "./SearchItem"
+import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { dateSortByLatest } from "../utils/dateSorter"
 import "../styles/Home.css"
 
 const Home = () => {
   const [items, setItems] = useState([])
+  const loading = !items || items.length <= 0
 
   useEffect(() => {
     const getAllItems = async () => {
@@ -22,27 +24,28 @@ const Home = () => {
 
   return (
     <CardWrapper>
-      <CardWrapper cardHeader="Search item">
-        <SearchItem />
-      </CardWrapper>
+      <SearchItem />
       <CardWrapper>
         <Card.Title className="itemSectionTitle">Latest</Card.Title>
-        <CardGroup>
-          {items.map(item =>
-            <div key={item.id}>
-              <ItemPreview
-                id={item.id}
-                firstImage={item.imagePaths[0]}
-                name={item.name}
-                category={item.category}
-                condition={item.condition}
-                datePosted={item.datePosted}
-                username={item.postedBy.username}
-                userID={item.postedBy.id}
-              />
-            </div>
-          )}
-        </CardGroup>
+        {loading
+          ? <CenteredSpinnerCol />
+          : <CardGroup>
+            {items.map(item =>
+              <div key={item.id}>
+                <ItemPreview
+                  id={item.id}
+                  firstImage={item.imagePaths[0]}
+                  name={item.name}
+                  category={item.category}
+                  condition={item.condition}
+                  datePosted={item.datePosted}
+                  username={item.postedBy.username}
+                  userID={item.postedBy.id}
+                />
+              </div>
+            )}
+          </CardGroup>
+        }
       </CardWrapper>
     </CardWrapper>
   )
