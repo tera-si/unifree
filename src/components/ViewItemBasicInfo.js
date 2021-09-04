@@ -1,6 +1,7 @@
 import React from "react"
-import { Col, Row } from "react-bootstrap"
+import { Table } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
+import "../styles/ViewItemBasicInfo.css"
 
 const ViewItemBasicInfo = ({ category, condition, shipping, meet }) => {
   let exchangeMethod = undefined
@@ -16,22 +17,22 @@ const ViewItemBasicInfo = ({ category, condition, shipping, meet }) => {
 
   return (
     <CardWrapper cardHeader="Basic Info">
-      <Row>
-        <Col>
-          Category
-        </Col>
-        <Col>
-          Condition
-        </Col>
-        <Col>
-          Exchange method
-        </Col>
-      </Row>
-      <Row>
-        <Col>{category}</Col>
-        <Col>{condition}</Col>
-        <Col>{exchangeMethod}</Col>
-      </Row>
+      <Table responsive hover size="sm" borderless className="infoTable">
+        <thead className="tableHeaderRow">
+          <tr>
+            <th>Category</th>
+            <th>Condition</th>
+            <th>Exchange method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{category}</td>
+            <td>{condition}</td>
+            <td>{exchangeMethod}</td>
+          </tr>
+        </tbody>
+      </Table>
     </CardWrapper>
   )
 }
