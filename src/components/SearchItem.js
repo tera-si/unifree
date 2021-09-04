@@ -1,5 +1,6 @@
 import React, { createRef, useEffect } from "react"
 import { Accordion, Button, Form, Row, Col } from "react-bootstrap"
+import CardWrapper from "./CardWrapper"
 import LabelledInputRow from "./LabelledInputRow"
 import { conditions, categories } from "../static/itemInfo"
 import "../styles/SearchItem.css"
@@ -19,7 +20,7 @@ const SearchItem = () => {
   }, [refs.meet, refs.shipping])
 
   return (
-    <div>
+    <CardWrapper cardHeader="Search item">
       <LabelledInputRow
         type="text"
         label="Item name"
@@ -84,7 +85,7 @@ const SearchItem = () => {
         </Accordion.Item>
       </Accordion>
       <Button type="null" className="searchButton">Search</Button>
-    </div>
+    </CardWrapper>
   )
 }
 
