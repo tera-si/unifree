@@ -1,0 +1,15 @@
+.buttonCol {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.manageButton {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.messageButton {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { Card } from "react-bootstrap"
+import { useSelector } from "react-redux"
+import { Button, Card, Dropdown, DropdownButton, Row, Col } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import itemService from "../services/itemService"
 import CardWrapper from "./CardWrapper"
@@ -7,8 +8,10 @@ import ViewItemHeader from "./ViewItemHeader"
 import ItemCarousel from "./ItemCarousel"
 import ViewItemBasicInfo from "./ViewItemBasicInfo"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
+import "../styles/ViewItem.css"
 
 const ViewItem = () => {
+  const auth = useSelector(state => state.auth)
   const [item, setItem] = useState(null)
   const { id } = useParams()
 
@@ -31,6 +34,7 @@ const ViewItem = () => {
 
   const dateParsed = new Date(item.datePosted).toLocaleDateString()
   const descriptionParsed = item.description.split("\n")
+  const sameUser = auth.id === item.postedBy.id
 
   return (
     <CardWrapper>
@@ -54,6 +58,27 @@ const ViewItem = () => {
           )}
         </Card.Text>
       </CardWrapper>
+      <Row>
+        <Col className="buttonCol">
+          {sameUser
+            ? <DropdownButton
+              title="Manage item "
+              drop="end"
+              variant="warning"
+              className="manageButton"
+            >
+              <Dropdown.Item>Mark as traded</Dropdown.Item>
+              <Dropdown.Item>Delete item</Dropdown.Item>
+            </DropdownButton>
+            : <Button
+              type={null}
+              className="messageButton"
+            >
+              Message owner
+            </Button>
+          }
+        </Col>
+      </Row>
     </CardWrapper>
   )
 }
