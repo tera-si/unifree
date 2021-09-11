@@ -36,8 +36,7 @@ const PostItem = () => {
   const invalidForm = () => {
     return !uploadedImages || (uploadedImages.length < 1 || uploadedImages.length > 8) ||
            !refs.name.current.value || refs.name.current.value.trim().length <= 0 ||
-           !refs.category.current.value || refs.category.current.value === -1 ||
-           !refs.condition.current.value || refs.condition.current.value === -1 ||
+           refs.category.current.value === "-1" || refs.condition.current.value === "-1" ||
            !(refs.shipping.current.checked || refs.meet.current.checked) ||
            !refs.description.current.value || refs.description.current.value.trim().length <= 0
   }
