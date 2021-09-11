@@ -10,7 +10,7 @@ import "../styles/Home.css"
 
 const Home = () => {
   const [items, setItems] = useState([])
-  const loading = !items || items.length <= 0
+  const loading = !items
 
   useEffect(() => {
     const getAllItems = async () => {
@@ -44,6 +44,10 @@ const Home = () => {
                 />
               </div>
             )}
+          {items.length <= 0
+            ? <Card.Text>There are currently no items</Card.Text>
+            : null
+          }
           </CardGroup>
         }
       </CardWrapper>

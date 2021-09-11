@@ -37,6 +37,10 @@ const ViewProfile = () => {
       <ProfileHeader username={profile.username} id={profile.id} />
       <CardWrapper>
         <Card.Title className="itemSectionTitle">Latest items from {profile.username}</Card.Title>
+        {itemSorted.length <= 0
+          ? <Card.Text>There are currently no items</Card.Text>
+          : null
+        }
         <CardGroup>
           {itemSorted.map(item =>
             <div key={item.id}>
