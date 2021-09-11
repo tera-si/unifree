@@ -26,11 +26,21 @@ const postNew = async (newItem) => {
   return response.data
 }
 
+const putUpdate = async (id, updatedItem) => {
+  const config = {
+    headers: { Authorization: token }
+  }
+
+  const response = await axios.put(`${BASE_URL}/${id}`, updatedItem, config)
+  return response.data
+}
+
 const itemService = {
   setToken,
   getAll,
   getItem,
-  postNew
+  postNew,
+  putUpdate,
 }
 
 export default itemService

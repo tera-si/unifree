@@ -36,6 +36,18 @@ const ViewItem = () => {
   const descriptionParsed = item.description.split("\n")
   const sameUser = auth.id === item.postedBy.id
 
+  const handleMarkTraded = async () => {
+    if (window.confirm("Mark this item as traded?")) {
+      const updatedItem = {
+        ...item,
+        availability: false,
+      }
+
+      //? is there anything I need to do with the response ?//
+      await itemService.putUpdate(id, updatedItem)
+    }
+  }
+
   return (
     <CardWrapper>
       <ViewItemHeader
@@ -67,7 +79,7 @@ const ViewItem = () => {
               variant="warning"
               className="manageButton"
             >
-              <Dropdown.Item>Mark as traded</Dropdown.Item>
+              <Dropdown.Item onClick={handleMarkTraded}>Mark as traded</Dropdown.Item>
               <Dropdown.Item>Delete item</Dropdown.Item>
             </DropdownButton>
             : <Button
