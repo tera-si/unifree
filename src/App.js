@@ -14,6 +14,7 @@ import { actionSetAuth } from "./reducers/authReducer"
 
 // TODO: chat and chat-notification with socket.io
 // TODO: transaction history (backend + frontend + mongoDB)
+// TODO: wrap try-catch block with all backend communication
 //? Comment in user profile ?//
 
 const App = () => {
