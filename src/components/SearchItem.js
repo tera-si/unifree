@@ -36,9 +36,7 @@ const SearchItem = () => {
               </Col>
               <Col sm="9">
                 <Form.Select ref={refs.category} className="selectField">
-                  <option hidden value={-1} key="blankChoice">
-                    Any
-                  </option>
+                  <option value="any" key="anyCategory">Any</option>
                   {categories.map(category =>
                     <option key={category} value={category}>{category}</option>
                   )}
@@ -51,7 +49,7 @@ const SearchItem = () => {
               </Col>
               <Col sm="9">
                 <Form.Select ref={refs.condition} className="selectField">
-                  <option hidden value={-1} key="blankChoice">Any</option>
+                  <option value="any" key="anyCondition">Any</option>
                   {conditions.map(condition =>
                     <option key={condition} value={condition}>{condition}</option>
                   )}
