@@ -9,6 +9,7 @@ import PostItem from "./components/PostItem"
 import Home from "./components/Home"
 import ViewProfile from "./components/ViewProfile"
 import ViewItem from "./components/ViewItem"
+import ChangePassword from "./components/ChangePassword"
 import itemService from "./services/itemService"
 import { actionSetAuth } from "./reducers/authReducer"
 
@@ -67,12 +68,12 @@ const App = () => {
           <ViewItem />
         </Route>
 
-        <Route path="/view_profile/:id">
-          <ViewProfile />
+        <Route path="/view_profile/:id/change_password">
+          <ChangePassword />
         </Route>
 
-        <Route path="/change_password">
-          <p>change password</p>
+        <Route path="/view_profile/:id">
+          <ViewProfile />
         </Route>
 
         <Route path="/">

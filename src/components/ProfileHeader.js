@@ -14,7 +14,7 @@ const ProfileHeader = ({ username, id }) => {
   }
 
   if (redirect) {
-    return <Redirect to="/change_password" />
+    return <Redirect to={`/view_profile/${auth.id}/change_password`} />
   }
 
   return (
