@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { Card, CardGroup } from "react-bootstrap"
 import itemService from "../services/itemService"
-import CardWrapper from "./CardWrapper"
 import ItemPreview from "./ItemPreview"
-import SearchItem from "./SearchItem"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { dateSortByLatest } from "../utils/dateSorter"
-import "../styles/Home.css"
+import ViewAllItemsWrapper from "./ViewAllItemsWrapper"
 
 const Home = () => {
   const [items, setItems] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const getAllAvailableItems = async () => {
@@ -20,58 +18,45 @@ const Home = () => {
       setItems(availableItems)
     }
 
-    setLoading(true)
     getAllAvailableItems()
     setLoading(false)
   }, [])
 
-  if (loading) {
+  if (loading || !items) {
     return(
-      <CardWrapper>
-        <SearchItem />
-        <CardWrapper>
-          <Card.Title className="itemSectionTitle">Latest</Card.Title>
-          <CenteredSpinnerCol />
-        </CardWrapper>
-      </CardWrapper>
+      <ViewAllItemsWrapper sectionTitle="Latest">
+        <CenteredSpinnerCol />
+      </ViewAllItemsWrapper>
     )
   }
 
   if (!loading && items.length <= 0) {
     return (
-      <CardWrapper>
-        <SearchItem />
-        <CardWrapper>
-          <Card.Title className="itemSectionTitle">Latest</Card.Title>
-          <Card.Text>There are currently no items</Card.Text>
-        </CardWrapper>
-      </CardWrapper>
+      <ViewAllItemsWrapper sectionTitle="Latest">
+        <Card.Text>There are currently no items</Card.Text>
+      </ViewAllItemsWrapper>
     )
   }
 
   return (
-    <CardWrapper>
-      <SearchItem />
-      <CardWrapper>
-        <Card.Title className="itemSectionTitle">Latest</Card.Title>
-        <CardGroup>
-          {items.map(item =>
-            <div key={item.id}>
-              <ItemPreview
-                id={item.id}
-                firstImage={item.imagePaths[0]}
-                name={item.name}
-                category={item.category}
-                condition={item.condition}
-                datePosted={item.datePosted}
-                username={item.postedBy.username}
-                userID={item.postedBy.id}
-              />
-            </div>
-          )}
-        </CardGroup>
-      </CardWrapper>
-    </CardWrapper>
+    <ViewAllItemsWrapper sectionTitle="Latest">
+      <CardGroup>
+        {items.map(item =>
+          <div key={item.id}>
+            <ItemPreview
+              id={item.id}
+              firstImage={item.imagePaths[0]}
+              name={item.name}
+              category={item.category}
+              condition={item.condition}
+              datePosted={item.datePosted}
+              username={item.postedBy.username}
+              userID={item.postedBy.id}
+            />
+          </div>
+        )}
+      </CardGroup>
+    </ViewAllItemsWrapper>
   )
 }
 
