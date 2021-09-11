@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import { Redirect } from "react-router-dom"
-import { Button, Card, Col, Row } from "react-bootstrap"
+import { Button, Card, Col, Dropdown, DropdownButton, Row } from "react-bootstrap"
 import "../styles/ProfileHeader.css"
 
 const ProfileHeader = ({ username, id }) => {
@@ -26,19 +26,22 @@ const ProfileHeader = ({ username, id }) => {
           </Col>
           <Col>
           {sameUser
-            ? <Button
-              type={null}
-              variant="danger"
-              className="changePasswordButton"
-              onClick={handleChangePasswordButton}
+            ? <DropdownButton
+            title="Manage account "
+            drop="down"
+            variant="warning"
+            className="dropdownBase"
             >
-              Change password
-            </Button>
+              <Dropdown.Item>Trade history</Dropdown.Item>
+              <Dropdown.Item onClick={handleChangePasswordButton}>
+                Change password
+              </Dropdown.Item>
+            </DropdownButton>
             : <Button
               type={null}
               className="sendMessageButton"
             >
-              Send message
+              Message user
             </Button>
           }
           </Col>
