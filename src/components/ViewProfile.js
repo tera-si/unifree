@@ -30,7 +30,8 @@ const ViewProfile = () => {
     )
   }
 
-  const itemSorted = profile.items.sort(dateSortByLatest)
+  const itemFiltered = profile.items.filter(item => item.availability !== false)
+  const itemSorted = itemFiltered.sort(dateSortByLatest)
 
   if (itemSorted.length <= 0) {
     return (
