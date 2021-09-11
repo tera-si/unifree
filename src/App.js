@@ -13,6 +13,7 @@ import itemService from "./services/itemService"
 import { actionSetAuth } from "./reducers/authReducer"
 
 // TODO: chat and chat-notification with socket.io
+// TODO: transaction history (backend + frontend + mongoDB)
 //? Comment in user profile ?//
 
 const App = () => {
