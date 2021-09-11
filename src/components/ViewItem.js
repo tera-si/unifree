@@ -36,6 +36,9 @@ const ViewItem = () => {
   const descriptionParsed = item.description.split("\n")
   const sameUser = auth.id === item.postedBy.id
 
+  // TODO: use modal instead of window popup
+  // TODO: ask which user did you trade this item with, by selecting from the
+  // recently chatted
   const handleMarkTraded = async () => {
     if (window.confirm("Mark this item as traded?")) {
       const updatedItem = {
