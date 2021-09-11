@@ -10,46 +10,66 @@ import "../styles/Home.css"
 
 const Home = () => {
   const [items, setItems] = useState([])
-  const loading = !items
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const getAllItems = async () => {
+    const getAllAvailableItems = async () => {
       const data = await itemService.getAll()
-      data.sort(dateSortByLatest)
-      setItems(data)
+      const availableItems = data.filter(item => item.availability !== false)
+      availableItems.sort(dateSortByLatest)
+      setItems(availableItems)
     }
 
-    getAllItems()
+    setLoading(true)
+    getAllAvailableItems()
+    setLoading(false)
   }, [])
+
+  if (loading) {
+    return(
+      <CardWrapper>
+        <SearchItem />
+        <CardWrapper>
+          <Card.Title className="itemSectionTitle">Latest</Card.Title>
+          <CenteredSpinnerCol />
+        </CardWrapper>
+      </CardWrapper>
+    )
+  }
+
+  if (!loading && items.length <= 0) {
+    return (
+      <CardWrapper>
+        <SearchItem />
+        <CardWrapper>
+          <Card.Title className="itemSectionTitle">Latest</Card.Title>
+          <Card.Text>There are currently no items</Card.Text>
+        </CardWrapper>
+      </CardWrapper>
+    )
+  }
 
   return (
     <CardWrapper>
       <SearchItem />
       <CardWrapper>
         <Card.Title className="itemSectionTitle">Latest</Card.Title>
-        {loading
-          ? <CenteredSpinnerCol />
-          : <CardGroup>
-            {items.map(item =>
-              <div key={item.id}>
-                <ItemPreview
-                  id={item.id}
-                  firstImage={item.imagePaths[0]}
-                  name={item.name}
-                  category={item.category}
-                  condition={item.condition}
-                  datePosted={item.datePosted}
-                  username={item.postedBy.username}
-                  userID={item.postedBy.id}
-                />
-              </div>
-            )}
-          {items.length <= 0
-            ? <Card.Text>There are currently no items</Card.Text>
-            : null
-          }
-          </CardGroup>
-        }
+        <CardGroup>
+          {items.map(item =>
+            <div key={item.id}>
+              <ItemPreview
+                id={item.id}
+                firstImage={item.imagePaths[0]}
+                name={item.name}
+                category={item.category}
+                condition={item.condition}
+                datePosted={item.datePosted}
+                username={item.postedBy.username}
+                userID={item.postedBy.id}
+              />
+            </div>
+          )}
+        </CardGroup>
       </CardWrapper>
     </CardWrapper>
   )
