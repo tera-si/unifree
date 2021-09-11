@@ -11,6 +11,9 @@ const PostItemRequirement = () => {
         </Accordion.Header>
         <Accordion.Body>
           <ListGroup variant="flush" className="listBase">
+            <ListGroup.Item action variant="warning">
+              Do not include any personal or sensitive information
+            </ListGroup.Item>
             <ListGroup.Item action>
               Must include at least 1 image
             </ListGroup.Item>
