@@ -9,8 +9,8 @@ const RegisterRequirement = () => {
         <Accordion.Header>Account Requirements</Accordion.Header>
         <Accordion.Body>
           <ListGroup variant="flush" className="listBase">
-            <ListGroup.Item action variant="warning">
-              Do not use any of your real credentials in this demo
+            <ListGroup.Item action variant="danger">
+              <strong>Do not use any of your real credentials in this demo</strong>
             </ListGroup.Item>
             <ListGroup.Item action>
               Username is case sensitive
