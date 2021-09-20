@@ -1,7 +1,7 @@
 import React, { useState, createRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router-dom"
-import { Button, Card, Form } from "react-bootstrap"
+import { Button, Card, Form, Spinner } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import CardWrapper from "./CardWrapper"
 import LabelledInputRow from "./LabelledInputRow"
@@ -96,14 +96,14 @@ const ChangePassword = () => {
     setLoading(true)
 
     try {
-      const response = await userService.updateProfile(id, {
+      await userService.updateProfile(id, {
         oldPassword: oldPasswordTrim,
         password: newPasswordTrim,
       }, auth.token)
 
       dispatch(actionSetSuccessNotice("Password successfully changed"))
-      logout()
       setRedirect(true)
+      logout()
     }
     catch (e) {
       dispatch(actionSetErrorNotice(`Error: ${e.response.data.error}`))
@@ -120,24 +120,38 @@ const ChangePassword = () => {
         <LabelledInputRow
           label="Original password"
           type="password"
+          disabled={loading}
           ref={refs.oldPassword}
         />
         <LabelledInputRow
           label="New password"
           type="password"
+          disabled={loading}
           ref={refs.newPassword}
         />
         <LabelledInputRow
           label="Confirm new password"
           type="password"
+          disabled={loading}
           ref={refs.confirmPassword}
         />
-        <Button
-          type="submit"
-          className="changePasswordButton"
-        >
-          Change password
-        </Button>
+        {loading
+          ? <Button disabled className="changePasswordButton">
+            <Spinner
+              as="span"
+              animation="border"
+              role="status"
+              aria-hidden="true"
+            />
+            <span className="hidden">Loading...</span>
+          </Button>
+          : <Button
+            type="submit"
+            className="changePasswordButton"
+          >
+            Change password
+          </Button>
+        }
       </Form>
     </CardWrapper>
   )
