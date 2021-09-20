@@ -41,12 +41,27 @@ const RegisterForm = () => {
       return
     }
 
+    if (username.current.value.trim().length < 8) {
+      dispatch(actionSetErrorNotice("Error: username must be at least 8 characters long"))
+      return
+    }
+
+    if (password.current.value.trim().length < 8) {
+      dispatch(actionSetErrorNotice("Error: password must be at least 8 characters long"))
+      return
+    }
+
     const usernameTrim = username.current.value.trim()
     const passwordTrim = password.current.value.trim()
     const confirmPasswordTrim = confirmPassword.current.value.trim()
 
     if (passwordTrim !== confirmPasswordTrim) {
       dispatch(actionSetErrorNotice("Error: password and confirm password does not match"))
+      return
+    }
+
+    if (passwordTrim === usernameTrim) {
+      dispatch(actionSetErrorNotice("Error: password cannot be the same as username"))
       return
     }
 
