@@ -17,6 +17,7 @@ import { actionSetAuth } from "./reducers/authReducer"
 // TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
 // TODO: wrap try-catch block around all backend communication
+// TODO: remove localstorage when website is closed
 //? Comment in user profile ?//
 
 const App = () => {

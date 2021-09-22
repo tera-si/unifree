@@ -92,7 +92,6 @@ const ChangePassword = () => {
     }
 
     clearAllInputs()
-    // TODO: disable input fields and set spinner
     setLoading(true)
 
     try {
