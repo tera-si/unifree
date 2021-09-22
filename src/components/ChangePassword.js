@@ -100,8 +100,8 @@ const ChangePassword = () => {
         password: newPasswordTrim,
       }, auth.token)
 
-      logout()
       setRedirect(true)
+      logout()
       dispatch(actionSetSuccessNotice("Password successfully changed"))
     }
     catch (e) {
