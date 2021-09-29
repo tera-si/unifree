@@ -10,6 +10,7 @@ import ViewItemBasicInfo from "./ViewItemBasicInfo"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { actionSetSelectedUser, actionClearSelectedUser } from "../reducers/selectedUserReducer"
 import { actionSetSelectedItem, actionClearSelectedItem } from "../reducers/selectedItemReducer"
+import socket from "../socket"
 import "../styles/ViewItem.css"
 
 const ViewItem = () => {
@@ -63,10 +64,13 @@ const ViewItem = () => {
   }
 
   const handleMessageOwner = () => {
-    // TODO
+    // TODO: concat message and user after emitting message
     dispatch(actionSetSelectedUser(item.postedBy.id, item.postedBy.username))
     dispatch(actionSetSelectedItem(id, item.name))
-    console.log(`send predefined message`)
+    socket.emit("privateMessage", {
+      to: item.postedBy.id,
+      content: `Hello, I am interested in ${item.name}`
+    })
     setRedirect(true)
   }
 
