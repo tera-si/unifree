@@ -6,6 +6,8 @@ import { actionClearAuth } from "../reducers/authReducer"
 import itemService from "../services/itemService"
 import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
 import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
+import { actionClearChatUsers } from "../reducers/allChatUsersReducer"
+import { actionClearChatMessages } from "../reducers/allChatMessageReducer"
 import "../styles/Navigation.css"
 
 const Navigation = () => {
@@ -18,6 +20,8 @@ const Navigation = () => {
     dispatch(actionClearAuth())
     dispatch(actionClearSelectedItem())
     dispatch(actionClearSelectedUser())
+    dispatch(actionClearChatMessages())
+    dispatch(actionClearChatUsers())
   }
 
   return (

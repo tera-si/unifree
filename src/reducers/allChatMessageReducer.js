@@ -22,12 +22,20 @@ export const actionConcatNewMessage = (newMessage) => {
   }
 }
 
+export const actionClearChatMessages = () => {
+  return {
+    type: "CLEAR_CHAT_MESSAGES"
+  }
+}
+
 const reducer = (state = [], action) => {
   switch (action.type) {
     case "SET_ALL_CHAT_MESSAGES":
       return action.data
     case "CONCAT_NEW_CHAT_MESSAGE":
       return [...state, action.data]
+    case "CLEAR_CHAT_MESSAGES":
+      return []
     default:
       return state
   }

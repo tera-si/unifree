@@ -22,6 +22,12 @@ export const actionConcatNewUser = (newUser) => {
   }
 }
 
+export const actionClearChatUsers = () => {
+  return {
+    type: "CLEAR_CHAT_USERS"
+  }
+}
+
 const _idIndex = (state, userId) => {
   for (let i = 0; i < state.length; i++) {
     const user = state[i]
@@ -46,6 +52,8 @@ const reducer = (state = [], action) => {
       }
 
       return state
+    case "CLEAR_CHAT_USERS":
+      return []
     default:
       return state
   }
