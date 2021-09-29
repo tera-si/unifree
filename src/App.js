@@ -15,7 +15,7 @@ import Message from "./components/Message"
 import itemService from "./services/itemService"
 import { actionSetAuth } from "./reducers/authReducer"
 import { actionConcatNewMessage, actionSetAllMessages } from "./reducers/allChatMessageReducer"
-import { actionSetAllUsers } from "./reducers/allChatUsersReducer"
+import { actionConcatNewUser, actionSetAllUsers } from "./reducers/allChatUsersReducer"
 
 // TODO: chat and chat-notification with socket.io
 // TODO: transaction history (backend + frontend + mongoDB)
@@ -93,7 +93,7 @@ const App = () => {
         for (const message of array) {
           allMessages.push(message)
 
-          if (message.sentFrom !== auth.id) {
+          if (message.sentFrom.id !== auth.id) {
             if (_idIndex(message.sentFrom.id) === -1) {
               allUsers.push({
                 userId: message.sentFrom.id,
@@ -102,7 +102,7 @@ const App = () => {
             }
           }
 
-          if (message.sentTo !== auth.id) {
+          if (message.sentTo.id !== auth.id) {
             if (_idIndex(message.sentTo.id) === -1) {
               allUsers.push({
                 userId: message.sentTo.id,
@@ -119,6 +119,21 @@ const App = () => {
 
     socket.on("privateMessage", ({ message }) => {
       alert("new message received!")
+
+      if (message.sentFrom.id !== auth.id) {
+        dispatch(actionConcatNewUser({
+          userId: message.sentFrom.id,
+          username: message.sentFrom.username
+        }))
+      }
+
+      if (message.sentTo.id !== auth.id) {
+        dispatch(actionConcatNewUser({
+          userId: message.sentTo.id,
+          username: message.sentTo.username
+        }))
+      }
+
       dispatch(actionConcatNewMessage(message))
     })
   }

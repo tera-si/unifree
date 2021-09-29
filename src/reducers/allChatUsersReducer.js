@@ -22,12 +22,30 @@ export const actionConcatNewUser = (newUser) => {
   }
 }
 
+const _idIndex = (state, userId) => {
+  for (let i = 0; i < state.length; i++) {
+    const user = state[i]
+
+    if (user.userId === userId) {
+      return i
+    }
+  }
+
+  return -1
+}
+
 const reducer = (state = [], action) => {
   switch (action.type) {
     case "SET_ALL_CHAT_USERS":
       return action.data
     case "CONCAT_NEW_CHAT_USER":
-      return [...state, action.data]
+      const index = _idIndex(state, action.data.userId)
+
+      if (index === -1) {
+        return [...state, action.data]
+      }
+
+      return state
     default:
       return state
   }
