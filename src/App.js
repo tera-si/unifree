@@ -60,7 +60,6 @@ const App = () => {
     )
   }
 
-  // TODO: listen for fetch all messages and new private messages
   const connectSocket = () => {
     socket.auth = {
       token: auth.token,
