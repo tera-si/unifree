@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
 import { Card, CardGroup } from "react-bootstrap"
 import itemService from "../services/itemService"
 import ItemPreview from "./ItemPreview"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { dateSortByLatest } from "../utils/dateSorter"
 import ViewAllItemsWrapper from "./ViewAllItemsWrapper"
+import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
+import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 
 const Home = () => {
+  const dispatch = useDispatch()
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    dispatch(actionClearSelectedItem())
+    dispatch(actionClearSelectedUser())
+
     const getAllAvailableItems = async () => {
       const data = await itemService.getAll()
       const availableItems = data.filter(item => item.availability !== false)
@@ -20,7 +27,7 @@ const Home = () => {
 
     getAllAvailableItems()
     setLoading(false)
-  }, [])
+  }, [dispatch])
 
   if (loading || !items) {
     return(

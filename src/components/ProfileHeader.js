@@ -1,20 +1,34 @@
 import React, { useState } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { Button, Card, Col, Dropdown, DropdownButton, Row } from "react-bootstrap"
+import { actionSetSelectedUser } from "../reducers/selectedUserReducer"
+import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
 import "../styles/ProfileHeader.css"
 
 const ProfileHeader = ({ username, id }) => {
-  const [redirect, setRedirect] = useState(false)
+  const dispatch = useDispatch()
+  const [redirectToPassword, setRedirectToPassword] = useState(false)
+  const [redirectToMessage, setRedirectToMessage] = useState(false)
   const auth = useSelector(state => state.auth)
   const sameUser = auth.id === id
 
-  const handleChangePasswordButton = () => {
-    setRedirect(true)
+  if (redirectToPassword) {
+    return <Redirect to={`/view_profile/${auth.id}/change_password`} />
   }
 
-  if (redirect) {
-    return <Redirect to={`/view_profile/${auth.id}/change_password`} />
+  if (redirectToMessage) {
+    return <Redirect to="/message" />
+  }
+
+  const handleChangePassword = () => {
+    setRedirectToPassword(true)
+  }
+
+  const handleMessageOwner = () => {
+    dispatch(actionClearSelectedItem())
+    dispatch(actionSetSelectedUser(id, username))
+    setRedirectToMessage(true)
   }
 
   return (
@@ -33,13 +47,14 @@ const ProfileHeader = ({ username, id }) => {
             className="dropdownBase"
             >
               <Dropdown.Item>Trade history</Dropdown.Item>
-              <Dropdown.Item onClick={handleChangePasswordButton}>
+              <Dropdown.Item onClick={handleChangePassword}>
                 Change password
               </Dropdown.Item>
             </DropdownButton>
             : <Button
               type={null}
               className="sendMessageButton"
+              onClick={handleMessageOwner}
             >
               Message user
             </Button>

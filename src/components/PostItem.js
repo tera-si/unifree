@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react"
+import React, { useState, createRef, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { Button, Card, Col, CardGroup, Form, Row, Spinner } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
@@ -8,11 +8,18 @@ import PostItemRequirement from "./PostItemRequirement"
 import itemService from "../services/itemService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
 import "../styles/PostItem.css"
+import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
+import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 
 const PostItem = () => {
   const [uploadedImages, setUploadedImages] = useState([])
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(actionClearSelectedItem())
+    dispatch(actionClearSelectedUser())
+  }, [dispatch])
 
   const refs = {
     name: createRef(),

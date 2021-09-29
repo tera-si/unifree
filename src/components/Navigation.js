@@ -4,6 +4,8 @@ import { Link } from "react-router-dom"
 import { Navbar, Nav, Button } from "react-bootstrap"
 import { actionClearAuth } from "../reducers/authReducer"
 import itemService from "../services/itemService"
+import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
+import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 import "../styles/Navigation.css"
 
 const Navigation = () => {
@@ -14,6 +16,8 @@ const Navigation = () => {
     window.localStorage.removeItem("unifree-current-user")
     itemService.setToken(null)
     dispatch(actionClearAuth())
+    dispatch(actionClearSelectedItem())
+    dispatch(actionClearSelectedUser())
   }
 
   return (
@@ -41,6 +45,9 @@ const Navigation = () => {
           ? null
           : <>
             <Nav>
+              <Nav.Link as="span" className="navLinkBox">
+                <Link to="/message" className="navLinkText">Message</Link>
+              </Nav.Link>
               <Nav.Link as="span" className="navLinkBox">
                 <Link to={`/view_profile/${auth.id}`} className="navLinkText">My Profile</Link>
               </Nav.Link>

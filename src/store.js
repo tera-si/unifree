@@ -3,10 +3,18 @@ import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension"
 import authReducer from "./reducers/authReducer"
 import notificationReducer from "./reducers/notificationReducer"
+import selectedUserReducer from "./reducers/selectedUserReducer"
+import selectedItemReducer from "./reducers/selectedItemReducer"
+import allChatUsersReducer from "./reducers/allChatUsersReducer"
+import allChatMessageReducer from "./reducers/allChatMessageReducer"
 
 const reducers = combineReducers({
   auth: authReducer,
-  notification: notificationReducer
+  notification: notificationReducer,
+  selectedUser: selectedUserReducer,
+  selectedItem: selectedItemReducer,
+  allChatUsers: allChatUsersReducer,
+  allChatMessages: allChatMessageReducer,
 })
 
 const store = createStore(

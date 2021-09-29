@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react"
+import React, { useState, createRef, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { Button, Card, Form, Spinner } from "react-bootstrap"
@@ -11,6 +11,8 @@ import itemService from "../services/itemService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
 import { actionClearAuth } from "../reducers/authReducer"
 import "../styles/ChangePassword.css"
+import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
+import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 
 const ChangePassword = () => {
   const { id } = useParams()
@@ -18,6 +20,11 @@ const ChangePassword = () => {
   const [redirect, setRedirect] = useState(false)
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
+
+  useEffect(() => {
+    dispatch(actionClearSelectedItem())
+    dispatch(actionClearSelectedUser())
+  }, [dispatch])
 
   if (redirect) {
     return <Redirect to="/" />

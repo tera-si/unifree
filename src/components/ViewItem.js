@@ -1,28 +1,39 @@
 import React, { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Button, Card, Dropdown, DropdownButton, Row, Col } from "react-bootstrap"
-import { useParams } from "react-router-dom"
+import { useParams, Redirect } from "react-router-dom"
 import itemService from "../services/itemService"
 import CardWrapper from "./CardWrapper"
 import ViewItemHeader from "./ViewItemHeader"
 import ItemCarousel from "./ItemCarousel"
 import ViewItemBasicInfo from "./ViewItemBasicInfo"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
+import { actionSetSelectedUser, actionClearSelectedUser } from "../reducers/selectedUserReducer"
+import { actionSetSelectedItem, actionClearSelectedItem } from "../reducers/selectedItemReducer"
 import "../styles/ViewItem.css"
 
 const ViewItem = () => {
+  const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
+  const [redirect, setRedirect] = useState(false)
   const [item, setItem] = useState(null)
   const { id } = useParams()
 
   useEffect(() => {
+    dispatch(actionClearSelectedItem())
+    dispatch(actionClearSelectedUser())
+
     const getItem = async () => {
       const response = await itemService.getItem(id)
       setItem(response)
     }
 
     getItem()
-  }, [id])
+  }, [id, dispatch])
+
+  if (redirect) {
+    return <Redirect to="/message" />
+  }
 
   if (!item) {
     return (
@@ -37,7 +48,7 @@ const ViewItem = () => {
   const sameUser = auth.id === item.postedBy.id
 
   // TODO: use modal instead of window popup
-  // TODO: ask which user did you trade this item with, by selecting from the
+  // TODO: ask which user did you traded this item with, by selecting from the
   // recently chatted
   const handleMarkTraded = async () => {
     if (window.confirm("Mark this item as traded?")) {
@@ -49,6 +60,14 @@ const ViewItem = () => {
       //? is there anything I need to do with the response ?//
       await itemService.putUpdate(id, updatedItem)
     }
+  }
+
+  const handleMessageOwner = () => {
+    // TODO
+    dispatch(actionSetSelectedUser(item.postedBy.id, item.postedBy.username))
+    dispatch(actionSetSelectedItem(id, item.name))
+    console.log(`send predefined message`)
+    setRedirect(true)
   }
 
   return (
@@ -88,6 +107,7 @@ const ViewItem = () => {
             : <Button
               type={null}
               className="messageButton"
+              onClick={handleMessageOwner}
             >
               Message owner
             </Button>

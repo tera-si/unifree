@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 import { Card, CardGroup } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
@@ -7,20 +8,26 @@ import ItemPreview from "./ItemPreview"
 import userService from "../services/userService"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { dateSortByLatest } from "../utils/dateSorter"
+import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
+import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 import "../styles/ViewProfile.css"
 
 const ViewProfile = () => {
+  const dispatch = useDispatch()
   const { id } = useParams()
   const [profile, setProfile] = useState(null)
 
   useEffect(() => {
+    dispatch(actionClearSelectedItem())
+    dispatch(actionClearSelectedUser())
+
     const getProfile = async () => {
       const response = await userService.getProfile(id)
       setProfile(response)
     }
 
     getProfile()
-  }, [id])
+  }, [id, dispatch])
 
   if (!profile) {
     return (
