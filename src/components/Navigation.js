@@ -2,6 +2,7 @@ import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { Navbar, Nav, Button } from "react-bootstrap"
+import socket from "../socket"
 import { actionClearAuth } from "../reducers/authReducer"
 import itemService from "../services/itemService"
 import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
@@ -17,6 +18,9 @@ const Navigation = () => {
   const handleLogout = () => {
     window.localStorage.removeItem("unifree-current-user")
     itemService.setToken(null)
+
+    socket.disconnect()
+
     dispatch(actionClearAuth())
     dispatch(actionClearSelectedItem())
     dispatch(actionClearSelectedUser())
