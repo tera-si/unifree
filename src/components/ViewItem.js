@@ -12,6 +12,8 @@ import { actionSetSelectedUser, actionClearSelectedUser } from "../reducers/sele
 import { actionSetSelectedItem, actionClearSelectedItem } from "../reducers/selectedItemReducer"
 import socket from "../socket"
 import "../styles/ViewItem.css"
+import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
+import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
 
 const ViewItem = () => {
   const dispatch = useDispatch()
@@ -64,13 +66,34 @@ const ViewItem = () => {
   }
 
   const handleMessageOwner = () => {
-    // TODO: concat message and user after emitting message
     dispatch(actionSetSelectedUser(item.postedBy.id, item.postedBy.username))
     dispatch(actionSetSelectedItem(id, item.name))
+
     socket.emit("privateMessage", {
       to: item.postedBy.id,
       content: `Hello, I am interested in ${item.name}`
     })
+
+    const newMessage = {
+      dateSent: new Date(),
+      sentFrom: {
+        id: auth.id,
+        username: auth.username
+      },
+      content: `Hello, I am interested in ${item.name}`,
+      sentTo: {
+        id: item.postedBy.id,
+        username: item.postedBy.username
+      },
+      newMessage: false,
+    }
+
+    dispatch(actionConcatNewMessage(newMessage))
+    dispatch(actionConcatNewUser({
+      userId: item.postedBy.id,
+      username: item.postedBy.username
+    }))
+
     setRedirect(true)
   }
 
