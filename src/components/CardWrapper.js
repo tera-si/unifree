@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap"
 
 const CardWrapper = (props) => {
   return (
-    <Card>
+    <Card className={props.class}>
       {!props.cardHeader
         ? null
         : <Card.Header>{props.cardHeader}</Card.Header>

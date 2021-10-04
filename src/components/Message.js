@@ -1,20 +1,21 @@
 import React from "react"
 import { useSelector } from "react-redux"
+import { Card } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
+import MessageFullContainer from "./MessageFullContainer"
 
+// TODO: handle read message
 const Message = () => {
-  const selectedItem = useSelector(state => state.selectedItem)
   const selectedUser = useSelector(state => state.selectedUser)
-  const allMessages = useSelector(state => state.allChatMessages)
 
-  // debugging
-  console.log(`allMessages: ${allMessages}`)
-  console.log(`allMessages: ${typeof(allMessages)}`)
+  const isSmallScreen = window.innerWidth <= 700
 
   return (
     <CardWrapper>
-      Message
-      <p>{allMessages}</p>
+      <Card.Title>Message</Card.Title>
+      <MessageFullContainer
+        selectedUser={selectedUser}
+      />
     </CardWrapper>
   )
 }

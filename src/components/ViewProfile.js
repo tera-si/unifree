@@ -7,7 +7,7 @@ import ProfileHeader from "./ProfileHeader"
 import ItemPreview from "./ItemPreview"
 import userService from "../services/userService"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
-import { dateSortByLatest } from "../utils/dateSorter"
+import { itemDateSortByLatest } from "../utils/dateSorter"
 import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
 import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 import "../styles/ViewProfile.css"
@@ -38,7 +38,7 @@ const ViewProfile = () => {
   }
 
   const itemFiltered = profile.items.filter(item => item.availability !== false)
-  const itemSorted = itemFiltered.sort(dateSortByLatest)
+  const itemSorted = itemFiltered.sort(itemDateSortByLatest)
 
   if (itemSorted.length <= 0) {
     return (

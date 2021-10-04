@@ -4,7 +4,7 @@ import { Card, CardGroup } from "react-bootstrap"
 import itemService from "../services/itemService"
 import ItemPreview from "./ItemPreview"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
-import { dateSortByLatest } from "../utils/dateSorter"
+import { itemDateSortByLatest } from "../utils/dateSorter"
 import ViewAllItemsWrapper from "./ViewAllItemsWrapper"
 import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
 import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
@@ -21,7 +21,7 @@ const Home = () => {
     const getAllAvailableItems = async () => {
       const data = await itemService.getAll()
       const availableItems = data.filter(item => item.availability !== false)
-      availableItems.sort(dateSortByLatest)
+      availableItems.sort(itemDateSortByLatest)
       setItems(availableItems)
     }
 

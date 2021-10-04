@@ -17,7 +17,6 @@ import { actionSetAuth } from "./reducers/authReducer"
 import { actionConcatNewMessage, actionSetAllMessages } from "./reducers/allChatMessageReducer"
 import { actionConcatNewUser, actionSetAllUsers } from "./reducers/allChatUsersReducer"
 
-// TODO: chat and chat-notification with socket.io
 // TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
 // TODO: wrap try-catch block around all backend communication
@@ -39,7 +38,6 @@ const App = () => {
     }
   }, [dispatch])
 
-
   if (!auth) {
     return (
       <div className="container">
@@ -60,6 +58,7 @@ const App = () => {
     )
   }
 
+  // FIXME: if you logout and then login again, you will receive duplicate messages
   const connectSocket = () => {
     socket.auth = {
       token: auth.token,
@@ -90,7 +89,7 @@ const App = () => {
 
       for (const array of messages) {
         for (const message of array) {
-          allMessages.push(message)
+          allMessages.push({ ...message, dateSent: new Date(message.dateSent) })
 
           if (message.sentFrom.id !== auth.id) {
             if (_idIndex(message.sentFrom.id) === -1) {
@@ -116,8 +115,11 @@ const App = () => {
       dispatch(actionSetAllUsers(allUsers))
     })
 
+    // TODO: dispatch notification when new message is received
     socket.on("privateMessage", ({ message }) => {
       alert("new message received!")
+
+      const newMessage = {...message, dateSent: new Date(message.dateSent)}
 
       if (message.sentFrom.id !== auth.id) {
         dispatch(actionConcatNewUser({
@@ -133,7 +135,7 @@ const App = () => {
         }))
       }
 
-      dispatch(actionConcatNewMessage(message))
+      dispatch(actionConcatNewMessage(newMessage))
     })
   }
 

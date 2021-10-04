@@ -25,6 +25,7 @@ const ProfileHeader = ({ username, id }) => {
     setRedirectToPassword(true)
   }
 
+  // FIXME: message page is still empty if you have not chatted with that user yet
   const handleMessageOwner = () => {
     dispatch(actionClearSelectedItem())
     dispatch(actionSetSelectedUser(id, username))
