@@ -7,8 +7,16 @@ import MessageFullContainer from "./MessageFullContainer"
 // TODO: handle read message
 const Message = () => {
   const selectedUser = useSelector(state => state.selectedUser)
-
   const isSmallScreen = window.innerWidth <= 700
+
+  // TODO
+  if (isSmallScreen) {
+    return (
+      <div>
+        Mobile View!
+      </div>
+    )
+  }
 
   return (
     <CardWrapper>
