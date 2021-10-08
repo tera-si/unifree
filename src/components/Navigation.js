@@ -10,6 +10,7 @@ import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 import { actionClearChatUsers } from "../reducers/allChatUsersReducer"
 import { actionClearChatMessages } from "../reducers/allChatMessageReducer"
 import "../styles/Navigation.css"
+import { handleFetchAllMessages, handlePrivateMessage } from "../socketHandlers"
 
 const Navigation = () => {
   const auth = useSelector(state => state.auth)
@@ -20,6 +21,8 @@ const Navigation = () => {
     itemService.setToken(null)
 
     socket.disconnect()
+    socket.off("fetchAllMessages", handleFetchAllMessages)
+    socket.off("privateMessage", handlePrivateMessage)
 
     dispatch(actionClearAuth())
     dispatch(actionClearSelectedItem())

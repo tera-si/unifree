@@ -13,9 +13,8 @@ import ViewItem from "./components/ViewItem"
 import ChangePassword from "./components/ChangePassword"
 import Message from "./components/Message"
 import itemService from "./services/itemService"
+import { handleFetchAllMessages, handlePrivateMessage } from "./socketHandlers"
 import { actionSetAuth } from "./reducers/authReducer"
-import { actionConcatNewMessage, actionSetAllMessages } from "./reducers/allChatMessageReducer"
-import { actionConcatNewUser, actionSetAllUsers } from "./reducers/allChatUsersReducer"
 
 // TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
@@ -38,6 +37,32 @@ const App = () => {
     }
   }, [dispatch])
 
+  useEffect(() => {
+    const connectSocket = () => {
+      socket.auth = {
+        token: auth.token,
+        userId: auth.id,
+        username: auth.username
+      }
+      socket.connect()
+
+      socket.on("connect", () => {
+        socket.off("fetchAllMessages", handleFetchAllMessages)
+        socket.off("privateMessage", handlePrivateMessage)
+
+        console.log(`socket connection established at ${socket.id}`)
+
+        socket.on("fetchAllMessages", handleFetchAllMessages)
+        socket.on("privateMessage", handlePrivateMessage)
+      })
+
+    }
+
+    if (auth) {
+      connectSocket()
+    }
+  }, [auth])
+
   if (!auth) {
     return (
       <div className="container">
@@ -58,90 +83,8 @@ const App = () => {
     )
   }
 
-  // FIXME: if you logout and then login again, you will receive duplicate messages
-  const connectSocket = () => {
-    socket.auth = {
-      token: auth.token,
-      userId: auth.id,
-      username: auth.username
-    }
-    socket.connect()
-
-    socket.on("connect", () => {
-      console.log(`socket connection established at ${socket.id}`)
-    })
-
-    socket.on("fetchAllMessages", ({ messages }) => {
-      const allMessages = []
-      const allUsers = []
-
-      const _idIndex = (userId) => {
-        for (let i = 0; i < allUsers.length; i++) {
-          const user = allUsers[i]
-
-          if (user.userId === userId) {
-            return i
-          }
-        }
-
-        return -1
-      }
-
-      for (const array of messages) {
-        for (const message of array) {
-          allMessages.push({ ...message, dateSent: new Date(message.dateSent) })
-
-          if (message.sentFrom.id !== auth.id) {
-            if (_idIndex(message.sentFrom.id) === -1) {
-              allUsers.push({
-                userId: message.sentFrom.id,
-                username: message.sentFrom.username
-              })
-            }
-          }
-
-          if (message.sentTo.id !== auth.id) {
-            if (_idIndex(message.sentTo.id) === -1) {
-              allUsers.push({
-                userId: message.sentTo.id,
-                username: message.sentTo.username
-              })
-            }
-          }
-        }
-      }
-
-      dispatch(actionSetAllMessages(allMessages))
-      dispatch(actionSetAllUsers(allUsers))
-    })
-
-    // TODO: dispatch notification when new message is received
-    socket.on("privateMessage", ({ message }) => {
-      alert("new message received!")
-
-      const newMessage = {...message, dateSent: new Date(message.dateSent)}
-
-      if (message.sentFrom.id !== auth.id) {
-        dispatch(actionConcatNewUser({
-          userId: message.sentFrom.id,
-          username: message.sentFrom.username
-        }))
-      }
-
-      if (message.sentTo.id !== auth.id) {
-        dispatch(actionConcatNewUser({
-          userId: message.sentTo.id,
-          username: message.sentTo.username
-        }))
-      }
-
-      dispatch(actionConcatNewMessage(newMessage))
-    })
-  }
-
   return (
     <div className="container">
-      {connectSocket()}
       <Navigation />
 
       <Switch>
