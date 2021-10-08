@@ -47,6 +47,8 @@ const App = () => {
       socket.connect()
 
       socket.on("connect", () => {
+        // Removes leftover listeners, otherwise every new connection (e.g. re-login)
+        // will concat duplicate listeners, resulting in duplicate events
         socket.off("fetchAllMessages", handleFetchAllMessages)
         socket.off("privateMessage", handlePrivateMessage)
 

@@ -21,6 +21,7 @@ const Navigation = () => {
     itemService.setToken(null)
 
     socket.disconnect()
+    // Removes leftover listeners to prevent duplicate events in the next login
     socket.off("fetchAllMessages", handleFetchAllMessages)
     socket.off("privateMessage", handlePrivateMessage)
 

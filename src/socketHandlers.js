@@ -2,6 +2,8 @@ import store from "./store"
 import { actionSetAllMessages, actionConcatNewMessage } from "./reducers/allChatMessageReducer"
 import { actionSetAllUsers, actionConcatNewUser } from "./reducers/allChatUsersReducer"
 
+//! Cannot use `useSelector()` and `useDispatch()` here because of not being
+//! a React component. Has to access the store directly
 export const handleFetchAllMessages = ({ messages }) => {
   const auth = store.getState()["auth"]
   const allMessages = []
