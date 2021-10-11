@@ -14,6 +14,7 @@ import { handleFetchAllMessages, handlePrivateMessage } from "../socketHandlers"
 
 const Navigation = () => {
   const auth = useSelector(state => state.auth)
+  const hasNewMessage = useSelector(state => state.hasNewMessage)
   const dispatch = useDispatch()
 
   const handleLogout = () => {
@@ -58,7 +59,13 @@ const Navigation = () => {
           : <>
             <Nav>
               <Nav.Link as="span" className="navLinkBox">
-                <Link to="/message" className="navLinkText">Message</Link>
+                <Link to="/message" className="navLinkText">
+                  Message
+                {hasNewMessage.hasNew
+                  ? <span className="navBarNewMessageIndicator">!</span>
+                  : null
+                }
+                </Link>
               </Nav.Link>
               <Nav.Link as="span" className="navLinkBox">
                 <Link to={`/view_profile/${auth.id}`} className="navLinkText">My Profile</Link>

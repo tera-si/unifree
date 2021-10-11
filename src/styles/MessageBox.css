@@ -24,5 +24,15 @@
 
 .messageDateText {
     font-size: 0.8rem;
-    color: rgb(92, 92, 92);
+    color: rgb(75, 75, 75);
+}
+
+.newMessageIndicator {
+    float: right;
+    padding: 0px 14px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(141, 141, 141);
+    border-radius: 20px;
+    color: red;
+    font-size: 18pt;
 }

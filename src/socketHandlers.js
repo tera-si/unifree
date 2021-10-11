@@ -1,6 +1,7 @@
 import store from "./store"
 import { actionSetAllMessages, actionConcatNewMessage } from "./reducers/allChatMessageReducer"
 import { actionSetAllUsers, actionConcatNewUser } from "./reducers/allChatUsersReducer"
+import { actionHasNewMessage } from "./reducers/hasNewMessageReducer"
 
 //! Cannot use `useSelector()` and `useDispatch()` here because of not being
 //! a React component. Has to access the store directly
@@ -32,6 +33,10 @@ export const handleFetchAllMessages = ({ messages }) => {
             username: message.sentFrom.username
           })
         }
+
+        if (message.newMessage) {
+          store.dispatch(actionHasNewMessage(message.sentFrom.id))
+        }
       }
 
       if (message.sentTo.id !== auth.id) {
@@ -40,6 +45,10 @@ export const handleFetchAllMessages = ({ messages }) => {
             userId: message.sentTo.id,
             username: message.sentTo.username
           })
+        }
+
+        if (message.newMessage) {
+          store.dispatch(actionHasNewMessage(message.sentTo.id))
         }
       }
     }
@@ -61,6 +70,8 @@ export const handlePrivateMessage = ({ message }) => {
       userId: message.sentFrom.id,
       username: message.sentFrom.username
     }))
+
+    store.dispatch(actionHasNewMessage(message.sentFrom.id))
   }
 
   if (message.sentTo.id !== auth.id) {
@@ -68,6 +79,8 @@ export const handlePrivateMessage = ({ message }) => {
       userId: message.sentTo.id,
       username: message.sentTo.username
     }))
+
+    store.dispatch(actionHasNewMessage(message.sentTo.id))
   }
 
   store.dispatch(actionConcatNewMessage(newMessage))

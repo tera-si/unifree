@@ -7,7 +7,13 @@ const MessageBox = ({ message, isReceived }) => {
   return (
     <div className={type}>
         <div>
-          <p className="messageDateText">{`${message.dateSent.toLocaleString()}`}</p>
+          <p className="messageDateText">
+            {`${message.dateSent.toLocaleString()}`}
+            {message.newMessage
+              ? <span className="newMessageIndicator">!</span>
+              : null
+            }
+          </p>
         </div>
         <div className="messageContentBox">
           <p>{message.content}</p>
