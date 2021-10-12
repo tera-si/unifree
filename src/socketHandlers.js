@@ -34,7 +34,7 @@ export const handleFetchAllMessages = ({ messages }) => {
           })
         }
 
-        if (message.newMessage) {
+        if (!message.readByReceiver) {
           store.dispatch(actionHasNewMessage(message.sentFrom.id))
         }
       }
@@ -45,10 +45,6 @@ export const handleFetchAllMessages = ({ messages }) => {
             userId: message.sentTo.id,
             username: message.sentTo.username
           })
-        }
-
-        if (message.newMessage) {
-          store.dispatch(actionHasNewMessage(message.sentTo.id))
         }
       }
     }

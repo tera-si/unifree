@@ -37,7 +37,8 @@ const MessageFullChatBox = ({ user, messages }) => {
         id: user.userId,
         username: user.username
       },
-      newMessage: false,
+      readByReceiver: false,
+      readBySender: true,
     }
 
     dispatch(actionConcatNewMessage(newMessage))
