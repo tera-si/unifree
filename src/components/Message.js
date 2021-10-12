@@ -9,7 +9,7 @@ const Message = () => {
   const selectedUser = useSelector(state => state.selectedUser)
   const isSmallScreen = window.innerWidth <= 700
 
-  // TODO
+  // TODO: mobile view
   if (isSmallScreen) {
     return (
       <div>
