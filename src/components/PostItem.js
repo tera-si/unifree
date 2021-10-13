@@ -138,7 +138,7 @@ const PostItem = () => {
             </Col>
             : <Col>
                 <Button type="submit" className="postButton">
-                  Upload and post item
+                  Post item
                 </Button>
             </Col>
           }
