@@ -6,7 +6,7 @@ import "../styles/ItemCarousel.css"
 const ItemCarousel = ({ imagePaths }) => {
   const BASE_URL = `/uploads/items/images`
   //! Temporary workaround, change this when deploying to heroku !//
-  const BASE_URL_NO_PROXY = "http://localhost:5000/uploads/items/images"
+  const BASE_URL_NO_PROXY = `http://${process.env.REACT_APP_BACKEND_ADDRESS}:5000/uploads/items/images`
 
   //! Cannot use BASE_URL here, because the create-react-app proxy won't work
   //! It won't work because it is considered a new HTTP request. But since
