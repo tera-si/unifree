@@ -2,9 +2,12 @@ import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { Button, Card, Col, Dropdown, DropdownButton, Row } from "react-bootstrap"
+import socket from "../socket"
 import { actionSetSelectedUser } from "../reducers/selectedUserReducer"
 import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
 import "../styles/ProfileHeader.css"
+import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
+import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
 
 const ProfileHeader = ({ username, id }) => {
   const dispatch = useDispatch()
@@ -25,10 +28,36 @@ const ProfileHeader = ({ username, id }) => {
     setRedirectToPassword(true)
   }
 
-  // FIXME: message page is still empty if you have not chatted with that user yet
   const handleMessageOwner = () => {
     dispatch(actionClearSelectedItem())
     dispatch(actionSetSelectedUser(id, username))
+
+    socket.emit("privateMessage", {
+      to: id,
+      content: "Hello, I would like to talk about your items"
+    })
+
+    const newMessage = {
+      dateSent: new Date(),
+      sentFrom: {
+        id: auth.id,
+        username: auth.username,
+      },
+      content: "Hello, I would like to talk about your items",
+      sentTo: {
+        id: id,
+        username: username,
+      },
+      readByReceiver: false,
+      readBySender: true,
+    }
+
+    dispatch(actionConcatNewMessage(newMessage))
+    dispatch(actionConcatNewUser({
+      userId: id,
+      username: username
+    }))
+
     setRedirectToMessage(true)
   }
 

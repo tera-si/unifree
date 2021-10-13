@@ -85,7 +85,8 @@ const ViewItem = () => {
         id: item.postedBy.id,
         username: item.postedBy.username
       },
-      newMessage: false,
+      readByReceiver: false,
+      readBySender: true
     }
 
     dispatch(actionConcatNewMessage(newMessage))
