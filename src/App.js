@@ -19,7 +19,6 @@ import { actionSetAuth } from "./reducers/authReducer"
 // TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
 // TODO: wrap try-catch block around all backend communication
-// TODO: remove localstorage when website is closed
 // TODO: add `push` to all redirects
 //? Comment in user profile ?//
 //? clear all selected item/user redux state ?//
@@ -64,6 +63,13 @@ const App = () => {
       connectSocket()
     }
   }, [auth])
+
+  window.onbeforeunload = () => {
+    socket.disconnect()
+    window.localStorage.removeItem("unifree-current-user")
+    itemService.setToken(null)
+    return undefined
+  }
 
   if (!auth) {
     return (
