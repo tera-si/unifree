@@ -16,7 +16,7 @@ const ItemPreview = (
   }
 
   if (redirect) {
-    return <Redirect to={`/view_item/${id}`} />
+    return <Redirect push to={`/view_item/${id}`} />
   }
 
   return (

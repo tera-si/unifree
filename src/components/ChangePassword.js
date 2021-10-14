@@ -27,7 +27,7 @@ const ChangePassword = () => {
   }, [dispatch])
 
   if (redirect) {
-    return <Redirect to="/" />
+    return <Redirect push to="/" />
   }
 
   if (id !== auth.id) {

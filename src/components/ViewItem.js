@@ -35,7 +35,7 @@ const ViewItem = () => {
   }, [id, dispatch])
 
   if (redirect) {
-    return <Redirect to="/message" />
+    return <Redirect push to="/message" />
   }
 
   if (!item) {

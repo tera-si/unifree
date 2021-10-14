@@ -17,11 +17,11 @@ const ProfileHeader = ({ username, id }) => {
   const sameUser = auth.id === id
 
   if (redirectToPassword) {
-    return <Redirect to={`/view_profile/${auth.id}/change_password`} />
+    return <Redirect push to={`/view_profile/${auth.id}/change_password`} />
   }
 
   if (redirectToMessage) {
-    return <Redirect to="/message" />
+    return <Redirect push to="/message" />
   }
 
   const handleChangePassword = () => {
