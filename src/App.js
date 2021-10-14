@@ -19,7 +19,6 @@ import { actionSetAuth } from "./reducers/authReducer"
 // TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
 // TODO: wrap try-catch block around all backend communication
-// TODO: add `push` to all redirects
 //? Comment in user profile ?//
 //? clear all selected item/user redux state ?//
 
