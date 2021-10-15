@@ -30,6 +30,21 @@ export const actionSetErrorNotice = (newError) => {
   }
 }
 
+export const actionSetInfoNotice = (newInfo) => {
+  if (timeoutID) {
+    clearTimeout(timeoutID)
+  }
+
+  return async dispatch => {
+    await dispatch({
+      type: "SET_INFO",
+      data: { notice: newInfo}
+    })
+
+    timeoutID = setTimeout(() => dispatch(actionClearNotice()), 5000)
+  }
+}
+
 export const actionClearNotice = () => {
   return ({
     type: "CLEAR_NOTICE"
@@ -47,6 +62,11 @@ const reducer = (state = { text: null, variant: null }, action) => {
       return {
         text: action.data.notice,
         variant: "danger"
+      }
+    case "SET_INFO":
+      return {
+        text: action.data.notice,
+        variant: "info"
       }
     case "CLEAR_NOTICE":
       return {

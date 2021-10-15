@@ -2,6 +2,7 @@ import store from "./store"
 import { actionSetAllMessages, actionConcatNewMessage } from "./reducers/allChatMessageReducer"
 import { actionSetAllUsers, actionConcatNewUser } from "./reducers/allChatUsersReducer"
 import { actionHasNewMessage } from "./reducers/hasNewMessageReducer"
+import { actionSetInfoNotice } from "./reducers/notificationReducer"
 
 //! Cannot use `useSelector()` and `useDispatch()` here because of not being
 //! a React component. Has to access the store directly
@@ -9,6 +10,7 @@ export const handleFetchAllMessages = ({ messages }) => {
   const auth = store.getState()["auth"]
   const allMessages = []
   const allUsers = []
+  let hasNew = false
 
   const _idIndex = (userId) => {
     for (let i = 0; i < allUsers.length; i++) {
@@ -36,6 +38,7 @@ export const handleFetchAllMessages = ({ messages }) => {
 
         if (!message.readByReceiver) {
           store.dispatch(actionHasNewMessage(message.sentFrom.id))
+          hasNew = true
         }
       }
 
@@ -50,16 +53,19 @@ export const handleFetchAllMessages = ({ messages }) => {
     }
   }
 
+  if (hasNew) {
+    store.dispatch(actionSetInfoNotice(`You have unread messages`))
+  }
+
   store.dispatch(actionSetAllMessages(allMessages))
   store.dispatch(actionSetAllUsers(allUsers))
 }
 
-// TODO: dispatch notification when new message is received
 export const handlePrivateMessage = ({ message }) => {
   const auth = store.getState()["auth"]
-  alert("new message received!")
 
-  const newMessage = {...message, dateSent: new Date(message.dateSent)}
+  const newMessage = { ...message, dateSent: new Date(message.dateSent) }
+  const hash = window.location.hash.substring(1)
 
   if (message.sentFrom.id !== auth.id) {
     store.dispatch(actionConcatNewUser({
@@ -67,7 +73,11 @@ export const handlePrivateMessage = ({ message }) => {
       username: message.sentFrom.username
     }))
 
-    store.dispatch(actionHasNewMessage(message.sentFrom.id))
+    if (message.sentFrom.id !== hash) {
+      store.dispatch(actionHasNewMessage(message.sentFrom.id))
+    }
+
+    store.dispatch(actionSetInfoNotice(`New message from ${message.sentFrom.username} received`))
   }
 
   if (message.sentTo.id !== auth.id) {
@@ -76,7 +86,11 @@ export const handlePrivateMessage = ({ message }) => {
       username: message.sentTo.username
     }))
 
-    store.dispatch(actionHasNewMessage(message.sentTo.id))
+    if (message.sentTo.id !== hash) {
+      store.dispatch(actionHasNewMessage(message.sentTo.id))
+    }
+
+    store.dispatch(actionSetInfoNotice(`New message from ${message.sentTo.username} received`))
   }
 
   store.dispatch(actionConcatNewMessage(newMessage))

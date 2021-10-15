@@ -13,6 +13,9 @@ const Notification = () => {
     case "danger":
       toast.error(notification.text)
       break
+    case "info":
+      toast.info(notification.text)
+      break
     default:
       toast(notification.text)
       break
