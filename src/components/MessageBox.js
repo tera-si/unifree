@@ -9,10 +9,6 @@ const MessageBox = ({ message, isReceived }) => {
         <div>
           <p className="messageDateText">
             {`${message.dateSent.toLocaleString()}`}
-            {(!message.readByReceiver) && (isReceived)
-              ? <span className="newMessageIndicator">!</span>
-              : null
-            }
           </p>
         </div>
         <div className="messageContentBox">

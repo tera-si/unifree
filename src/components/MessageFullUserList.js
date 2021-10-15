@@ -16,11 +16,7 @@ const MessageFullUserList = ({ allChatUsers }) => {
     // A slight timeout otherwise the hash location will be empty
     setTimeout(() => {
       const userId = window.location.hash.substring(1)
-
-      // TODO: mark messages in store as read, currently only the user list and
-      // navbar indicators will change, not the chat box indicator
       socket.emit("markAsRead", userId)
-
       dispatch(actionSetMessageRead(userId))
     }, 100)
   }
