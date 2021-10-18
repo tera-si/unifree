@@ -11,7 +11,7 @@ import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 
 const Home = () => {
   const dispatch = useDispatch()
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
