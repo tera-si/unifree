@@ -14,6 +14,7 @@ import socket from "../socket"
 import "../styles/ViewItem.css"
 import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
 import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
+import { actionSetErrorNotice } from "../reducers/notificationReducer"
 
 const ViewItem = () => {
   const dispatch = useDispatch()
@@ -27,7 +28,16 @@ const ViewItem = () => {
     dispatch(actionClearSelectedUser())
 
     const getItem = async () => {
-      const response = await itemService.getItem(id)
+      let response = null
+
+      try {
+        response = await itemService.getItem(id)
+      }
+      catch (e) {
+        dispatch(actionSetErrorNotice("Error: unable to retrieve item data"))
+        return
+      }
+
       setItem(response)
     }
 

@@ -8,6 +8,7 @@ import { itemDateSortByLatest } from "../utils/dateSorter"
 import ViewAllItemsWrapper from "./ViewAllItemsWrapper"
 import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
 import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
+import { actionSetErrorNotice } from "../reducers/notificationReducer"
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -19,7 +20,16 @@ const Home = () => {
     dispatch(actionClearSelectedUser())
 
     const getAllAvailableItems = async () => {
-      const data = await itemService.getAll()
+      let data = null
+
+      try {
+        data = await itemService.getAll()
+      }
+      catch (e) {
+        dispatch(actionSetErrorNotice("Error: unable to retrieve item data"))
+        return
+      }
+
       const availableItems = data.filter(item => item.availability !== false)
       availableItems.sort(itemDateSortByLatest)
       setItems(availableItems)

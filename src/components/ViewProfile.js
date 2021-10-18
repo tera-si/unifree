@@ -11,6 +11,7 @@ import { itemDateSortByLatest } from "../utils/dateSorter"
 import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
 import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 import "../styles/ViewProfile.css"
+import { actionSetErrorNotice } from "../reducers/notificationReducer"
 
 const ViewProfile = () => {
   const dispatch = useDispatch()
@@ -22,7 +23,16 @@ const ViewProfile = () => {
     dispatch(actionClearSelectedUser())
 
     const getProfile = async () => {
-      const response = await userService.getProfile(id)
+      let response = null
+
+      try {
+        response = await userService.getProfile(id)
+      }
+      catch (e) {
+        dispatch(actionSetErrorNotice("Error: unable to retrieve user profile"))
+        return
+      }
+
       setProfile(response)
     }
 
