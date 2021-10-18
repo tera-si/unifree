@@ -58,6 +58,10 @@ const App = () => {
       socket.on("connect_error", (error) => {
         dispatch(actionSetErrorNotice("Error: unable to connect to messaging services"))
       })
+
+      socket.on("disconnect", () => {
+        dispatch(actionSetErrorNotice("Error: unable to connect to messaging services"))
+      })
     }
 
     if (auth) {
