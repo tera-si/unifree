@@ -4,7 +4,6 @@ import { Card } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import MessageFullContainer from "./MessageFullContainer"
 
-// TODO: handle read message
 const Message = () => {
   const selectedUser = useSelector(state => state.selectedUser)
   const isSmallScreen = window.innerWidth <= 700
