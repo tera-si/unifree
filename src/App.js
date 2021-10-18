@@ -15,6 +15,7 @@ import Message from "./components/Message"
 import itemService from "./services/itemService"
 import { handleFetchAllMessages, handlePrivateMessage } from "./socketHandlers"
 import { actionSetAuth } from "./reducers/authReducer"
+import { actionSetErrorNotice } from "./reducers/notificationReducer"
 
 // TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
@@ -50,18 +51,19 @@ const App = () => {
         socket.off("fetchAllMessages", handleFetchAllMessages)
         socket.off("privateMessage", handlePrivateMessage)
 
-        console.log(`socket connection established at ${socket.id}`)
-
         socket.on("fetchAllMessages", handleFetchAllMessages)
         socket.on("privateMessage", handlePrivateMessage)
       })
 
+      socket.on("connect_error", (error) => {
+        dispatch(actionSetErrorNotice("Error: unable to connect to messaging services"))
+      })
     }
 
     if (auth) {
       connectSocket()
     }
-  }, [auth])
+  }, [auth, dispatch])
 
   window.onbeforeunload = () => {
     socket.disconnect()
