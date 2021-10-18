@@ -1,6 +1,7 @@
 import React, { useState, createRef, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { Button, Card, Col, CardGroup, Form, Row, Spinner } from "react-bootstrap"
+import { Redirect } from "react-router-dom"
 import CardWrapper from "./CardWrapper"
 import PostItemImage from "./PostItemImage"
 import PostItemInfo from "./PostItemInfo"
@@ -14,12 +15,18 @@ import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 const PostItem = () => {
   const [uploadedImages, setUploadedImages] = useState([])
   const [loading, setLoading] = useState(false)
+  const [postedId, setPostedId] = useState(null)
+  const [redirect, setRedirect] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(actionClearSelectedItem())
     dispatch(actionClearSelectedUser())
   }, [dispatch])
+
+  if (redirect && postedId) {
+    return <Redirect push to={`/view_item/${postedId}`} />
+  }
 
   const refs = {
     name: createRef(),
@@ -48,7 +55,6 @@ const PostItem = () => {
            !refs.description.current.value || refs.description.current.value.trim().length <= 0
   }
 
-  // TODO: redirect to individual item page after posting
   const handlePost = async (event) => {
     event.preventDefault()
 
@@ -83,8 +89,10 @@ const PostItem = () => {
     setLoading(true)
 
     try {
-      await itemService.postNew(formData)
+      const postedItem = await itemService.postNew(formData)
+      setPostedId(postedItem.id)
       dispatch(actionSetSuccessNotice(`New item "${itemName}" successfully posted`))
+      setRedirect(true)
     }
     catch (e) {
       if (!e.response) {
