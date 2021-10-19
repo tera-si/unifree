@@ -7,6 +7,7 @@ import MessageBox from "./MessageBox"
 import "../styles/MessageFullChatBox.css"
 import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
 import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
+import { actionSetErrorNotice } from "../reducers/notificationReducer"
 
 const MessageFullChatBox = ({ user, messages }) => {
   const dispatch = useDispatch()
@@ -20,6 +21,11 @@ const MessageFullChatBox = ({ user, messages }) => {
 
   const handleSendMessage = (event) => {
     event.preventDefault()
+
+    if (socket.disconnected) {
+      dispatch(actionSetErrorNotice("Error: unable to connect to messaging services"))
+      return
+    }
 
     socket.emit("privateMessage", {
       to: user.userId,
