@@ -4,10 +4,10 @@ import { Tab, InputGroup, FormControl, Button } from "react-bootstrap"
 import socket from "../socket"
 import CardWrapper from "./CardWrapper"
 import MessageBox from "./MessageBox"
-import "../styles/MessageFullChatBox.css"
 import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
 import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
 import { actionSetErrorNotice } from "../reducers/notificationReducer"
+import "../styles/MessageFullChatBox.css"
 
 const MessageFullChatBox = ({ user, messages }) => {
   const dispatch = useDispatch()
