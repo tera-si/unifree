@@ -3,20 +3,21 @@ import { useSelector } from "react-redux"
 import { Alert, Card } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import MessageFullContainer from "./MessageFullContainer"
+import MessageMobileContainer from "./MessageMobileContainer"
 
 const Message = () => {
   const selectedUser = useSelector(state => state.selectedUser)
   const isSmallScreen = window.innerWidth <= 700
 
-  // TODO: mobile view
   if (isSmallScreen) {
     return (
-      <div>
+      <CardWrapper>
+        <Card.Title>Message</Card.Title>
         <Alert variant="warning">
           Do not disclose any personal or sensitive information
         </Alert>
-        Mobile View!
-      </div>
+        <MessageMobileContainer selectedUser={selectedUser} />
+      </CardWrapper>
     )
   }
 
@@ -26,9 +27,7 @@ const Message = () => {
       <Alert variant="warning">
         Do not disclose any personal or sensitive information
       </Alert>
-      <MessageFullContainer
-        selectedUser={selectedUser}
-      />
+      <MessageFullContainer selectedUser={selectedUser} />
     </CardWrapper>
   )
 }
