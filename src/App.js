@@ -21,6 +21,7 @@ import { actionSetErrorNotice } from "./reducers/notificationReducer"
 // TODO: delete item
 // TODO: check empty messages and trim() in messaging services
 // TODO: new message indicator in mobile view
+// FIXME: currently logging out will produce a socket connection error notice
 //? Comment in user profile ?//
 //? clear all selected item/user redux state ?//
 
