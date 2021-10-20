@@ -6,8 +6,6 @@ import ItemPreview from "./ItemPreview"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { itemDateSortByLatest } from "../utils/dateSorter"
 import ViewAllItemsWrapper from "./ViewAllItemsWrapper"
-import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
-import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 import { actionSetErrorNotice } from "../reducers/notificationReducer"
 
 const Home = () => {
@@ -16,9 +14,6 @@ const Home = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    dispatch(actionClearSelectedItem())
-    dispatch(actionClearSelectedUser())
-
     const getAllAvailableItems = async () => {
       let data = null
 

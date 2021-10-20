@@ -1,10 +1,20 @@
+let timeoutID = undefined
+
 export const actionSetSelectedItem = ( itemId, itemName ) => {
-  return {
-    type: "SET_SELECTED_ITEM",
-    data: { item: {
-      itemId,
-      itemName
-    }}
+  if (timeoutID) {
+    clearTimeout(timeoutID)
+  }
+
+  return async dispatch => {
+    await dispatch({
+      type: "SET_SELECTED_ITEM",
+      data: { item: {
+        itemId,
+        itemName
+      }}
+    })
+
+    timeoutID = setTimeout(() => dispatch(actionClearSelectedItem()), 5000)
   }
 }
 

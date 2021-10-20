@@ -8,8 +8,6 @@ import ItemPreview from "./ItemPreview"
 import userService from "../services/userService"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { itemDateSortByLatest } from "../utils/dateSorter"
-import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
-import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 import "../styles/ViewProfile.css"
 import { actionSetErrorNotice } from "../reducers/notificationReducer"
 
@@ -19,9 +17,6 @@ const ViewProfile = () => {
   const [profile, setProfile] = useState(null)
 
   useEffect(() => {
-    dispatch(actionClearSelectedItem())
-    dispatch(actionClearSelectedUser())
-
     const getProfile = async () => {
       let response = null
 

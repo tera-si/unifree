@@ -1,4 +1,4 @@
-import React, { useState, createRef, useEffect } from "react"
+import React, { useState, createRef } from "react"
 import { useDispatch } from "react-redux"
 import { Button, Card, Col, CardGroup, Form, Row, Spinner } from "react-bootstrap"
 import { Redirect } from "react-router-dom"
@@ -9,8 +9,6 @@ import PostItemRequirement from "./PostItemRequirement"
 import itemService from "../services/itemService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
 import "../styles/PostItem.css"
-import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
-import { actionClearSelectedUser } from "../reducers/selectedUserReducer"
 
 const PostItem = () => {
   const [uploadedImages, setUploadedImages] = useState([])
@@ -18,11 +16,6 @@ const PostItem = () => {
   const [postedId, setPostedId] = useState(null)
   const [redirect, setRedirect] = useState(false)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(actionClearSelectedItem())
-    dispatch(actionClearSelectedUser())
-  }, [dispatch])
 
   if (redirect && postedId) {
     return <Redirect push to={`/view_item/${postedId}`} />

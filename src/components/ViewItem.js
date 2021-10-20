@@ -8,8 +8,8 @@ import ViewItemHeader from "./ViewItemHeader"
 import ItemCarousel from "./ItemCarousel"
 import ViewItemBasicInfo from "./ViewItemBasicInfo"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
-import { actionSetSelectedUser, actionClearSelectedUser } from "../reducers/selectedUserReducer"
-import { actionSetSelectedItem, actionClearSelectedItem } from "../reducers/selectedItemReducer"
+import { actionSetSelectedUser } from "../reducers/selectedUserReducer"
+import { actionSetSelectedItem } from "../reducers/selectedItemReducer"
 import socket from "../socket"
 import "../styles/ViewItem.css"
 import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
@@ -24,9 +24,6 @@ const ViewItem = () => {
   const { id } = useParams()
 
   useEffect(() => {
-    dispatch(actionClearSelectedItem())
-    dispatch(actionClearSelectedUser())
-
     const getItem = async () => {
       let response = null
 

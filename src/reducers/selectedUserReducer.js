@@ -1,10 +1,20 @@
+let timeoutID = undefined
+
 export const actionSetSelectedUser = ( userId, username ) => {
-  return {
-    type: "SET_SELECTED_USER",
-    data: { user: {
-      userId,
-      username
-    }}
+  if (timeoutID) {
+    clearTimeout(timeoutID)
+  }
+
+  return async dispatch => {
+    await dispatch({
+      type: "SET_SELECTED_USER",
+      data: { user: {
+        userId,
+        username
+      }}
+    })
+
+    timeoutID = setTimeout(() => dispatch(actionClearSelectedUser()), 5000)
   }
 }
 
