@@ -19,7 +19,6 @@ import { actionSetErrorNotice } from "./reducers/notificationReducer"
 
 // TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
-// TODO: clear selected item/user should only fire if non-null
 //? Comment in user profile ?//
 //? clear all selected item/user redux state ?//
 

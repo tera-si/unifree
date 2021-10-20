@@ -11,16 +11,17 @@ import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { actionSetSelectedUser } from "../reducers/selectedUserReducer"
 import { actionSetSelectedItem } from "../reducers/selectedItemReducer"
 import socket from "../socket"
-import "../styles/ViewItem.css"
 import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
 import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
 import { actionSetErrorNotice } from "../reducers/notificationReducer"
+import "../styles/ViewItem.css"
 
 const ViewItem = () => {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
   const [redirect, setRedirect] = useState(false)
   const [item, setItem] = useState(null)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
   const { id } = useParams()
 
   useEffect(() => {
@@ -56,11 +57,18 @@ const ViewItem = () => {
   const dateParsed = new Date(item.datePosted).toLocaleDateString()
   const descriptionParsed = item.description.split("\n")
   const sameUser = auth.id === item.postedBy.id
+  const cardWrapperClass = dropdownOpen ? "viewItemDropdownOpened" : "viewItemDropdownClosed"
+
+  const handleDropdownOpen = () => {
+    setDropdownOpen(!dropdownOpen)
+  }
 
   // TODO: use modal instead of window popup
   // TODO: ask which user did you traded this item with, by selecting from the
   // recently chatted
   const handleMarkTraded = async () => {
+    setDropdownOpen(!dropdownOpen)
+
     if (window.confirm("Mark this item as traded?")) {
       const updatedItem = {
         ...item,
@@ -73,6 +81,7 @@ const ViewItem = () => {
   }
 
   const handleMessageOwner = () => {
+    setDropdownOpen(!dropdownOpen)
     dispatch(actionSetSelectedUser(item.postedBy.id, item.postedBy.username))
     dispatch(actionSetSelectedItem(id, item.name))
 
@@ -106,7 +115,7 @@ const ViewItem = () => {
   }
 
   return (
-    <CardWrapper>
+    <CardWrapper class={cardWrapperClass}>
       <ViewItemHeader
         name={item.name}
         dateParsed={dateParsed}
@@ -132,9 +141,10 @@ const ViewItem = () => {
           {sameUser
             ? <DropdownButton
               title="Manage item "
-              drop="end"
+              drop="down"
               variant="warning"
               className="manageButton"
+              onClick={handleDropdownOpen}
             >
               <Dropdown.Item onClick={handleMarkTraded}>Mark as traded</Dropdown.Item>
               <Dropdown.Item>Delete item</Dropdown.Item>

@@ -13,3 +13,11 @@
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+.viewItemDropdownOpened {
+    padding-bottom: 100px;
+}
+
+.viewItemDropdownClosed {
+    padding-bottom: 20px;
+}
