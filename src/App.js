@@ -21,7 +21,6 @@ import { actionSetErrorNotice } from "./reducers/notificationReducer"
 // TODO: delete item
 // TODO: check empty messages and trim() in messaging services
 // TODO: new message indicator in mobile view
-// FIXME: currently logging out will produce a socket connection error notice
 //? Comment in user profile ?//
 //? clear all selected item/user redux state ?//
 
@@ -61,8 +60,10 @@ const App = () => {
         dispatch(actionSetErrorNotice("Error: unable to connect to messaging services"))
       })
 
-      socket.on("disconnect", () => {
-        dispatch(actionSetErrorNotice("Error: unable to connect to messaging services"))
+      socket.on("disconnect", (reason) => {
+        if (!(reason === "io client disconnect")) {
+          dispatch(actionSetErrorNotice("Error: unable to connect to messaging services"))
+        }
       })
     }
 
