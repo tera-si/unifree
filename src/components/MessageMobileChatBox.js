@@ -1,19 +1,25 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Button, FormControl, InputGroup } from "react-bootstrap"
 import socket from "../socket"
 import CardWrapper from "./CardWrapper"
 import MessageBox from "./MessageBox"
 import { actionSetErrorNotice } from "../reducers/notificationReducer"
-import "../styles/MessageMobileChatBox.css"
 import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
 import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
+import { actionSetMessageRead } from "../reducers/hasNewMessageReducer"
+import "../styles/MessageMobileChatBox.css"
 
 const MessageMobileChatBox = ({ activeChat, setActiveChat, messages }) => {
   const dispatch = useDispatch()
 
   const [messageField, setMessageField] = useState("")
   const auth = useSelector(state => state.auth)
+
+  useEffect(() => {
+    socket.emit("markAsRead", activeChat.userId)
+    dispatch(actionSetMessageRead(activeChat.userId))
+  }, [activeChat, dispatch])
 
   const handleBackButton = () => {
     setActiveChat(null)

@@ -9,9 +9,6 @@ const MessageFullUserList = ({ allChatUsers }) => {
   const dispatch = useDispatch()
   const hasNewMessage = useSelector(state => state.hasNewMessage)
 
-  //! in the hasNewMessage reducer, or in the socket newMessage listener, check
-  //! if the location is `/message#${id}`, and if it is, automatically mark the
-  //! new message as read
   const handleClickUserList = () => {
     // A slight timeout otherwise the hash location will be empty
     setTimeout(() => {

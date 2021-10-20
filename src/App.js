@@ -20,7 +20,6 @@ import { actionSetErrorNotice } from "./reducers/notificationReducer"
 // TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
 // TODO: check empty messages and trim() in messaging services
-// TODO: new message indicator in mobile view
 //? Comment in user profile ?//
 //? clear all selected item/user redux state ?//
 

@@ -1,9 +1,12 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import { ListGroup } from "react-bootstrap"
+import "../styles/MessageMobileUserList.css"
 
 const MessageMobileUserList = ({ setActiveChat }) => {
+
   const allChatUsers = useSelector(state => state.allChatUsers)
+  const hasNewMessage = useSelector(state => state.hasNewMessage)
 
   const handleClickUser = (user) => {
     const setAsActive = () => {
@@ -24,6 +27,10 @@ const MessageMobileUserList = ({ setActiveChat }) => {
             onClick={handleClickUser(user)}
           >
             {user.username}
+            {hasNewMessage.fromWho.includes(user.userId)
+              ? <span className="chatMobileUserListNewMessageIndicator">!</span>
+              : null
+            }
           </ListGroup.Item>
         )
       })}
