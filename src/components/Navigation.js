@@ -7,8 +7,9 @@ import { actionClearAuth } from "../reducers/authReducer"
 import itemService from "../services/itemService"
 import { actionClearChatUsers } from "../reducers/allChatUsersReducer"
 import { actionClearChatMessages } from "../reducers/allChatMessageReducer"
-import "../styles/Navigation.css"
 import { handleFetchAllMessages, handlePrivateMessage } from "../socketHandlers"
+import { actionNoNewMessage } from "../reducers/hasNewMessageReducer"
+import "../styles/Navigation.css"
 
 const Navigation = () => {
   const auth = useSelector(state => state.auth)
@@ -27,6 +28,7 @@ const Navigation = () => {
     dispatch(actionClearAuth())
     dispatch(actionClearChatMessages())
     dispatch(actionClearChatUsers())
+    dispatch(actionNoNewMessage())
   }
 
   return (
