@@ -22,6 +22,10 @@ const MessageFullChatBox = ({ user, messages }) => {
   const handleSendMessage = (event) => {
     event.preventDefault()
 
+    if (!messageField || messageField.trim().length <= 0) {
+      return
+    }
+
     if (socket.disconnected) {
       dispatch(actionSetErrorNotice("Error: unable to connect to messaging services"))
       return
@@ -29,7 +33,7 @@ const MessageFullChatBox = ({ user, messages }) => {
 
     socket.emit("privateMessage", {
       to: user.userId,
-      content: `${messageField}`
+      content: `${messageField.trim()}`
     })
 
     const newMessage = {
@@ -38,7 +42,7 @@ const MessageFullChatBox = ({ user, messages }) => {
         id: auth.id,
         username: auth.username
       },
-      content: `${messageField}`,
+      content: `${messageField.trim()}`,
       sentTo: {
         id: user.userId,
         username: user.username

@@ -32,6 +32,10 @@ const MessageMobileChatBox = ({ activeChat, setActiveChat, messages }) => {
   const handleSendMessage = (event) => {
     event.preventDefault()
 
+    if (!messageField || messageField.trim().length <= 0) {
+      return
+    }
+
     if (socket.disconnected) {
       dispatch(actionSetErrorNotice("Error: unable to connect to messaging services"))
       return
@@ -39,7 +43,7 @@ const MessageMobileChatBox = ({ activeChat, setActiveChat, messages }) => {
 
     socket.emit("privateMessage", {
       to: activeChat.userId,
-      content: `${messageField}`
+      content: `${messageField.trim()}`
     })
 
     const newMessage = {
@@ -48,7 +52,7 @@ const MessageMobileChatBox = ({ activeChat, setActiveChat, messages }) => {
         id: auth.id,
         username: auth.username
       },
-      content: `${messageField}`,
+      content: `${messageField.trim()}`,
       sentTo: {
         id: activeChat.userId,
         username: activeChat.username
