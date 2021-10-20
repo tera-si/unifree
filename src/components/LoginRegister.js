@@ -8,14 +8,14 @@ import "../styles/LoginRegister.css"
 const LoginRegister = () => {
   return (
     <CardWrapper>
-    <Tabs defaultActiveKey="login" className="tabsHeader">
-      <Tab eventKey="login" title="Login">
-        <LoginForm />
-      </Tab>
-      <Tab eventKey="register" title="Register">
-        <RegisterForm />
-      </Tab>
-    </Tabs>
+      <Tabs defaultActiveKey="login" className="tabsHeader">
+        <Tab eventKey="login" title="Login">
+          <LoginForm />
+        </Tab>
+        <Tab eventKey="register" title="Register">
+          <RegisterForm />
+        </Tab>
+      </Tabs>
     </CardWrapper>
   )
 }
