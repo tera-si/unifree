@@ -1,21 +1,21 @@
-import React from "react"
+import React, { forwardRef } from "react"
 import { useSelector } from "react-redux"
 import { Button, Form, Modal } from "react-bootstrap"
 
 // TODO: communicate with backend
-const ViewItemMarkTradedModal = ({ showModal, handleToggleModal, itemName }) => {
+const ViewItemMarkTradedModal = forwardRef((props, ref) => {
   const allChatUsers = useSelector(state => state.allChatUsers)
 
   return (
-    <Modal show={showModal} onHide={handleToggleModal} centered backdrop="static">
+    <Modal show={props.showModal} onHide={props.handleToggleModal} centered backdrop="static">
       <Modal.Header closeButton>
         <Modal.Title>Mark as traded</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         Item<br />
-        <Form.Control type="text" value={itemName} readOnly />
+        <Form.Control type="text" value={props.itemName} readOnly />
         is traded with<br/>
-        <Form.Select>
+        <Form.Select ref={ref}>
           <option hidden value={-1} key="blankChoice">
             Select an user
           </option>
@@ -28,15 +28,15 @@ const ViewItemMarkTradedModal = ({ showModal, handleToggleModal, itemName }) => 
         </Form.Select>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={handleToggleModal}>
+        <Button variant="danger" onClick={props.handleToggleModal}>
           Cancel
         </Button>
-        <Button>
+        <Button onClick={props.handleConfirmButton}>
           Confirm
         </Button>
       </Modal.Footer>
     </Modal>
   )
-}
+})
 
 export default ViewItemMarkTradedModal

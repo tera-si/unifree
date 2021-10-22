@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, createRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Button, Card, Dropdown, DropdownButton, Row, Col } from "react-bootstrap"
 import { useParams, Redirect } from "react-router-dom"
 import socket from "../socket"
 import itemService from "../services/itemService"
+import tradeHistoryService from "../services/tradeHistoryService"
 import CardWrapper from "./CardWrapper"
 import ViewItemHeader from "./ViewItemHeader"
 import ItemCarousel from "./ItemCarousel"
@@ -19,12 +20,13 @@ import "../styles/ViewItem.css"
 
 const ViewItem = () => {
   const dispatch = useDispatch()
+  const { id } = useParams()
   const auth = useSelector(state => state.auth)
+
   const [redirect, setRedirect] = useState(false)
   const [item, setItem] = useState(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const { id } = useParams()
 
   useEffect(() => {
     const getItem = async () => {
@@ -60,6 +62,7 @@ const ViewItem = () => {
   const descriptionParsed = item.description.split("\n")
   const sameUser = auth.id === item.postedBy.id
   const cardWrapperClass = dropdownOpen ? "viewItemDropdownOpened" : "viewItemDropdownClosed"
+  const selectTradedWith = createRef()
 
   const handleDropdownOpen = () => {
     setDropdownOpen(!dropdownOpen)
@@ -80,6 +83,27 @@ const ViewItem = () => {
     //   //? is there anything I need to do with the response ?//
     //   await itemService.putUpdate(id, updatedItem)
     // }
+  }
+
+  const handleModalConfirmButton = async () => {
+    if (selectTradedWith.current.value === "-1") {
+      return
+    }
+
+    const updatedItem = {
+      ...item,
+      availability: false,
+    }
+
+    const newHistoryEntry = {
+      item: item.id,
+      tradedWith: selectTradedWith.current.value
+    }
+
+    // TODO: wrap with try-catch
+    await itemService.putUpdate(id, updatedItem)
+    await tradeHistoryService.postNew(newHistoryEntry)
+    handleToggleModal()
   }
 
   const handleMessageOwner = () => {
@@ -169,6 +193,8 @@ const ViewItem = () => {
           showModal={showModal}
           handleToggleModal={handleToggleModal}
           itemName={item.name}
+          handleConfirmButton={handleModalConfirmButton}
+          ref={selectTradedWith}
         />
         : null
       }

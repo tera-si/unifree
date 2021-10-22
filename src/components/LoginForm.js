@@ -6,6 +6,7 @@ import loginService from "../services/loginService"
 import { actionSetSuccessNotice, actionSetErrorNotice } from "../reducers/notificationReducer"
 import { actionSetAuth } from "../reducers/authReducer"
 import itemService from "../services/itemService"
+import tradeHistoryService from "../services/tradeHistoryService"
 import "../styles/LoginRegister.css"
 
 const LoginForm = () => {
@@ -58,6 +59,7 @@ const LoginForm = () => {
       )
 
       itemService.setToken(newAuth.token)
+      tradeHistoryService.setToken(newAuth.token)
 
       setLoading(false)
 

@@ -13,12 +13,15 @@ import ViewItem from "./components/ViewItem"
 import ChangePassword from "./components/ChangePassword"
 import Message from "./components/Message"
 import itemService from "./services/itemService"
+import tradeHistoryService from "./services/tradeHistoryService"
 import { handleFetchAllMessages, handlePrivateMessage } from "./socketHandlers"
 import { actionSetAuth } from "./reducers/authReducer"
 import { actionSetErrorNotice } from "./reducers/notificationReducer"
 
 // TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
+// TODO: see if more places need to dispatch notification
+// TODO: delete token from history service in the appropriate places
 //? Comment in user profile ?//
 //? clear all selected item/user redux state ?//
 
@@ -31,6 +34,7 @@ const App = () => {
     if (currentUser) {
       const newAuth = JSON.parse(currentUser)
       itemService.setToken(newAuth.token)
+      tradeHistoryService.setToken(newAuth.token)
       dispatch(actionSetAuth(newAuth))
     }
   }, [dispatch])
