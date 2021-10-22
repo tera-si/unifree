@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Button, Card, Dropdown, DropdownButton, Row, Col } from "react-bootstrap"
 import { useParams, Redirect } from "react-router-dom"
+import socket from "../socket"
 import itemService from "../services/itemService"
 import CardWrapper from "./CardWrapper"
 import ViewItemHeader from "./ViewItemHeader"
 import ItemCarousel from "./ItemCarousel"
 import ViewItemBasicInfo from "./ViewItemBasicInfo"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
+import ViewItemMarkTradedModal from "./ViewItemMarkTradedModal"
 import { actionSetSelectedUser } from "../reducers/selectedUserReducer"
 import { actionSetSelectedItem } from "../reducers/selectedItemReducer"
-import socket from "../socket"
 import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
 import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
 import { actionSetErrorNotice } from "../reducers/notificationReducer"
@@ -22,6 +23,7 @@ const ViewItem = () => {
   const [redirect, setRedirect] = useState(false)
   const [item, setItem] = useState(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const { id } = useParams()
 
   useEffect(() => {
@@ -63,21 +65,21 @@ const ViewItem = () => {
     setDropdownOpen(!dropdownOpen)
   }
 
-  // TODO: use modal instead of window popup
-  // TODO: ask which user did you traded this item with, by selecting from the
-  // recently chatted
+  const handleToggleModal = () => setShowModal(!showModal)
+
   const handleMarkTraded = async () => {
     setDropdownOpen(!dropdownOpen)
+    handleToggleModal()
 
-    if (window.confirm("Mark this item as traded?")) {
-      const updatedItem = {
-        ...item,
-        availability: false,
-      }
+    // if (window.confirm("Mark this item as traded?")) {
+    //   const updatedItem = {
+    //     ...item,
+    //     availability: false,
+    //   }
 
-      //? is there anything I need to do with the response ?//
-      await itemService.putUpdate(id, updatedItem)
-    }
+    //   //? is there anything I need to do with the response ?//
+    //   await itemService.putUpdate(id, updatedItem)
+    // }
   }
 
   const handleMessageOwner = () => {
@@ -115,51 +117,62 @@ const ViewItem = () => {
   }
 
   return (
-    <CardWrapper class={cardWrapperClass}>
-      <ViewItemHeader
-        name={item.name}
-        dateParsed={dateParsed}
-        username={item.postedBy.username}
-        userID={item.postedBy.id}
-      />
-      <ItemCarousel imagePaths={item.imagePaths} />
-      <ViewItemBasicInfo
-        category={item.category}
-        condition={item.condition}
-        shipping={item.shipping}
-        meet={item.meet}
-      />
-      <CardWrapper cardHeader="Description">
-        <Card.Text>
-          {descriptionParsed.map(sentence =>
-            <span key={sentence}>{sentence}<br /></span>
-          )}
-        </Card.Text>
+    <>
+      <CardWrapper class={cardWrapperClass}>
+        <ViewItemHeader
+          name={item.name}
+          dateParsed={dateParsed}
+          username={item.postedBy.username}
+          userID={item.postedBy.id}
+        />
+        <ItemCarousel imagePaths={item.imagePaths} />
+        <ViewItemBasicInfo
+          category={item.category}
+          condition={item.condition}
+          shipping={item.shipping}
+          meet={item.meet}
+        />
+        <CardWrapper cardHeader="Description">
+          <Card.Text>
+            {descriptionParsed.map(sentence =>
+              <span key={sentence}>{sentence}<br /></span>
+            )}
+          </Card.Text>
+        </CardWrapper>
+        <Row>
+          <Col className="buttonCol">
+            {sameUser
+              ? <DropdownButton
+                title="Manage item "
+                drop="down"
+                variant="warning"
+                className="manageButton"
+                onClick={handleDropdownOpen}
+              >
+                <Dropdown.Item onClick={handleMarkTraded}>Mark as traded</Dropdown.Item>
+                <Dropdown.Item>Delete item</Dropdown.Item>
+              </DropdownButton>
+              : <Button
+                type={null}
+                className="messageButton"
+                onClick={handleMessageOwner}
+              >
+                Message owner
+              </Button>
+            }
+          </Col>
+        </Row>
       </CardWrapper>
-      <Row>
-        <Col className="buttonCol">
-          {sameUser
-            ? <DropdownButton
-              title="Manage item "
-              drop="down"
-              variant="warning"
-              className="manageButton"
-              onClick={handleDropdownOpen}
-            >
-              <Dropdown.Item onClick={handleMarkTraded}>Mark as traded</Dropdown.Item>
-              <Dropdown.Item>Delete item</Dropdown.Item>
-            </DropdownButton>
-            : <Button
-              type={null}
-              className="messageButton"
-              onClick={handleMessageOwner}
-            >
-              Message owner
-            </Button>
-          }
-        </Col>
-      </Row>
-    </CardWrapper>
+
+      {sameUser
+        ? <ViewItemMarkTradedModal
+          showModal={showModal}
+          handleToggleModal={handleToggleModal}
+          itemName={item.name}
+        />
+        : null
+      }
+    </>
   )
 }
 
