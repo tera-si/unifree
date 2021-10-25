@@ -5,7 +5,6 @@ let token = null
 
 const setToken = (newToken) => {
   token = `bearer ${newToken}`
-  console.log("token: ", token)
 }
 
 const postNew = async (newEntry) => {
