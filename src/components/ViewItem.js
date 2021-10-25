@@ -23,7 +23,8 @@ const ViewItem = () => {
   const { id } = useParams()
   const auth = useSelector(state => state.auth)
 
-  const [redirect, setRedirect] = useState(false)
+  const [redirectToMessage, setRedirectToMessage] = useState(false)
+  const [redirectToHome, setRedirectToHome] = useState(false)
   const [item, setItem] = useState(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -46,8 +47,12 @@ const ViewItem = () => {
     getItem()
   }, [id, dispatch])
 
-  if (redirect) {
+  if (redirectToMessage) {
     return <Redirect push to="/message" />
+  }
+
+  if (redirectToHome) {
+    return <Redirect push to="/" />
   }
 
   if (!item) {
@@ -73,16 +78,6 @@ const ViewItem = () => {
   const handleMarkTraded = async () => {
     setDropdownOpen(!dropdownOpen)
     handleToggleModal()
-
-    // if (window.confirm("Mark this item as traded?")) {
-    //   const updatedItem = {
-    //     ...item,
-    //     availability: false,
-    //   }
-
-    //   //? is there anything I need to do with the response ?//
-    //   await itemService.putUpdate(id, updatedItem)
-    // }
   }
 
   const handleModalConfirmButton = async () => {
@@ -103,7 +98,9 @@ const ViewItem = () => {
     // TODO: wrap with try-catch
     await itemService.putUpdate(id, updatedItem)
     await tradeHistoryService.postNew(newHistoryEntry)
+
     handleToggleModal()
+    setRedirectToHome(true)
   }
 
   const handleMessageOwner = () => {
@@ -137,7 +134,7 @@ const ViewItem = () => {
       username: item.postedBy.username
     }))
 
-    setRedirect(true)
+    setRedirectToMessage(true)
   }
 
   return (
