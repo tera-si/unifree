@@ -95,9 +95,14 @@ const ViewItem = () => {
       tradedWith: selectTradedWith.current.value
     }
 
-    // TODO: wrap with try-catch
-    await itemService.putUpdate(id, updatedItem)
-    await tradeHistoryService.postNew(newHistoryEntry)
+    try {
+      await itemService.putUpdate(id, updatedItem)
+      await tradeHistoryService.postNew(newHistoryEntry)
+    }
+    catch (e) {
+      dispatch(actionSetErrorNotice("Error: unable to update item status"))
+      return
+    }
 
     handleToggleModal()
     setRedirectToHome(true)
