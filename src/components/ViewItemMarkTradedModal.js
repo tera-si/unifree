@@ -1,8 +1,7 @@
 import React, { forwardRef } from "react"
 import { useSelector } from "react-redux"
-import { Button, Form, Modal } from "react-bootstrap"
+import { Button, Form, Modal, Spinner } from "react-bootstrap"
 
-// TODO: communicate with backend
 const ViewItemMarkTradedModal = forwardRef((props, ref) => {
   const allChatUsers = useSelector(state => state.allChatUsers)
 
@@ -15,7 +14,7 @@ const ViewItemMarkTradedModal = forwardRef((props, ref) => {
         Item<br />
         <Form.Control type="text" value={props.itemName} readOnly />
         is traded with<br/>
-        <Form.Select ref={ref}>
+        <Form.Select ref={ref} disabled={props.loading}>
           <option hidden value={-1} key="blankChoice">
             Select an user
           </option>
@@ -28,12 +27,23 @@ const ViewItemMarkTradedModal = forwardRef((props, ref) => {
         </Form.Select>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={props.handleToggleModal}>
+        <Button variant="danger" onClick={props.handleToggleModal} disabled={props.loading}>
           Cancel
         </Button>
-        <Button onClick={props.handleConfirmButton}>
-          Confirm
-        </Button>
+        {props.loading
+          ? <Button disabled>
+            <Spinner
+              as="span"
+              animation="border"
+              role="status"
+              aria-hidden="true"
+            />
+            <span className="hidden">Loading...</span>
+          </Button>
+          : <Button onClick={props.handleConfirmButton}>
+            Confirm
+          </Button>
+        }
       </Modal.Footer>
     </Modal>
   )

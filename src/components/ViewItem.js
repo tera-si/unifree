@@ -28,6 +28,7 @@ const ViewItem = () => {
   const [item, setItem] = useState(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [modalLoading, setModalLoading] = useState(false)
 
   useEffect(() => {
     const getItem = async () => {
@@ -81,6 +82,10 @@ const ViewItem = () => {
   }
 
   const handleModalConfirmButton = async () => {
+    if (modalLoading) {
+      return
+    }
+
     if (selectTradedWith.current.value === "-1") {
       return
     }
@@ -95,6 +100,8 @@ const ViewItem = () => {
       tradedWith: selectTradedWith.current.value
     }
 
+    setModalLoading(true)
+
     try {
       await itemService.putUpdate(id, updatedItem)
       await tradeHistoryService.postNew(newHistoryEntry)
@@ -104,6 +111,7 @@ const ViewItem = () => {
       return
     }
 
+    setModalLoading(false)
     handleToggleModal()
     setRedirectToHome(true)
   }
@@ -197,6 +205,7 @@ const ViewItem = () => {
           itemName={item.name}
           handleConfirmButton={handleModalConfirmButton}
           ref={selectTradedWith}
+          loading={modalLoading}
         />
         : null
       }
