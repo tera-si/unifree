@@ -5,6 +5,7 @@ import { Navbar, Nav, Button } from "react-bootstrap"
 import socket from "../socket"
 import { actionClearAuth } from "../reducers/authReducer"
 import itemService from "../services/itemService"
+import tradeHistoryService from "../services/tradeHistoryService"
 import { actionClearChatUsers } from "../reducers/allChatUsersReducer"
 import { actionClearChatMessages } from "../reducers/allChatMessageReducer"
 import { handleFetchAllMessages, handlePrivateMessage } from "../socketHandlers"
@@ -19,6 +20,7 @@ const Navigation = () => {
   const handleLogout = () => {
     window.localStorage.removeItem("unifree-current-user")
     itemService.setToken(null)
+    tradeHistoryService.setToken(null)
 
     socket.disconnect()
     // Removes leftover listeners to prevent duplicate events in the next login
