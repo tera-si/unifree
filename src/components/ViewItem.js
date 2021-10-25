@@ -87,6 +87,7 @@ const ViewItem = () => {
     }
 
     if (selectTradedWith.current.value === "-1") {
+      dispatch(actionSetErrorNotice("Error: invalid user selected"))
       return
     }
 
@@ -181,6 +182,7 @@ const ViewItem = () => {
                 drop="down"
                 variant="warning"
                 className="manageButton"
+                autoClose="inside"
                 onClick={handleDropdownOpen}
               >
                 <Dropdown.Item onClick={handleMarkTraded}>Mark as traded</Dropdown.Item>
