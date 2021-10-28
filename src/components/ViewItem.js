@@ -104,8 +104,8 @@ const ViewItem = () => {
     setModalLoading(true)
 
     try {
-      await itemService.putUpdate(id, updatedItem)
       await tradeHistoryService.postNew(newHistoryEntry)
+      await itemService.putUpdate(id, updatedItem)
     }
     catch (e) {
       dispatch(actionSetErrorNotice("Error: unable to update item status"))
