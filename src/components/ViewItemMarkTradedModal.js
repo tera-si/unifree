@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react"
 import { useSelector } from "react-redux"
 import { Button, Form, Modal, Spinner } from "react-bootstrap"
+import "../styles/ViewItemMarkTradedModal.css"
 
 const ViewItemMarkTradedModal = forwardRef((props, ref) => {
   const allChatUsers = useSelector(state => state.allChatUsers)
@@ -12,9 +13,9 @@ const ViewItemMarkTradedModal = forwardRef((props, ref) => {
       </Modal.Header>
       <Modal.Body>
         Item<br />
-        <Form.Control type="text" value={props.itemName} readOnly />
+        <Form.Control type="text" value={props.itemName} readOnly className="itemNameBar" />
         is traded with<br/>
-        <Form.Select ref={ref} disabled={props.loading}>
+        <Form.Select ref={ref} disabled={props.loading} className="selectTradedWithBar">
           <option hidden value={-1} key="blankChoice">
             Select an user
           </option>
