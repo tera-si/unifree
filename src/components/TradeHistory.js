@@ -6,6 +6,7 @@ import CardWrapper from "./CardWrapper"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import tradeHistoryService from "../services/tradeHistoryService"
 import { actionSetErrorNotice } from "../reducers/notificationReducer"
+import "../styles/TradeHistory.css"
 
 const TradeHistory = () => {
   const dispatch = useDispatch()
@@ -50,7 +51,7 @@ const TradeHistory = () => {
 
   return (
     <CardWrapper>
-      <Card.Title>Trade History</Card.Title>
+      <Card.Title className="tradeHistoryTitle">Trade History</Card.Title>
       <Table striped bordered hover>
         <thead>
           <tr>
