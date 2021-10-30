@@ -15,7 +15,7 @@ import { actionSetSelectedUser } from "../reducers/selectedUserReducer"
 import { actionSetSelectedItem } from "../reducers/selectedItemReducer"
 import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
 import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
-import { actionSetErrorNotice } from "../reducers/notificationReducer"
+import { actionSetErrorNotice, actionSetSuccessNotice } from "../reducers/notificationReducer"
 import "../styles/ViewItem.css"
 
 const ViewItem = () => {
@@ -106,6 +106,7 @@ const ViewItem = () => {
     try {
       await tradeHistoryService.postNew(newHistoryEntry)
       await itemService.putUpdate(id, updatedItem)
+      dispatch(actionSetSuccessNotice(`${item.name} successfully traded`))
     }
     catch (e) {
       dispatch(actionSetErrorNotice("Error: unable to update item status"))
