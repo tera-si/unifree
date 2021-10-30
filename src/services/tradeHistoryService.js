@@ -7,6 +7,15 @@ const setToken = (newToken) => {
   token = `bearer ${newToken}`
 }
 
+const getAll = async () => {
+  const config = {
+    headers: { Authorization: token }
+  }
+
+  const response = await axios.get(BASE_URL, config)
+  return response.data
+}
+
 const postNew = async (newEntry) => {
   const config = {
     headers: { Authorization: token }
@@ -18,6 +27,7 @@ const postNew = async (newEntry) => {
 
 const tradeHistoryService = {
   setToken,
+  getAll,
   postNew,
 }
 

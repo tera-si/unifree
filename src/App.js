@@ -12,6 +12,7 @@ import ViewProfile from "./components/ViewProfile"
 import ViewItem from "./components/ViewItem"
 import ChangePassword from "./components/ChangePassword"
 import Message from "./components/Message"
+import TradeHistory from "./components/TradeHistory"
 import itemService from "./services/itemService"
 import tradeHistoryService from "./services/tradeHistoryService"
 import { handleFetchAllMessages, handlePrivateMessage } from "./socketHandlers"
@@ -130,7 +131,7 @@ const App = () => {
         </Route>
 
         <Route path="/trade_history">
-          trade history
+          <TradeHistory />
         </Route>
 
         <Route path="/">
