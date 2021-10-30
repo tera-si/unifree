@@ -5,11 +5,16 @@ import { Button, Card, Col, Dropdown, DropdownButton, Row } from "react-bootstra
 import socket from "../socket"
 import { actionSetSelectedUser } from "../reducers/selectedUserReducer"
 import { actionClearSelectedItem } from "../reducers/selectedItemReducer"
-import "../styles/ProfileHeader.css"
 import { actionConcatNewMessage } from "../reducers/allChatMessageReducer"
 import { actionConcatNewUser } from "../reducers/allChatUsersReducer"
+import "../styles/ProfileHeader.css"
 
 const ProfileHeader = ({ username, id }) => {
+  const isSmallScreen = window.innerWidth <= 700
+  const dropdownButtonClassName = isSmallScreen
+    ? "dropdownBaseSmall"
+    : "dropdownBase"
+
   const dispatch = useDispatch()
   const [redirectToPassword, setRedirectToPassword] = useState(false)
   const [redirectToMessage, setRedirectToMessage] = useState(false)
@@ -74,7 +79,7 @@ const ProfileHeader = ({ username, id }) => {
             title="Manage account "
             drop="down"
             variant="warning"
-            className="dropdownBase"
+            className={dropdownButtonClassName}
             >
               <Dropdown.Item>Trade history</Dropdown.Item>
               <Dropdown.Item onClick={handleChangePassword}>
