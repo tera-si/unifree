@@ -18,6 +18,7 @@ const ProfileHeader = ({ username, id }) => {
   const dispatch = useDispatch()
   const [redirectToPassword, setRedirectToPassword] = useState(false)
   const [redirectToMessage, setRedirectToMessage] = useState(false)
+  const [redirectToHistory, setRedirectToHistory] = useState(false)
   const auth = useSelector(state => state.auth)
   const sameUser = auth.id === id
 
@@ -27,6 +28,10 @@ const ProfileHeader = ({ username, id }) => {
 
   if (redirectToMessage) {
     return <Redirect push to="/message" />
+  }
+
+  if (redirectToHistory) {
+    return <Redirect push to="/trade_history" />
   }
 
   const handleChangePassword = () => {
@@ -66,6 +71,10 @@ const ProfileHeader = ({ username, id }) => {
     setRedirectToMessage(true)
   }
 
+  const handleHistoryButton = () => {
+    setRedirectToHistory(true)
+  }
+
   return (
     <Card className="profileBase">
       <Card.Body>
@@ -81,7 +90,7 @@ const ProfileHeader = ({ username, id }) => {
             variant="warning"
             className={dropdownButtonClassName}
             >
-              <Dropdown.Item>Trade history</Dropdown.Item>
+              <Dropdown.Item onClick={handleHistoryButton}>Trade history</Dropdown.Item>
               <Dropdown.Item onClick={handleChangePassword}>
                 Change password
               </Dropdown.Item>

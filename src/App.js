@@ -129,6 +129,10 @@ const App = () => {
           <Message />
         </Route>
 
+        <Route path="/trade_history">
+          trade history
+        </Route>
+
         <Route path="/">
           <Home />
         </Route>
