@@ -13,6 +13,7 @@ const TradeHistory = () => {
   const auth = useSelector(state => state.auth)
   const [loading, setLoading] = useState(true)
   const [historyEntries, setHistoryEntries] = useState(null)
+  const isSmallScreen = window.innerWidth <= 700
 
   useEffect(() => {
     const getAllHistoryEntries = async () => {
@@ -45,6 +46,41 @@ const TradeHistory = () => {
       <CardWrapper>
         <Card.Title>Trade History</Card.Title>
         <Card.Text>There are currently no entries in your trade history</Card.Text>
+      </CardWrapper>
+    )
+  }
+
+  if (isSmallScreen) {
+    return (
+      <CardWrapper>
+        <Card.Title className="tradeHistoryTitle">Trade History</Card.Title>
+        {historyEntries.map(entry =>
+          <CardWrapper key={entry.id}>
+            <Card.Text>
+              <strong>Date Traded</strong>:&nbsp;
+              {new Date(entry.dateDelisted).toLocaleString()}
+              <br />
+              <strong>Item Owner</strong>:&nbsp;
+              {entry.itemOwner.id === auth.id
+                ? "You"
+                : <Link to={`/view_profile/${entry.itemOwner.id}`}>
+                  {entry.itemOwner.username}
+                </Link>
+              }
+              <br />
+              <strong>Item Name</strong>:&nbsp;
+              {entry.item.name}
+              <br />
+              <strong>Traded User</strong>:&nbsp;
+              {entry.tradedWith.id === auth.id
+                ? "You"
+                : <Link to={`/view_profile/${entry.tradedWith.id}`}>
+                  {entry.tradedWith.username}
+                </Link>
+              }
+            </Card.Text>
+          </CardWrapper>
+        )}
       </CardWrapper>
     )
   }
