@@ -55,7 +55,7 @@ const TradeHistory = () => {
       <CardWrapper>
         <Card.Title className="tradeHistoryTitle">Trade History</Card.Title>
         {historyEntries.map(entry =>
-          <CardWrapper key={entry.id}>
+          <CardWrapper key={entry.id} class="entryCardBase">
             <Card.Text>
               <strong>Date Traded</strong>:&nbsp;
               {new Date(entry.dateDelisted).toLocaleString()}
@@ -63,7 +63,7 @@ const TradeHistory = () => {
               <strong>Item Owner</strong>:&nbsp;
               {entry.itemOwner.id === auth.id
                 ? "You"
-                : <Link to={`/view_profile/${entry.itemOwner.id}`}>
+                : <Link to={`/view_profile/${entry.itemOwner.id}`} className="userLink">
                   {entry.itemOwner.username}
                 </Link>
               }
@@ -74,7 +74,7 @@ const TradeHistory = () => {
               <strong>Traded User</strong>:&nbsp;
               {entry.tradedWith.id === auth.id
                 ? "You"
-                : <Link to={`/view_profile/${entry.tradedWith.id}`}>
+                : <Link to={`/view_profile/${entry.tradedWith.id}`} className="userLink">
                   {entry.tradedWith.username}
                 </Link>
               }
@@ -88,7 +88,7 @@ const TradeHistory = () => {
   return (
     <CardWrapper>
       <Card.Title className="tradeHistoryTitle">Trade History</Card.Title>
-      <Table striped bordered hover>
+      <Table bordered hover>
         <thead>
           <tr>
             <th>Date Traded</th>
@@ -104,7 +104,7 @@ const TradeHistory = () => {
               <td>
                 {entry.itemOwner.id === auth.id
                   ? "You"
-                  : <Link to={`/view_profile/${entry.itemOwner.id}`}>
+                  : <Link to={`/view_profile/${entry.itemOwner.id}`} className="userLink">
                     {entry.itemOwner.username}
                   </Link>
                 }
@@ -113,7 +113,7 @@ const TradeHistory = () => {
               <td>
                 {entry.tradedWith.id === auth.id
                   ? "You"
-                  : <Link to={`/view_profile/${entry.tradedWith.id}`}>
+                  : <Link to={`/view_profile/${entry.tradedWith.id}`} className="userLink">
                     {entry.tradedWith.username}
                   </Link>
                 }
