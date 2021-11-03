@@ -55,31 +55,40 @@ const TradeHistory = () => {
       <CardWrapper>
         <Card.Title className="tradeHistoryTitle">Trade History</Card.Title>
         {historyEntries.map(entry =>
-          <CardWrapper key={entry.id} class="entryCardBase">
-            <Card.Text>
-              <strong>Date Traded</strong>:&nbsp;
-              {new Date(entry.dateDelisted).toLocaleString()}
-              <br />
-              <strong>Item Owner</strong>:&nbsp;
-              {entry.itemOwner.id === auth.id
-                ? "You"
-                : <Link to={`/view_profile/${entry.itemOwner.id}`} className="userLink">
-                  {entry.itemOwner.username}
-                </Link>
-              }
-              <br />
-              <strong>Item Name</strong>:&nbsp;
-              {entry.item.name}
-              <br />
-              <strong>Traded User</strong>:&nbsp;
-              {entry.tradedWith.id === auth.id
-                ? "You"
-                : <Link to={`/view_profile/${entry.tradedWith.id}`} className="userLink">
-                  {entry.tradedWith.username}
-                </Link>
-              }
-            </Card.Text>
-          </CardWrapper>
+          <Table bordered hover key={entry.id} className="entryBaseSmall">
+            <tbody>
+              <tr>
+                <td className="entryHeaderSmall"><strong>Date Traded</strong></td>
+                <td>{new Date(entry.dateDelisted).toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td><strong>Item Owner</strong></td>
+                <td>
+                  {entry.itemOwner.id === auth.id
+                    ? "You"
+                    : <Link to={`/view_profile/${entry.itemOwner.id}`} className="userLink">
+                      {entry.itemOwner.username}
+                    </Link>
+                  }
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Item Name</strong></td>
+                <td>{entry.item.name}</td>
+              </tr>
+              <tr>
+                <td><strong>Traded User</strong></td>
+                <td>
+                  {entry.tradedWith.id === auth.id
+                    ? "You"
+                    : <Link to={`/view_profile/${entry.tradedWith.username}`} className="userLink">
+                      {entry.tradedWith.username}
+                    </Link>
+                  }
+                </td>
+              </tr>
+            </tbody>
+          </Table>
         )}
       </CardWrapper>
     )
