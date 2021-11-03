@@ -19,11 +19,9 @@ import { handleFetchAllMessages, handlePrivateMessage } from "./socketHandlers"
 import { actionSetAuth } from "./reducers/authReducer"
 import { actionSetErrorNotice } from "./reducers/notificationReducer"
 
-// TODO: transaction history (backend + frontend + mongoDB)
 // TODO: delete item
 // TODO: see if more places need to dispatch notification
-//? Comment in user profile ?//
-//? clear all selected item/user redux state ?//
+// TODO: change instances of window popup to bootstrap modal
 
 const App = () => {
   const auth = useSelector(state => state.auth)
