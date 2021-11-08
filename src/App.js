@@ -19,7 +19,6 @@ import { handleFetchAllMessages, handlePrivateMessage } from "./socketHandlers"
 import { actionSetAuth } from "./reducers/authReducer"
 import { actionSetErrorNotice } from "./reducers/notificationReducer"
 
-// TODO: delete item
 // TODO: see if more places need to dispatch notification
 // TODO: change instances of window popup to bootstrap modal
 

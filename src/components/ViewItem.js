@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { Button, Card, Dropdown, DropdownButton, Row, Col } from "react-bootstrap"
+import { Button, Card, Dropdown, DropdownButton, Row, Col, Spinner } from "react-bootstrap"
 import { useParams, Redirect } from "react-router-dom"
 import socket from "../socket"
 import itemService from "../services/itemService"
@@ -26,6 +26,7 @@ const ViewItem = () => {
   const [redirectToMessage, setRedirectToMessage] = useState(false)
   const [redirectToHome, setRedirectToHome] = useState(false)
   const [item, setItem] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [modalLoading, setModalLoading] = useState(false)
@@ -152,6 +153,25 @@ const ViewItem = () => {
     setRedirectToMessage(true)
   }
 
+  const handleDeleteItem = async () => {
+    if (window.confirm(`Delete item ${item.name}?`)) {
+      setLoading(true)
+
+      try {
+        await itemService.deleteWithID(id)
+      }
+      catch (e) {
+        dispatch(actionSetErrorNotice(`Error: unable to delete item ${item.name}`))
+        setLoading(false)
+        return
+      }
+
+      dispatch(actionSetSuccessNotice(`Item ${item.name} successfully deleted`))
+      setLoading(false)
+      setRedirectToHome(true)
+    }
+  }
+
   return (
     <>
       <CardWrapper class={cardWrapperClass}>
@@ -177,25 +197,38 @@ const ViewItem = () => {
         </CardWrapper>
         <Row>
           <Col className="buttonCol">
-            {sameUser
-              ? <DropdownButton
-                title="Manage item "
-                drop="down"
-                variant="warning"
-                className="manageButton"
-                autoClose="inside"
-                onClick={handleDropdownOpen}
-              >
-                <Dropdown.Item onClick={handleMarkTraded}>Mark as traded</Dropdown.Item>
-                <Dropdown.Item>Delete item</Dropdown.Item>
-              </DropdownButton>
-              : <Button
-                type={null}
-                className="messageButton"
-                onClick={handleMessageOwner}
-              >
-                Message owner
-              </Button>
+            {loading
+              ? <Dropdown>
+                <Dropdown.Toggle variant="warning" disabled>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span className="hidden">Loading...</span>
+                  &nbsp;
+                </Dropdown.Toggle>
+              </Dropdown>
+              : sameUser
+                ? <DropdownButton
+                  title="Manage item "
+                  drop="down"
+                  variant="warning"
+                  className="manageButton"
+                  autoClose="inside"
+                  onClick={handleDropdownOpen}
+                >
+                  <Dropdown.Item onClick={handleMarkTraded}>Mark as traded</Dropdown.Item>
+                  <Dropdown.Item onClick={handleDeleteItem}>Delete item</Dropdown.Item>
+                </DropdownButton>
+                : <Button
+                  type={null}
+                  className="messageButton"
+                  onClick={handleMessageOwner}
+                >
+                  Message owner
+                </Button>
             }
           </Col>
         </Row>

@@ -35,12 +35,21 @@ const putUpdate = async (id, updatedItem) => {
   return response.data
 }
 
+const deleteWithID = async (id) => {
+  const config = {
+    headers: { Authorization: token }
+  }
+
+  await axios.delete(`${BASE_URL}/${id}`, config)
+}
+
 const itemService = {
   setToken,
   getAll,
   getItem,
   postNew,
   putUpdate,
+  deleteWithID
 }
 
 export default itemService
