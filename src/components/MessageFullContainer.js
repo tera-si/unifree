@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
-import { Tab, Row, Col } from "react-bootstrap"
+import { Tab, Row, Col, Card } from "react-bootstrap"
 import MessageFullUserList from "./MessageFullUserList"
 import MessageFullChatBox from "./MessageFullChatBox"
 import { messageDateSortByLatest } from "../utils/dateSorter"
@@ -15,6 +15,19 @@ const MessageFullContainer = ({ selectedUser }) => {
       message => message.sentTo.id === userId ||
       message.sentFrom.id === userId
     ).sort(messageDateSortByLatest)
+  }
+
+  if (
+    (!allChatUsers && !allChatMessages) ||
+    (allChatUsers.length <= 0 && allChatMessages.length <= 0)
+  ) {
+    return (
+      <Card.Text>
+        Sent and received messages will appear here.
+        <br />
+        Trade items to start chatting!
+      </Card.Text>
+    )
   }
 
   return (
