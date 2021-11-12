@@ -130,15 +130,17 @@ const SearchResults = () => {
     <ViewAllItemsWrapper sectionTitle="Search Results">
       <Card.Subtitle className="displaySearchParams">{paramsToDisplay}</Card.Subtitle>
       {itemResults.map(item =>
-        <ItemPreview
-          id={item.id}
-          firstImage={item.imagePaths[0]}
-          name={item.name}
-          category={item.category}
-          datePosted={item.datePosted}
-          username={item.postedBy.username}
-          userID={item.postedBy.id}
-        />
+        <div key={item.id}>
+          <ItemPreview
+            id={item.id}
+            firstImage={item.imagePaths[0]}
+            name={item.name}
+            category={item.category}
+            datePosted={item.datePosted}
+            username={item.postedBy.username}
+            userID={item.postedBy.id}
+          />
+        </div>
       )}
     </ViewAllItemsWrapper>
   )
