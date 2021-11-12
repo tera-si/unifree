@@ -1,11 +1,19 @@
-import React, { createRef, useEffect } from "react"
+import React, { createRef, useEffect, useState } from "react"
+import { Redirect } from "react-router-dom"
+import { useDispatch } from "react-redux"
 import { Accordion, Button, Form, Row, Col } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import LabelledInputRow from "./LabelledInputRow"
 import { conditions, categories } from "../static/itemInfo"
+import { invalidSearchParams, searchParamsIsEqual, filterEmptyField } from "../utils/searchParamsUtils"
+import { actionSetErrorNotice } from "../reducers/notificationReducer"
+import { actionSetSearchParams } from "../reducers/searchParamsReducer"
 import "../styles/SearchItem.css"
 
 const SearchItem = () => {
+  const dispatch = useDispatch()
+  const [redirect, setRedirect] = useState(false)
+
   const refs = {
     name: createRef(),
     category: createRef(),
@@ -15,9 +23,46 @@ const SearchItem = () => {
   }
 
   useEffect(() => {
-    refs.shipping.current.checked = true
-    refs.meet.current.checked = true
+    if (refs.shipping.current && refs.meet.current) {
+      refs.shipping.current.checked = true
+      refs.meet.current.checked = true
+    }
   }, [refs.meet, refs.shipping])
+
+  if (redirect) {
+    return <Redirect push to="/search" />
+  }
+
+  const handleSearchButton = (event) => {
+    event.preventDefault()
+
+    let params = {
+      name: refs.name.current.value,
+      category: refs.category.current.value,
+      condition: refs.condition.current.value,
+      shipping: refs.shipping.current.checked,
+      meet: refs.meet.current.checked
+    }
+
+    if (
+      searchParamsIsEqual(invalidSearchParams.default, params) ||
+      searchParamsIsEqual(invalidSearchParams.allNull, params) ||
+      searchParamsIsEqual(invalidSearchParams.allUndefined, params)
+    ) {
+      dispatch(actionSetErrorNotice("Error: invalid search parameters"))
+      return
+    }
+
+    params = filterEmptyField(params)
+
+    if (!params.shipping && !params.meet) {
+      dispatch(actionSetErrorNotice("Error: at least one exchange method must be checked"))
+      return
+    }
+
+    dispatch(actionSetSearchParams(params))
+    setRedirect(true)
+  }
 
   return (
     <CardWrapper cardHeader="Search item">
@@ -82,7 +127,7 @@ const SearchItem = () => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-      <Button type="null" className="searchButton">Search</Button>
+      <Button type="null" className="searchButton" onClick={handleSearchButton}>Search</Button>
     </CardWrapper>
   )
 }

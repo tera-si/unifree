@@ -8,6 +8,7 @@ import selectedItemReducer from "./reducers/selectedItemReducer"
 import allChatUsersReducer from "./reducers/allChatUsersReducer"
 import allChatMessageReducer from "./reducers/allChatMessageReducer"
 import hasNewMessageReducer from "./reducers/hasNewMessageReducer"
+import searchParamsReducer from "./reducers/searchParamsReducer"
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   allChatUsers: allChatUsersReducer,
   allChatMessages: allChatMessageReducer,
   hasNewMessage: hasNewMessageReducer,
+  searchParams: searchParamsReducer
 })
 
 const store = createStore(
