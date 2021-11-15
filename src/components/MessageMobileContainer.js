@@ -33,6 +33,19 @@ const MessageMobileContainer = ({ selectedUser }) => {
     )
   }
 
+  if (!allChatMessages || allChatMessages.length <= 0) {
+  return (
+    <div>
+      <p>
+        Sent and received messages will appear here.
+        <br />
+        Trade items to start chatting!
+      </p>
+    </div>
+  )
+}
+
+
   return (
     <div className="messageMobileContainer">
       <MessageMobileUserList setActiveChat={setActiveChat} />
