@@ -2,3 +2,8 @@
     margin-top: 5px;
     margin-bottom: 20px;
 }
+
+.resetSearchButton {
+    margin-top: 15px;
+    float: right;
+}

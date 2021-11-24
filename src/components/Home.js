@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Card, CardGroup } from "react-bootstrap"
+import { Button, Card, CardGroup } from "react-bootstrap"
 import itemService from "../services/itemService"
 import ItemPreview from "./ItemPreview"
 import CenteredSpinnerCol from "./CenteredSpinnerCol"
 import { itemDateSortByLatest } from "../utils/dateSorter"
 import ViewAllItemsWrapper from "./ViewAllItemsWrapper"
 import { actionSetErrorNotice } from "../reducers/notificationReducer"
+import { actionRemoveSearchParams } from "../reducers/searchParamsReducer"
 import { invalidSearchParams, searchParamsIsEqual } from "../utils/searchParamsUtils"
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
   const searchParams = useSelector(state => state.searchParams)
   const [items, setItems] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [displayString, setDisplayString] = useState("Latest")
+  const [displayString, setDisplayString] = useState("")
   const notSearching = searchParamsIsEqual(searchParams, invalidSearchParams.default) ||
                        searchParamsIsEqual(searchParams, invalidSearchParams.allNull) ||
                        searchParamsIsEqual(searchParams, invalidSearchParams.allUndefined)
@@ -134,7 +135,14 @@ const Home = () => {
 
       setDisplayString(str)
     }
+    else {
+      setDisplayString("Latest")
+    }
   }, [notSearching, searchParams])
+
+  const handleResetSearch = () => {
+    dispatch(actionRemoveSearchParams())
+  }
 
   if (loading || !items) {
     return(
@@ -155,6 +163,12 @@ const Home = () => {
           }
           items
         </Card.Text>
+        {notSearching
+          ? null
+          : <Button onClick={handleResetSearch} className="resetSearchButton">
+            Reset search
+          </Button>
+        }
       </ViewAllItemsWrapper>
     )
   }
@@ -177,6 +191,12 @@ const Home = () => {
           </div>
         )}
       </CardGroup>
+      {notSearching
+        ? null
+        : <Button onClick={handleResetSearch} className="resetSearchButton">
+          Reset search
+        </Button>
+      }
     </ViewAllItemsWrapper>
   )
 }

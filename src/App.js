@@ -21,7 +21,6 @@ import { actionSetErrorNotice } from "./reducers/notificationReducer"
 
 // TODO: see if more places need to dispatch notification
 // TODO: change instances of window popup to bootstrap modal
-// TODO: reset search in home page
 
 const App = () => {
   const auth = useSelector(state => state.auth)
