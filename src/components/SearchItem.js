@@ -1,5 +1,5 @@
 import React, { createRef, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Accordion, Button, Form, Row, Col } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
 import LabelledInputRow from "./LabelledInputRow"
@@ -11,6 +11,7 @@ import "../styles/SearchItem.css"
 
 const SearchItem = () => {
   const dispatch = useDispatch()
+  const searchParams = useSelector(state => state.searchParams)
 
   const refs = {
     name: createRef(),
@@ -21,11 +22,30 @@ const SearchItem = () => {
   }
 
   useEffect(() => {
-    if (refs.shipping.current && refs.meet.current) {
-      refs.shipping.current.checked = true
-      refs.meet.current.checked = true
+    if (
+      refs.name.current && refs.category.current &&
+      refs.condition.current && refs.shipping.current &&
+      refs.meet.current
+    ) {
+      refs.name.current.value = searchParams.name || ""
+      refs.category.current.value = searchParams.category || "any"
+      refs.condition.current.value = searchParams.condition || "any"
+
+      if (searchParams.shipping !== undefined && searchParams.shipping !== null) {
+        refs.shipping.current.checked = searchParams.shipping
+      }
+      else {
+        refs.shipping.current.checked = true
+      }
+
+      if (searchParams.meet !== undefined && searchParams.meet !== null) {
+        refs.meet.current.checked = searchParams.meet
+      }
+      else {
+        refs.meet.current.checked = true
+      }
     }
-  }, [refs.meet, refs.shipping])
+  }, [refs.name, refs.category, refs.condition, refs.meet, refs.shipping, searchParams])
 
   const handleSearchButton = (event) => {
     event.preventDefault()
