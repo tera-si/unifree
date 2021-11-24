@@ -1,5 +1,4 @@
-import React, { createRef, useEffect, useState } from "react"
-import { Redirect } from "react-router-dom"
+import React, { createRef, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { Accordion, Button, Form, Row, Col } from "react-bootstrap"
 import CardWrapper from "./CardWrapper"
@@ -12,7 +11,6 @@ import "../styles/SearchItem.css"
 
 const SearchItem = () => {
   const dispatch = useDispatch()
-  const [redirect, setRedirect] = useState(false)
 
   const refs = {
     name: createRef(),
@@ -28,10 +26,6 @@ const SearchItem = () => {
       refs.meet.current.checked = true
     }
   }, [refs.meet, refs.shipping])
-
-  if (redirect) {
-    return <Redirect push to="/search" />
-  }
 
   const handleSearchButton = (event) => {
     event.preventDefault()
@@ -61,7 +55,6 @@ const SearchItem = () => {
     }
 
     dispatch(actionSetSearchParams(params))
-    setRedirect(true)
   }
 
   return (

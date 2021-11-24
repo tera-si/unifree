@@ -13,7 +13,6 @@ import ViewItem from "./components/ViewItem"
 import ChangePassword from "./components/ChangePassword"
 import Message from "./components/Message"
 import TradeHistory from "./components/TradeHistory"
-import SearchResults from "./components/SearchResults"
 import itemService from "./services/itemService"
 import tradeHistoryService from "./services/tradeHistoryService"
 import { handleFetchAllMessages, handlePrivateMessage } from "./socketHandlers"
@@ -22,7 +21,7 @@ import { actionSetErrorNotice } from "./reducers/notificationReducer"
 
 // TODO: see if more places need to dispatch notification
 // TODO: change instances of window popup to bootstrap modal
-// TODO: Search functionality (client-side only?)
+// TODO: reset search in home page
 
 const App = () => {
   const auth = useSelector(state => state.auth)
@@ -131,10 +130,6 @@ const App = () => {
 
         <Route path="/trade_history">
           <TradeHistory />
-        </Route>
-
-        <Route path="/search">
-          <SearchResults />
         </Route>
 
         <Route path="/">
