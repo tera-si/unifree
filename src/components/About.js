@@ -7,6 +7,7 @@ import postItem from "../static/demo-images/post-item.png"
 import messagePage from "../static/demo-images/message.png"
 import viewProfile from "../static/demo-images/view-profile.png"
 
+// TODO: About page with mobile images and layout (scroll instead of carousel)
 const About = () => {
   return (
     <CardWrapper>
