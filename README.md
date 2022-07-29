@@ -39,7 +39,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-**Due to restrictions of socket.io, if you use localhost:3000, live chat service will not funciton. You have to use full IP address instead, i.e. http://192.168.x.x:3000/.
+**Due to restrictions of socket.io, if you use localhost:3000, live chat service will not funciton. You have to use full IP address instead, i.e. http://192.168.x.x:3000/**
 
 ## `npm test`
 
