@@ -1,4 +1,4 @@
-# UniFree (Frontend)
+# uniFree (Frontend)
 
 ![UniFree homepage](public/homepage.png)
 
