@@ -1,12 +1,37 @@
-# Getting Started with Create React App
+# UniFree (Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![UniFree homepage](public/homepage.png)
 
-## Available Scripts
+Demom project I created after finishing [FullStack Open](https://fullstackopen.com/en/). A free item exchanging/gifting platform made with React. Like a e-commerce site or ebay, but no price tags are attached to the items. I have since moved on to learning cyber security, *this project is no longer being developed or maintained*.
 
-In the project directory, you can run:
+# Built with
 
-### `npm start`
+- React
+- Bootstrap
+- Redux
+- Socket.io
+
+# Demo Images
+
+## Browse Item
+
+![Browse Item](public/item-details.png)
+
+## Live Chat with Item Owner
+
+![Live Chat](public/message.png)
+
+# Requirements
+
+1. [UniFree Backend](https://github.com/tera-si/unifree-backend)
+2. Create a `.env` at the frontend root directory specifying the IP address the backend is running on. Due to restrictions of socket.io, you cannot use localhost or loopback address (127.0.0.1), 192.168.x.x must be used instead, afaik. The file must look like this:
+```
+REACT_APP_BACKEND_ADDRESS="192.168.x.x"
+```
+
+# Development
+
+## `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -14,12 +39,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+## `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+# Build
+
+## `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -29,7 +56,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -39,32 +66,3 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
