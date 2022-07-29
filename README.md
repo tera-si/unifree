@@ -2,7 +2,7 @@
 
 ![UniFree homepage](public/homepage.png)
 
-Demom project I created after finishing [FullStack Open](https://fullstackopen.com/en/). A free item exchanging/gifting platform made with React. Like a e-commerce site or ebay, but no price tags are attached to the items. I have since moved on to learning cyber security, *this project is no longer being developed or maintained*.
+Demo project I created after finishing [FullStack Open](https://fullstackopen.com/en/). A free item exchanging/gifting platform made with React. Like a e-commerce site or ebay, but no price tags are attached to the items. I have since moved on to learning cyber security, *this project is no longer being developed or maintained*.
 
 # Built with
 
