@@ -24,7 +24,7 @@
 # Requirements
 
 1. [UniFree Backend](https://github.com/tera-si/unifree-backend)
-2. Create a `.env` at the frontend root directory specifying the IP address the backend is running on. Due to restrictions of socket.io, you cannot use localhost or loopback address (127.0.0.1), 192.168.x.x must be used instead, afaik. The file must look like this:
+2. Create a `.env` at the frontend root directory specifying the IP address the backend is running on. **Due to restrictions of socket.io, you cannot use localhost or loopback address (127.0.0.1), 192.168.x.x must be used instead**, afaik. The file must look like this:
 ```
 REACT_APP_BACKEND_ADDRESS="192.168.x.x"
 ```
