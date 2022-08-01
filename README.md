@@ -4,6 +4,14 @@
 
 **Unfinished** demo project I created after finishing [FullStack Open](https://fullstackopen.com/en/). A free item exchanging/gifting platform made with React. Like a e-commerce site or ebay, but no price tags are attached to the items. I have since moved on to learning cyber security, **this project is no longer being developed or maintained**.
 
+## What's unfinished?
+
+- The "about" page - I simply don't know what to write, and how to make it look pretty
+- Refactoring - Structure of the components can benefit from some reworking
+- Responsive/mobile UI - Aren't as freshed out as the full width UI, some don't even have real responsiveness
+
+**Everything else should work fine**
+
 # Built with
 
 - React
