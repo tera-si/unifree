@@ -19,15 +19,19 @@
 - Redux
 - Socket.io
 
-# Demo Images
+# Features
 
-## Browse Item
+- Post Item
+- Browse Item
 
 ![Browse Item](public/item-details.png)
 
-## Live Chat with Item Owner
+- Live Chat with Item Owner
 
 ![Live Chat](public/message.png)
+
+- View user profile
+- User's trade history
 
 # Requirements
 
